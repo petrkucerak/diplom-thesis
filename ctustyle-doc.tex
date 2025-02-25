@@ -1,0 +1,84 @@
+% The documentation of the usage of CTUstyle -- the template for
+% typessetting thesis by plain\TeX at CTU in Prague
+% ---------------------------------------------------------------------
+% Petr Olsak  Jan. 2013
+
+% You can copy this file to your own file and do some changes.
+% Then you can run:  optex your-file
+
+\input ctustyle3  % The template (in version 3, for OpTeX) is included here.
+
+\worktype [M/EN] % Type: B = bachelor, M = master, D = Ph.D., O = other
+                 % / the language: CZ = Czech, SK = Slovak, EN = English
+
+\faculty    {F3}  % Type your faculty F1, F2, F3, etc. or MUVS
+            % use main language of your document here:
+\department {Department of Measurement}
+\title      {Design and Implementation of Systems for Railway Fail-Safe Platforms}
+\subtitle   {}
+            % \subtitle is optional
+\author     {Bc. Petr Kučera}
+\authorinfo {Computer Engineering}
+\date       {November 2024, May 2025}
+\supervisors {doc. Ing. Jiří Novák, Ph.D. and Ing. Bc. Martin Votava}  % One or more supervisors
+\studyinfo  {Open Informatics}  % Study programme etc.
+\workname   {} % Used only if \worktype [O/*] (Other)
+            % optional more information about the document:
+\workinfo   {}
+            % Title / Subtitle in minor language:
+\titleCZ    {Návrh a implementace systémů pro platformy v železniční infrastruktuře odolné vůči selhání}
+\subtitleCZ {}
+            % If minor language is other than English
+            % use \titleCZ, \subtitleCZ or \titleSK, \subtitleSK instead it.
+\pagetwo    {}  % The text printed on the page 2 at the bottom.
+
+\abstractEN {
+   TODO
+}
+\abstractCZ {
+   TODO
+}           % If your language is Slovak use \abstractSK instead \abstractCZ
+
+\keywordsEN {%
+   TODO
+}
+\keywordsCZ {%
+   TODO
+}
+\thanks {           % Use main language here
+    TODO
+}
+\declaration {      % Use main language here
+   TODO
+   % !!! TODO: Attention, you have to change this item.
+   \signature % makes dots
+}
+
+%%%%% <--   % The place for your own macros is here.
+
+%\draft     % Uncomment this if the version of your document is working only.
+%\linespacing=1.7  % uncomment this if you need more spaces between lines
+                   % Warning: this works only when \draft is activated!
+%\savetoner        % Turns off the lightBlue backround of tables and
+                   % verbatims, only for \draft version.
+%\blackwhite       % Use this if you need really Black+White thesis.
+%\onesideprinting  % Use this if you really don't use duplex printing. 
+
+\specification {%
+   %\vbox to0pt{\vskip-25mm\centerline{\inspic prilohy/zadani.pdf }\vss}
+}
+\makefront  % Mandatory command. Makes title page, acknowledgment, contents etc.
+
+\input chaps/01_introduction
+\input chaps/02_problematic-research
+\input chaps/03_requirements
+\input chaps/04_device-design-and-architecture
+\input chaps/05_implementation
+\input chaps/06_testing-and-validation
+\input chaps/07_conclusion
+
+
+
+\input prilohy
+
+\bye
