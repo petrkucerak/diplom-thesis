@@ -1,4 +1,7 @@
-# Bakalářská práce
+# Diplomová práce
+
+!!! TODO: update requirements
+
 
 Samotná bakalářská práce.
 
