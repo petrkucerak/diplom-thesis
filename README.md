@@ -1,13 +1,10 @@
 # Diplomová práce
 
-!!! TODO: update requirements
-
-
-Samotná bakalářská práce.
+Deadline práce je 23. 5. 2025.
 
 ## Požadavky na závěrečnou práci
 
-- [ ] minimálně 20 stran bez přílohy ve formátu A4 o velikosti textu 11pt
+- [ ] minimálně 40 stran bez přílohy ve formátu A4 o velikosti textu 11pt
 - [ ] svazek musí mít lepenou (ne kroužkovou) vazbu
 - [ ] musí obsahovat
   - [ ] obsah včetně případných příloh
