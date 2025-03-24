@@ -6,5 +6,405 @@
 \def\ctustyle{{\ssr CTUstyle}}
 \def\ttb{\tt\char`\\} % pro tisk kontrolních sekvencí v tabulkách
 
+\label[ProblematicResearch]
 \chap Problematic research
 
+In this chapter, I studied the standards for design and implementation of software for fail-safe platforms in railway infrastructure environments. I have tried to identify the differences between the different safety integration levels and discuss the specific mechanisms that lead to meeting the safety requirements given by the standards.
+
+\label[SafetySecurity]
+\sec The difference between security and safety
+
+Before studying the issue, it is necessary to get the terminology right. In the English language, there are two words: safety and security.
+
+The word {\sbf security} refers to the discipline that aims to protect against harmful attacks or actions such as vandalism, cyber-attack, or terrorism. Physical barriers, authentication, encryption, or monitoring systems are used to protect.~\cite[6i2KXzgcdbBD85cySecurity]
+
+The word {\sbf safety} refers to the discipline that aims to protect against accidents, errors, or technical failures that can lead to injury, loss of life, or damage to property. Such typical threats are natural hazards, technical failures, or human factors, i.e. human failure.~\cite[6i2KXzgcdbBD85cySafety]
+
+
+\midinsert \clabel[SafetyvsSecurity]{Main differences between safety and security}
+\ctable{lll}{
+\hfil {\sbf Aspect} & {\sbf Safety} & {\sbf Security} \crl
+Focus & accident prevention & prevention of deliberate attacks \cr
+& and technical failures & \cr
+\cr
+Threats & natural hazards, errors, & human intentional actions,\cr
+& technical failures & cyber attacks \cr
+\cr
+Access & system reliability, & security, encryption, \cr
+& standards & monitoring \cr
+\cr
+Example & fail-safe systems, & physical security, \cr
+of measures & resilience testing & cybersecurity systems \cr
+}
+\caption/t Main differences between the terms safety and security
+\endinsert
+
+Table \ref[SafetyvsSecurity] compares the different aspects of safety and security in order to highlight the different meanings. In this thesis, I will deal primarily with the second concept - safety.
+
+\sec Materials and standards
+
+The safety requirements for transport infrastructure in the European Union are defined in standards issued by CENELEC.\fnote{European Committee for Electrotechnical Standardization} These standards are {\it EN 50126}, {\it EN 50128}, {\it EN 50129}, and {\it EN 50159}.
+
+The standard {\sbf EN 50126} relates to railway equipment in general and specifies and defines how to demonstrate reliability, availability, maintainability and safety (RAMS). For more information see chapter \ref[RAMS].
+
+The standard {\sbf EN 50129} describes the standard for the railway communication and signaling system and the data processing system (software). The annexes provide detailed instructions on how to test hardware components including microcontroller components. The standard {\sbf EN 50159} complements the standard for secure communications.
+
+Standard {\sbf EN 50128} defines a standard on how to properly develop secure software for railway infrastructure.
+
+\label[RAMS]
+\sec RAMS
+
+The acronym RAMS is composed of the initial letters of the words {\sbf Reliability} (components do not fail too often), {\sbf Availability} (to be sure that components will work as required and that if they fail, they will not affect the functionality of the equipment), {\sbf Maintainability} (and easy replaceability in the event of damage), and {\sbf Safety} (described in the Chap \ref[SafetySecurity]).
+
+We are never able to achieve 100\% success in any of the RAMS aspects, we are always only approaching it. The level at which we want to achieve it needs to be defined.
+
+It is necessary to remember the economic side of the issue. The ratio of the investment in making the platform safe and how much it will cost to develop and produce is growing exponentially, in general. Thus, going from 20\% to 60\% security will be much less economically challenging than going from 99.99\% to 99.999999\%. If we develop this theory into implications, we necessarily arrive at the question - how expensive is human life? Theoretically, this cost could be quantified according to standards, state-specific requirements, and crash statistics.
+
+If we go back to all four aspects, we find that some of the essences are mutually defining. For example, we're going to make the equipment more secure and more robust; it's going to complicate the ease of replacement.
+
+I also see it important to answer the question - why is it necessary to pay attention to system availability or repairability? After all, it is only the security itself that is important to us. If we think about it, as a result, all the aspects already mentioned are important because they complement each other. You cannot achieve safety without having a low failure rate system, or you cannot achieve safety without a possible system failure affecting the requirement that the component is supposed to fulfill.
+
+\sec System and random failures
+
+{\sbf Random failures} can be described by statistical distributions.~\cite[GaaBVFT5zA4FlnK8] We cannot control failures, we can only predict and model them mathematically. In most cases, the failure is due to a physical cause such as material fatigue, wear, corrosion, or random failures of electronic components.
+
+The {\it EN 50126} standard defines {\sbf system failures} as failures caused by errors in system life cycle activities that lead to deterministic failure of a product, system, or process under certain combinations of inputs or conditions.~\cite[GaaBVFT5zA4FlnK8] Unlike random failures, system failures are usually caused by human errors at various stages of the system life cycle, namely specification, system design, development, manufacture, or installation. These failures, on the other hand, are preventable from accidental failures by process, testing, and validation phases.
+
+By the norm {\it EN 50129}, these errors are, for example: specification errors, design errors, manufacturing errors, installation errors, operation errors, maintenance errors, or modification errors.
+
+\midinsert \clabel[RandomVsSystematic]{Main differences between random and systematic failure}
+\ctable{lll}{
+\hfil {\sbf Aspect} & {\sbf Random failure} & {\sbf Systematic failure}\crl
+Cause & physical processes & human error during design, \cr
+ & (fatigue, wear, environment) & implementation or maintenance \cr
+\cr
+Characteristic & stochastic, unpredictable & deterministic, predictable \cr
+ & at the individual level & under certain conditions \cr
+\cr
+Solution & predictive maintenance, & validation, verification, \cr
+ & statistical analysis, redundancy & process measures \cr
+\cr
+Repetition & not repeatable under & repeated every time \cr
+ & the same conditions & under the same conditions \cr
+\cr
+Examples & rail breakage, & software error, \cr
+ & bearing failure & sensor miscalibration \cr
+}
+\caption/t Main differences between random and systematic failures.  
+\endinsert
+
+\label[RAMSCycle]
+\secc RAMS development cycle
+
+{\sbf The RAMS development cycle} is described by the V-model, that uses {\it top-down} and {\it bottom-up} approaches.~\cite[SU4ccYhZgv796Fi2] It is a graphical representation of the complete development lifecycle.\cite[L9XZRy6g04sicEwo] The advantages of this model are a clear structure, easy traceability between the design, respective requirements, and testing results. As a result, the use of this model enables early identification of problems.
+
+The model also has many disadvantages such as the lack of flexibility; the later a bug is discovered, the more expensive it is to fix.\cite[1fwla6zm8H5QiWZn] However, in the context of rail transport, these weaknesses are a necessity to ensure our safety.
+
+{\it EN 50128} describes in more detail the different phases and roles that are responsible for each phase. The V-model is specific to two activities - validation and verification.
+
+\medskip
+\clabel[VModel]{V-model illustration}
+\picw=14cm \cinspic img/02-v-model.png
+\caption/f V-model illustration by {\it EN 50128} norm definition.~\cite[vDBnVxdnHZs4vPl6]
+\medskip
+
+\seccc Verification and validation
+
+The standard defines {\sbf verification} as the confirmation, through provided objective evidence, that defined requirements have been met and {\sbf validation} as the confirmation, through provided objective evidence, that requirements for a specific purpose or application have been met.~\cite[GaaBVFT5zA4FlnK8]
+
+Simply, verification answers the question {\it do we build things correctly}, validation answers the question {\it do we build the right thing}?
+
+\seccc System description
+
+Defining system requirements is the first and very important step for a successful and secure system or component. In this phase, it is important to define the limits, interfaces, functions, and the environment of the system.
+
+It is important to note that SIL levels\fnote{Safety integrity level}, which we will discuss later, are always related to a component - e.g. a function. So we cannot say that the whole platform is a SIL, but only that the platform provides a service that has that SIL.
+
+To illustrate, let's take a concrete example: automatic train control, specifically emergency braking in case of a dangerous situation, e.g. when a train runs a red light. In this case the {\sbf function} is: automatic braking when passing a dangerous signal. The driver's cab, the track equipment and the signal transmission path are the {\sbf system}. The {\sbf Interfaces} for us are the wheels, the dashboard which serves as an API for the driver to communicate with the system and the warning light which signals the entry prohibition.
+
+\seccc Risk analysis
+
+We now specify the gambles in this setting. The {\sbf hazard} standard defines it as any condition that can lead to an accident.\cite[GaaBVFT5zA4FlnK8]
+
+In our example, we can consider a gamble as the system not initiating emergency braking or not receiving information to stop. In security, if there is a gamble, there is always a risk. The standard defines {\sbf risk} as the combination of the expected frequency of occurrence of the hazard and the expected severity of the hazard.
+
+To make a system safe, our goal is to minimize risk to the point that it is equal to or less than the acceptable risk. We achieve this by adding just safe features to our system such as the redundancy principle, the watchdog principle, or the error detection principle.
+
+Risk analysis consists of some of the methods already mentioned: hazard identification, frequency minimization, and consequence classification.
+
+\seccc Acceptable risk
+
+The European Union specifies in the CSM regulation\fnote{Common Safety Method for Risk Evaluation and Assessment} which methods can be used to calculate acceptable risk.
+
+\begitems
+* {\sbf Application of codes of practice}: The use of established norms, standards, and best practice methodologies for risk assessment and management that have been validated in practice.
+
+* {\sbf Comparison with similar system}: Risk assessment based on analysis and comparison with other systems that have similar functionality, architecture, or operating conditions. This approach is particularly useful when assessing a new context.
+
+* {\sbf Explicit risk estimation}: Direct and detailed quantitative or qualitative risk assessment using specific methods. This approach requires data collection and detailed modeling.\cite[ONTbnhbgf2hyhL9J]
+\enditems
+
+\seccc Hazard analysis (FTA, FMEA)
+
+The standard {\it EN 50126} recommends the use of top-down analysis for hazard analysis. Specifically, {\sbf Fault Tree Analysis (FTA)} which allows us to work with dependencies between individual hazards. The second method used is {\sbf Failure Modes and Effects Analysis (FMEA)}. The FTA is suitable for analyzing multiple system failures; FMEA is suitable for analyzing a single failure, including all its consequences.
+
+\seccc Tolerated risk ratios (THR, TFFR)
+
+{\sbf Tolerable Hazard Rate (THR)}, which represents the maximum frequency of occurrence of a particular hazard. It therefore determines how many times a potentially hazardous event can occur in a defined period without affecting the overall security of the system.~\cite[vDBnVxdnHZs4vPl6]
+
+{\sbf Tolerable Functional Failure Rate (TFFR)}, which represents the maximum frequency of failure of a specific system function, focuses on the system's functional aspects and considers how often a function can fail without leading to unacceptable risk.~\cite[vDBnVxdnHZs4vPl6]
+
+THR will be sufficient if our system consists of only one safe function. However, if there is more than one, we need to use TFFR to combine them.
+
+\seccc Safety Integrity Level (SIL)
+
+The term SIL is a method used to evaluate and classify the level of integrity of the safety functions of a system. Previous methods have described to us how to deal primarily with random error. SIL tells us what type of architecture, validation, testing, etc. to choose depending on the level of system error.
+
+\midinsert \clabel[TFFRxSIL]{Table describes TFFR and SIL relation}
+\ctable{ll}{
+\hfil {\sbf TFFR [$h^{-1}$] } & {\sbf SIL level} \crl
+$10^{-9} \leq TFFR < 10^{-8}$ & 4 \cr
+\cr
+$10^{-8} \leq TFFR < 10^{-7}$ & 3 \cr
+\cr
+$10^{-7} \leq TFFR < 10^{-6}$ & 2 \cr
+\cr
+$10^{-6} \leq TFFR < 10^{-5}$ & 1 \cr
+\cr
+$10^{-5} \leq TFFR$ & basic integrity \cr
+}
+\caption/t Table describes TFFR and SIL relation.\cite[SU4ccYhZgv796Fi2]
+\endinsert
+
+The norm describes 4 Safety Integrity Levels from 1 to 4 and Basic Integrity. The SIL 4 is the highest level and the Basic Integrity is the lowest, as described in the table~\ref[TFFRxSIL].~\fnote{The norm {\it EN 50129} from year 2003 introduced term {\sbf SIL 0} to indicate non-safety-related functions. This terms in no longer used in the new norms version.}
+
+\secc The five base questions
+
+I would like to mention that an excellent mechanism to verify that we are we haven't forgotten anything elementary is to answer these five basic questions that based on {\it EN 50126}.
+
+\begitems
+* {\sbf What} - What features must be implemented?
+* {\sbf How} - What steps must be followed during implementation?
+* {\sbf With what} - What tools must be used for implementation?~\fnote{The tool problematic is detailed discussed int the chap \ref[ToolsClassification].}
+* {\sbf Assurance} - How can I ensure that the first three questions are answered correctly?
+* {\sbf Traceability} - Have I recorded everything in a way that allows for audit and verification?
+\enditems
+
+
+\sec Mechanisms to achieve SIL level
+
+I would like to discuss the mechanisms, architecture types, principles, and policies that ensure that a given platform contains SIL functionality. The thesis does not address the processes behind the development of safety software, which are an integral part of the overall development process.
+
+ 
+In this chapter we will use terms defined by {\it EN 50128} and {\it EN 50129}, which are widely used in their annexes and can be found in this thesis in tables or figures. In order to understand them, let's clarify them.
+
+\begitems
+* {\sbf `M` - Mandatory}: This symbol means that the use of a technique is mandatory.~\cite[vDBnVxdnHZs4vPl6]
+
+* {\sbf `HR` - Highly Recommended}: This technique or measure is highly recommended for the SIL. It is considered a key measure, and implementation is mandatory. In case of absence, clear reasoning is required.
+
+* {\sbf `R` - Recommended}: This technique or measure is recommended but not required or necessary to meet the safety requirement for a given SIL. Implementation of this technique can improve safety and reliability.
+
+* {\sbf `-` No Recommendation}: There is no recommendation or non-recommendation for this technique or measure. Use is discretionary and should be decided based on the requirement specification.
+
+* {\sbf `NR` - Not Recommended}: This technique or measure is not recommended for a given SIL. Implementation may be ineffective, inadequate, or even counterproductive.
+\enditems
+
+\secc The principles in developing high-integrity software
+
+The {\it EN 50128} standard defines ten basic principles, the application of which in the development of high integrity software is not mandatory. Let's highlight the six most important ones.
+
+\begitems
+* {\sbf Top-down design method}: This method divides the system into smaller parts and gradually works its way from generalities to specific issues.
+
+* {\sbf Modularity}: The modularity aims to divide software into smaller independent blocks that can be maintained and tested independently. This division often makes it possible to work on as many components in parallel as possible at the same time. In addition, it allows for easier testing or making changes. The disadvantage can be a certain necessary level of abstraction, which in the case of embedded systems can be undesirable.
+
+* {\sbf Verification of each phase of the development life-cycle}: This method aims to minimize the risk of errors during development by thoroughly verifying each stage. This leads to the early identification of problems and therefore saves time and money.
+
+* {\sbf Verified components and component libraries}: The goal is to reduce the risk of bugs in systems by reusing verified components. In addition to preventing errors, this measure also saves money. Since the validation process of developing new software is very demanding, it is therefore preferable to use components that are already validated.
+
+* {\sbf Clear documentation and traceability}: The aim is to provide a clearly interpretable, understandable, and quickly comprehensible description of the component.
+
+* {\sbf Auditable documents}: The aim is to provide evidence that the system is developed and tested in accordance with the requirements.
+\enditems
+
+\secc Architecture
+
+In designing SIL software, the standard defines 7 basic principles. However, in relevance to the use of a microprocessor, they can be generalized to 3 basic principles or approaches to ensure that the code is safe and meets all requirements.\fnote{The sub-parts of these mechanisms are described in {\it EN 50129}, Annex A, Table E.4.} Each of these approaches has its advantages and limitations depending on the SIL level required.
+
+\begitems
+* {\sbf Inherent fail-safety}: This approach ensures the safety of the system due to the intrinsic properties of the design. Functions are designed to be fault tolerant without the need for external intervention. It is therefore more a matter of hardware design. This method cannot be implemented in software. As an example, the signal remains in a safe state even after a power failure, without external intervention. This mechanism is recommended (R) for {\it SIL 1} and {\it SIL 2}, and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
+
+* {\sbf Reactive fail-safety}: The approach focuses on responding to faults typically through fault detection and subsequent activation of protection mechanisms. The system is therefore able to react on its own without external intervention to ensure a safe state. Examples include activation of emergency braking or safety shutdown when a failure of the main system is detected. The mechanism is recommended (R) for {\it SIL 1} and {\it SIL 2} and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
+
+* {\sbf Composite fail-safety}: The approach combines multiple channels with fail-safe mechanisms for peer-to-peer comparison. This provides greater resilience to failure through redundancy and independence. An example would be the need to obtain a positive signal from at least two of the three independent units to activate an action element. This mechanism, like the inherent and reactive mechanisms, is recommended (R) for {\it SIL 1} and {\it SIL 2} and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
+\enditems
+
+The standard also defines other architectural approaches that are less suitable for higher levels of safety integrity ({\it SIL 3} and {\it SIL 4}). These approaches can only be used in less critical applications such as {\it SIL 1} and {\it SIL 2}. These include, for example, a duplicated electronic structure, but where the channels may not be completely independent and the comparison of results may not be fail-safe. Another test is, for example, a simple electronic structure with self-tests, thus supervising its own functions. However, this approach again lacks independence between the function and its supervision. This limits this method, like the previous one, for higher SIL levels.
+
+\midinsert \clabel[TechniquesSIL]{Table showing techniques and measures for different SIL levels}
+\ctable{lllll}{
+\hfil {\sbf Technique/Measure} & {\sbf SIL 1} & {\sbf SIL 2} & {\sbf SIL 3} & {\sbf SIL 4} \crl
+Separation of safety-related functions from \cr
+non-safety-related functions to prevent  & R & R & R & R \cr
+unintended influences\cr
+\cr
+single electronic structure with self-tests & R & R & NR & NR \cr
+and supervision\cr
+\cr
+single electronic structure based on & R & R & HR & HR \cr
+inherent fail-safety\cr
+\cr
+single electronic structure based on reactive & R & R & HR & HR \cr
+fail-safety \cr
+\cr
+Dual electronic structure & R & R & NR & NR \cr
+\cr
+Dual electronic structure based on\cr
+composite fail-safety with fail-safe & R & R & HR & HR \cr
+comparison\cr
+\cr
+Diverse electronic structure with fail-safe & R & R & HR & HR \cr
+comparison \cr
+}
+\caption/t Table showing techniques and measures for different SIL levels according to {\it EN 50129}, Annex A, Table E.4~\cite[SU4ccYhZgv796Fi2]
+\endinsert
+
+Table \ref[TechniquesSIL] clearly shows the different mechanisms depending on the SIL level as defined by the standard. It is also not a bad idea to combine different mechanisms together. By definition, however, this cannot be implemented for all techniques.
+
+\secc Software architecture technique
+
+{\it EN 50128} in Annex A defines specific mechanisms to be used in the design of the software architecture and its implementation for different SIL levels. We have listed some of them in Table \ref[TechniquesMeasures].
+
+
+\midinsert \clabel[TechniquesMeasures]{Software Architecture mechanism for different SIL levels}
+\ctable{lllll}{
+\hfil {\sbf Technique/Measure} & {\sbf SIL 1} & {\sbf SIL 2} & {\sbf SIL 3} & {\sbf SIL 4} \crl
+Defensive Programming & HR & HR & HR & HR \cr
+\cr
+Fault Detection \& Diagnosis & R & R & HR & HR \cr
+\cr
+Error Detecting Codes & R & R & HR & HR \cr
+\cr
+Failure Assertion Programming & R & R & HR & HR \cr
+\cr
+Safety Bag Techniques & R & R & R & R \cr
+\cr
+Diverse Programming & R & R & HR & HR \cr
+\cr
+Recovery Block & R & R & R & R \cr
+\cr
+Backward Recovery & NR & NR & NR & NR \cr
+\cr
+Forward Recovery & NR & NR & NR & NR \cr
+\cr
+Retry Fault Recovery Mechanisms & R & R & R & R \cr
+\cr
+Software Error Effect Analysis & R & R & HR & HR \cr
+\cr
+Graceful Degradation & R & R & HR & HR \cr
+\cr
+Information Hiding & - & - & - & - \cr
+\cr
+Information Encapsulation & HR & HR & HR & HR \cr
+\cr
+Fully Defined Interface & HR & HR & M & M \cr
+\cr
+Formal Methods & R & R & HR & HR \cr
+\cr
+Modelling & R & R & HR & HR \cr
+\cr
+Structured Methodology & HR & HR & HR & HR \cr
+\cr
+Modelling supported by CAD and specification tools & R & R & HR & HR \cr
+}
+\caption/t Software Architecture mechanism for different SIL levels according to {\it EN 50128}, Annex A Table A.3.\cite[vDBnVxdnHZs4vPl6]
+\endinsert
+
+% TODO: discuess specific mechanism and describe it
+\seccc Defensive Programming 
+The {\sbf Defensive Programming} is one of the most important techniques in safety programming. The aim is to produce programs that detect anomalous control flow, data flow, or data values during their execution and react to these in a predetermined and acceptable manner.~\cite[vDBnVxdnHZs4vPl6]
+
+There are three basic techniques of defensive programming:
+
+\begitems
+* All data\fnote{By data we mean all values stored in memory such as variables, objects, arrays, etc.} is important until proven otherwise.
+* All input data is potentially hazardous until proven otherwise.
+* All code is dangerous until proven otherwise.
+\enditems
+
+There exist many techniques of defensive programming. For example, to ensure that the numbers manipulated by the program are reasonable, the norm {\it EN 50128} recommends that:
+
+\begitems
+* variables should be range-checked;
+* where possible, values should be checked for plausibility;~\fnote{Plausibility means quality of seeming likely to be true, or possible to believe.~\cite[6i2KXzgcdbBD85cyPlausibility]}
+* parameters to procedures should be type, dimension, and range checked at procedure entry.
+\enditems
+
+Safe software should be designed to expect failures in its own environment. The norm {\it EN 5018} also defines three techniques:
+
+\begitems
+* Input variables and intermediate variables with physical significance should be checked for plausibility.
+* The effect of output variables should be checked, preferably by direct observation of associated system state changes.
+* The software should check its configuration. This could include both the existence and accessibility of expected hardware and also that the software itself is complete. This is particularly important for maintaining integrity after maintenance procedures.
+\enditems
+
+There are more techniques like reusing quality code, handling I/O, testing, low tolerance, canonization, or control flow sequence checking, but the CENELEC norms do not explicitly mention them.~\cite[vDBnVxdnHZs4vPl6, KFTfJxp6xrYSLALk, Blochc2008]
+
+
+\label[ToolsClassification]
+\secc Tools classification
+
+The norm {\it EN 50128}~\fnote{Specifically, clauses 3.1.42-44 in the aforementioned EN 50128.} defines three basic categories of tools used for safety software development.
+
+\begitems
+* {\sbf T1}: This class includes tools that do not produce any output that could directly or indirectly contribute to the resulting executable software code. An example of a tool is a text editor that has no ability to generate code.
+* {\sbf T2}: This class includes tools that support testing or verification of the design or executable code. Errors in a tool may occur in certain situations, but cannot directly cause errors in the resulting executable software. Examples of such tools include static analysis tools or tools for measuring test coverage.
+* {\sbf T3}: This class includes tools that generate outputs that directly or indirectly contribute to the final executable code of the resulting system. These include, for example, compilers.
+\enditems
+
+It is important to note that depending on the class of a given tool, requirements are made on them, which are checked during validation and verification. Therefore, it is important to keep them in mind when designing a system. Often it may be more appropriate for a project to use an older but validated tool for which its behaviour has already been proven and de-validated.
+
+
+\secc Programming technique
+
+The standards also define the programming standards for the individual SIL levels. The individual techniques are shown in table \ref[TechniquesCoding].
+
+\midinsert \clabel[TechniquesCoding]{Coding standards for different SIL levels}
+\ctable{lllll}{
+\hfil {\sbf Technique/Measure} & {\sbf SIL 1} & {\sbf SIL 2} & {\sbf SIL 3} & {\sbf SIL 4} \crl
+Coding Standard & HR & HR & M & M \cr
+\cr
+Coding Style Guide & HR & HR & HR & HR \cr
+\cr
+No Dynamic Objects & R & R & HR & HR \cr
+\cr
+No Dynamic Variables & R & R & HR & HR \cr
+\cr
+Limited Use of Pointers & R & R & R & R \cr
+\cr
+Limited Use of Recursion & R & R & HR & HR \cr
+\cr
+No Unconditional Jumps & HR & HR & HR & HR \cr
+\cr
+Limited Size and Complexity & HR & HR & HR & HR \cr
+of Functions, Subroutines, and Methods \cr
+\cr
+Entry/Exit Point strategy for Functions & HR & HR & HR & HR \cr
+Subroutines, and Methods\cr
+\cr
+Limited Number of subroutine parameters & R & R & R & R \cr
+\cr
+Limited Use of Global Variables & HR & HR & M & M \cr
+}
+\caption/t Coding standards for different SIL levels according to {\it EN 50128}, Annex A, Table A.12.~\cite[vDBnVxdnHZs4vPl6]
+\endinsert
+
+
+Compared to other types of software, the development of the safe one differs mainly in techniques such as {\sbf not recommending the use of dynamic memory allocation}, both for objects and variables. This is due to the greater possibility of failure, as the software allocates memory at runtime, and this can lead to failures. The standard recommends {\sbf limited use of recursion and pointers}. These are methods that can potentially mishandle memory - either filling it up quickly or being ill-defined. Therefore, unless necessary, it is not recommended to use them.
+
+Specific techniques for safe development are also {\sbf limited size and complexity of functions, subroutines and methods} and {\sbf input or output strategies for functions, subroutines and methods}.
+
+The other techniques are not, in my view, specific to secure development, but are principles that are appropriate for any software development, such as following the {\sbf coding standard}, the {\sbf coding style guide} that leads to improved readability, or the {\sbf limited use of global variables}.
+
+It may also be interesting to note that the standard defines {\sbf recommended programming languages} for different SIL levels.\fnote{The EN 50128 standard describes the different programming languages in Table A.15 in Annex A} It will come as no surprise that C, C++ or Assembler are among the recommended languages. However, the presence of languages such as C\# or Java may also come as a surprise. The standard also mentions more historical languages such as Pascal.

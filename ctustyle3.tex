@@ -902,6 +902,21 @@
    \_nobreak \_belowtitle{\_smallskip}%
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CUSTOM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcount\secccnum
+
+\eoldef\seccc#1{\incr\secccnum \printseccc{#1}}
+\def\printseccc#1{\medskip
+  \line{\Blue\vrule height 3mm width4mm depth.1mm\Black
+  \hss\vtop{\advance\hsize by-8mm
+   \bf \noindent \_theseccnum.\the\secccnum\quad \Blue#1\nbpar}}%
+   \nobreak\vskip-.5\parskip\smallskip
+  \_firstnoindent
+}
+\addto\_seccx{\secccnum=0 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CUSTOM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %%% Last thinks:
 

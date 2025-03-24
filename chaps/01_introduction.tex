@@ -8,6 +8,49 @@
 
 \chap Introduction
 
+In this introductory chapter I would like to briefly describe the motivation for my thesis topic and I would like to set out the aims of my thesis.
+
 \sec Motivation
 
-The Railway transport is on e of the most efficient modes of transport.
+Rail transport is one of the most efficient modes of transport. Mainly due to the possibility of transporting large amounts of freight and people at the cost of low energy consumption. Around 8\% of materials and people are transported in this way worldwide.~\cite[M2s1A9T1R76bao5g]
+
+And it is not only for these reasons that it is important to ensure maximum safety or minimize potential damage. Before discussing the specific mechanisms that ensure this, let us justify the importance of safety in rail transport.
+
+\secc High impact
+
+Due to the low friction of the steel wheels with the steel rail and the efficient power generation, in the case of electric propulsion in power plants, rail transport is used to transport large numbers of passengers and materials. In the figure \ref[PassangerCapacity] we can notice the capacity to transport the number of people by a given means of transport depending on time and area in an urban environment.
+
+Transport is also energy-efficient. By comparison, train travel consumes one seventh less energy than car travel in an urban environment.~\cite[UZ7ymPeJEhdPijFh] It is for this reason that if a crash occurs, the damage is often tragic and high.
+
+\medskip
+\clabel[PassangerCapacity]{Passenger Capacity of different Transport Modes}
+\picw=10cm \cinspic img/01-passenger-capacity.png
+\caption/f Passenger Capacity of different Transport Modes. Number of passengers per hour on 3.5 m wide lanes in the city.\cite[tbBVVJc0f9An81Y4]
+\medskip
+
+\secc Strategic importance
+
+Due to its large transport capacity and ability to carry heavy loads, the railway infrastructure is used to transport supplies that are important for the functioning of industry, such as coal or chemical components. The transport of military infrastructure and machinery such as pontoon bridges and tanks is also an integral part of the transport. Railways are also used today to supply Ukraine with military aid.~\cite[Gavenda2022] Railways are also relied upon in the event of natural disasters for the distribution of humanitarian aid.
+
+This is why it is important that the railway infrastructure is designed so that we can rely on it in most conditions. This is not only against human error but also against the elements of nature. That is why individual requirements vary in different geographical conditions. An example of this would be rail infrastructure for northern countries where it has to withstand low temperatures and large amounts of snow, versus more southern countries where resistance to high temperatures or heavy coastal rainfall is important.
+
+\secc Private motivation
+
+To be honest, I'm not a big rail fan. I'm more interested in the world of embedded devices, or rather the fact that as a developer I'm in control of everything, often controlling physical peripherals, occasionally getting my hands dirty, and not relying on a high level of abstraction. And it is the development of safe software, or Fail-Safe platform, that meets these conditions.
+
+
+\sec The aim of this thesis
+
+The aim of this work is to design and implement a system for Railway Fail-Safe Platforms. Specifically, a component for a railroad crossing system that controls LED lights. The device must comply with CELENEC\fnote{European Committee for Electrotechnical Standardization} standards. More detailed system and functional requirements are discussed in chapter \ref[SystemRequirements].
+
+To accomplish this goal, I have set out several steps in which I would like to address the problem:
+
+\begitems
+* Study the standards for implementing software on fail-safe platforms for railway infrastructure. Identify the differences between SIL2 and SIL4 platforms. Discuss specific mechanisms leading to the fulfillment of individual requirements.
+
+* Select appropriate hardware and design an architecture that meets the CENELEC requirements for SIL2 and higher. The design should include a boot sequence and mechanisms for detecting and compensating for random errors and other typical software issues. The proposed device should consist of a safety part responsible for performing safe computations and a non-safety part responsible for monitoring the safety part and transmitting data using standard mechanisms over Ethernet.
+
+* Implement the designed software architecture on the selected hardware.
+
+* Justify the implementation for SIL2, analyze and discuss possible steps and extended argumentation to achieve higher SIL levels.
+\enditems

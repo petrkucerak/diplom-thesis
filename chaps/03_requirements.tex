@@ -6,11 +6,51 @@
 \def\ctustyle{{\ssr CTUstyle}}
 \def\ttb{\tt\char`\\} % pro tisk kontrolních sekvencí v tabulkách
 
-
+\label[SystemRequirements]
 \chap System requirements
 
-\sec Function requirements
+In this chapter, I would like to specify the system, functional requirements, and interfaces that I want to design and implement. Finally, I will discuss the hazards that need to be addressed or questions that need to be answered when designing the system architecture.
 
-\sec System requirements
+
+\sec System specification
+
+The device is a component of a level crossing system that controls lights and road signals. The device is designed for a country that respects CENELEC norms.
+
+The device is a road signal monitoring module that controls LED modules located on road signals and train signals based on commands from Simatic PLC. Besides the control of road signals, the device provides diagnostic data related to itself and to the operation of LED modules to allow the detection of faulty components. The device can send monitoring data to the parent server.
+
+\medskip
+\clabel[SystemDesign]{System design}
+\picw=12cm \cinspic img/03-system-desing.png
+\caption/f The schematic describes a system with all components.
+\medskip
+
+\secc Interface specification
+
+The device shell provides three interfaces:
+
+\begitems
+* {\sbf analog interfaces} to LED, that support relevant road signal modules,\fnote{Relevant for this project is modules Silux/Yulux 2.40RS and Silux/Yulux 1.40.}
+* interface for {\sbf communication with Simatic PLC}\fnote{\url{https://www.siemens.com/cz/cs/products/automation/systems/industrial/plc.html}}
+* and {\sbf two Ethernet ports} supporting 100Base-Tx, that shall act as a switch to support daisy-chain connection of multiple devices.
+\enditems
+
+\secc Function requirements
+
+The whole system function is safety-related to SIL4.\fnote{Safety integrity level 4, detailed describes chap \ref[RAMSCycle]}.
+
+The device shall be able to control 8 LED modules placed on road signals, evaluate the correct operation of the LED module by current measurement, and support configurable flashing operation of LED modules and static illumination.
+
+The device shall provide emergency flashing and steady activation of LED modules in case of control Simatic PLC shutdown.
+
+Device shall provide diagnostic data using simple REST API.
+
+\secc Human interfaces
+
+\secc Safety
+
+\secc Diagnostics
 
 \sec Hazard analysis
+
+
+My component is related only to SIL2.
