@@ -470,7 +470,55 @@ The technique {\sbf Fully Defined Interface} leads to modularization. A {\sbf Mo
 
 The {\sbf Formal Methods} refer to mathematically rigorous techniques and tools for the specification, design, and verification of software and hardware systems. The application of formal methods in software and hardware design is driven by the idea that, similar to other engineering fields, conducting rigorous mathematical analysis enhances the reliability and robustness of a design.~\cite[vDBnVxdnHZs4vPl6, j9q6czqZVYZTTIDS]
 
-There is no universal formal method that is suitable for all scenarios. Rather, an appropriate mathematical model must be chosen for each situation. Therefore, we have several models. The standard {\it EN 50128} describes CSP, CCS, HOL, LOTOS, OBJ, Temporal Logic, VDM, Z Method, B Method and Model Checking. Let's at least take a closer look at the most important ones.
+There is no universal formal method that is suitable for all scenarios. Rather, an appropriate mathematical model must be chosen for each situation. Therefore, we have several models. The standard {\it EN 50128} describes CSP, CCS, HOL, LOTOS, OBJ, Temporal Logic, VDM, Z Method, B Method, and Model Checking. Let's at least take a closer look at the most important ones.
+
+The {\sbf Communicating Sequential Processes (CSP)} is a technique for the specification of concurrent software systems. CSP defines a language for specifying process systems and verifying their implementations via traces. A system is modeled as independent processes composed sequentially or in parallel. Processes communicate through channels, synchronizing only when both are ready, with optional event timing modeling.  As example for suitable application this method is systems of communicating processes operating concurrently.
+
+The {\sbf Calculus of Communicating Systems (CCS)} is a means for describing and reasoning about the behavior of systems of concurrent, communicating processes. Like CSP, CCS is a mathematical calculus for modeling system behavior as independent processes running sequentially or in parallel. Processes communicate via ports, synchronizing only when both are ready. Non-determinism is supported, and systems can be refined top-down from traces or built bottom-up using composition rules.
+
+The {\sbf Higher Order Logic (HOL)} is a formal language intended as a basis for hardware specification and verification. It was developed at the University of Cambridge Computer Laboratory. The notation is largely derived from Church's Simple Theory of Types, while the support system is based on the LCF (Logic of Computable Functions) framework.
+
+The {\sbf Language for Temporal Ordering Specification (LOTOS)} is a means for describing and reasoning about the behavior of systems of concurrent, communicating processes.
+
+The {\sbf OBJ} is an algebraic specification language. Users specify requirements in terms of algebraic equations. The goal of this technique is to provide a precise system specification with user feedback and system validation prior to implementation.
+
+The {\sbf Temporal logic} aims to direct the expression of safety and operational requirements and formal demonstration that these properties are preserved in the subsequent development steps. Standard First-Order Predicate Logic does not account for time. Temporal logic extends it by introducing modal operators like "henceforth" (for ongoing conditions) and "eventually" (for future conditions). These help define system behaviors—e.g., safety properties must always hold, while certain states must be reached eventually. Temporal formulas describe sequences of system states, which can represent the entire system, a component, or a program. However, temporal logic does not handle precise time intervals directly; instead, additional time states must be defined within the system.
+
+The {\sbf Vienna Development Method (VDM)}, {\sbf Z notation}, and {\sbf B method} are all formal methods used for specifying and verifying software systems, but they differ in their approaches and areas of application.
+
+{\sbf VDM} is a mathematically based, model-driven specification technique developed at the IBM Laboratory Vienna in the 1970s.~\cite[Bekić1984] It enables high-level abstraction in system modeling, facilitating early detection of design flaws and key system features. By providing a structured refinement process, validated models can be systematically transformed into detailed implementations while ensuring correctness through proof obligations. With its formal semantics, VDM allows for rigorous verification of model properties, offering a high level of assurance. Additionally, an executable subset supports testing and validation, making it accessible even to non-experts through graphical user interfaces.~\fnote{Recommending for simple human understanding description on Wikipedia for detail understanding of this method: \url{https://en.wikipedia.org/wiki/Vienna_Development_Method}.}
+
+The {\sbf Z method}, like VDM, employs a model-based approach with set-theoretic structures to define system states and their transitions. However, Z focuses on structuring specifications through schemas, making it well-suited for data-oriented, sequential systems. Unlike VDM, Z is more of a notation rather than a complete development method, relying on additional methodologies to transition from specification to implementation.
+
+The {\sbf B method} extends the principles of Z by incorporating rigorous proof obligations and refinement steps that ensure the correctness of both system models and their implementations. It provides a structured approach to software development through abstract machines and step-by-step refinements, leading to deterministic implementations. Unlike VDM and Z, B emphasizes automatic proof generation and verification, making it particularly useful for safety-critical applications.
+
+While all three methods share a foundation in formal logic and model-based specification, their primary distinctions lie in their scope and intended use cases. VDM is best suited for early-stage design validation and refinement into sequential programs. Z excels in formalizing complex data structures and relationships, whereas B extends these capabilities with rigorous proof obligations and structured refinements, ensuring the correctness of both design and implementation.
+
+The last formal method mentioned in the norm {\it EN 50128} is the {\sbf Model Checking}. It aims to, given a model of a system, test automatically whether this model meets a given specification.~\cite[vDBnVxdnHZs4vPl6] Model checking verifies whether a given structure satisfies a specified logical formula. It applies across various logic and structures, with a common example being the evaluation of propositional logic formulas. Primarily used in hardware design, model checking algorithmically ensures that a system model meets a formal specification, often expressed in temporal logic. For software, full automation is limited due to undecidability. The system is typically represented as a finite-state machine, where nodes correspond to system states, edges define transitions, and atomic propositions describe key properties. When the model is finite, verification reduces to a graph search.
+
+\seccc Data modeling 
+
+The technique {\sbf Data modelling} is the process of creating a data model by applying formal data model descriptions using data modelling techniques.
+
+In software engineering, a data model is an abstract representation of how data is structured, stored, and accessed within a system. It defines data objects, their relationships, and the rules governing their interactions within a specific domain. Data modeling is essential for designing databases, ensuring data consistency, and facilitating seamless data exchange across systems.
+
+\seccc Structured Methodology  
+
+The approach {\sbf Structured Methodology} aims to improve software quality by emphasizing the early stages of the development life cycle. This method is related to the V-model and one of its goals is to.
+
+Structured methodologies provide systematic procedures and notations to define requirements and implementation features in a logical and structured manner. These methodologies break down complex problems into manageable stages, ensuring a clear understanding of the system and its environment. They facilitate decomposition of data and functions, use checklists for completeness, and maintain a balance between precision and intuitive understanding.  
+
+Different structured methods are suited for various domains: traditional data-processing methodologies such as SSADM~\fnote{
+{\sbf Structured systems analysis and design method (SSADM)} - waterfall method for the analysis and design of information systems.
+} and LBMS~\fnote{
+{\sbf Location-based method (LBMS)} - A scheduling approach that optimizes construction workflow by tracking work crews' movement across locations, ensuring continuity and efficient resource allocation. It extends traditional project management by structuring work packages into interconnected entities, improving scheduling flexibility and project efficiency.~\cite[ZhcmUNG84nGygVtL]
+} focus on transaction-based systems, whereas process-control and real-time applications benefit from methods like MASCOT,\fnote{
+{\sbf Modular Approach to Software Construction Operation and Test (MASCOT)} is a methodology for designing, constructing, and testing software with a strong emphasis on modularity, concurrency, and data flow representation. It ensures component decoupling, facilitating reusability and simplifying testing, making it particularly suitable for complex real-time embedded systems.~\cite[mE8IgWkQmSnQncJX]
+
+The interesting fact is that the UK Ministry of Defense has been the primary user of the MASCOT method through its application in significant military systems, and at one stage mandated its use for new operational systems. Examples include the Rapier missile system, and various Royal Navy Command \& Control Systems.
+} JSD,\fnote{{\sbf Jackson System Development (JSD)} is a linear software development methodology developed by Michael A. Jackson and John Cameron in the 1980s.~\cite[1uF1MOuWQwGw9due]} and real-time Yourdon. Many structured methodologies incorporate graphical or semi-formal notations, improving visibility and reducing the likelihood of misinterpretation. Some, like JSD and SDL, partially integrate mathematical formalism, enhancing their reliability and enabling automated processing.  
+
+By providing a clear, logical framework, structured methodologies help developers systematically analyze, specify, and verify system designs, making them particularly valuable in complex or safety-critical applications.
 
 
 
