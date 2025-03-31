@@ -472,7 +472,7 @@ The {\sbf Formal Methods} refer to mathematically rigorous techniques and tools 
 
 There is no universal formal method that is suitable for all scenarios. Rather, an appropriate mathematical model must be chosen for each situation. Therefore, we have several models. The standard {\it EN 50128} describes CSP, CCS, HOL, LOTOS, OBJ, Temporal Logic, VDM, Z Method, B Method, and Model Checking. Let's at least take a closer look at the most important ones.
 
-The {\sbf Communicating Sequential Processes (CSP)} is a technique for the specification of concurrent software systems. CSP defines a language for specifying process systems and verifying their implementations via traces. A system is modeled as independent processes composed sequentially or in parallel. Processes communicate through channels, synchronizing only when both are ready, with optional event timing modeling.  As example for suitable application this method is systems of communicating processes operating concurrently.
+The {\sbf Communicating Sequential Processes (CSP)} is a technique for the specification of concurrent software systems. CSP defines a language for specifying process systems and verifying their implementations via traces. A system is modeled as independent processes composed sequentially or in parallel. Processes communicate through channels, synchronizing only when both are ready, with optional event timing modeling.  As an example of a suitable application, this method is systems of communicating processes operating concurrently.
 
 The {\sbf Calculus of Communicating Systems (CCS)} is a means for describing and reasoning about the behavior of systems of concurrent, communicating processes. Like CSP, CCS is a mathematical calculus for modeling system behavior as independent processes running sequentially or in parallel. Processes communicate via ports, synchronizing only when both are ready. Non-determinism is supported, and systems can be refined top-down from traces or built bottom-up using composition rules.
 
@@ -519,18 +519,6 @@ The interesting fact is that the UK Ministry of Defense has been the primary use
 } JSD,\fnote{{\sbf Jackson System Development (JSD)} is a linear software development methodology developed by Michael A. Jackson and John Cameron in the 1980s.~\cite[1uF1MOuWQwGw9due]} and real-time Yourdon. Many structured methodologies incorporate graphical or semi-formal notations, improving visibility and reducing the likelihood of misinterpretation. Some, like JSD and SDL, partially integrate mathematical formalism, enhancing their reliability and enabling automated processing.  
 
 By providing a clear, logical framework, structured methodologies help developers systematically analyze, specify, and verify system designs, making them particularly valuable in complex or safety-critical applications.
-
-
-
-
-
-
-
-
-
-
-
-
 
 \label[ToolsClassification]
 \secc Tools classification
@@ -581,10 +569,75 @@ Limited Use of Global Variables & HR & HR & M & M \cr
 \endinsert
 
 
-Compared to other types of software, the development of the safe one differs mainly in techniques such as {\sbf not recommending the use of dynamic memory allocation}, both for objects and variables. This is due to the greater possibility of failure, as the software allocates memory at runtime, and this can lead to failures. The standard recommends {\sbf limited use of recursion and pointers}. These are methods that can potentially mishandle memory - either filling it up quickly or being ill-defined. Therefore, unless necessary, it is not recommended to use them.
+Compared to other types of software, the development of the safe one differs mainly in techniques such {\sbf not recommending the use of dynamic memory allocation}, both for objects and variables. This is due to the greater possibility of failure, as the software allocates memory at runtime, and this can lead to failures. The standard recommends {\sbf limited use of recursion and pointers}. These are methods that can potentially mishandle memory - either filling it up quickly or being ill-defined. Therefore, unless necessary, it is not recommended to use them.
 
-Specific techniques for safe development are also {\sbf limited size and complexity of functions, subroutines and methods} and {\sbf input or output strategies for functions, subroutines and methods}.
+Specific techniques for safe development are also {\sbf limited size and complexity of functions, subroutines, and methods} and {\sbf input or output strategies for functions, subroutines, and methods}.
 
 The other techniques are not, in my view, specific to secure development, but are principles that are appropriate for any software development, such as following the {\sbf coding standard}, the {\sbf coding style guide} that leads to improved readability, or the {\sbf limited use of global variables}.
 
+The norm {\it EN 50128} defines a set of essential rules that coding standards should include. The most important ones are:
+
+\begitems
+* {\sbf Language specification} defines the programming language and its allowed features, ensuring {\sbf portability} across different platforms.  
+* {\sbf Scope and base standard when available} clarifies the coding standard’s applicability and references any underlying standards, while {\sbf the procedure for changing the coding standard} describes how updates and modifications should be handled.  
+* {\sbf Analysis of the potential faults and recommended treatment} identifies possible issues and provides solutions, complemented by {\sbf restrictions to avoid the faults}, which list constraints to prevent common errors.  
+\enditems
+
+
 It may also be interesting to note that the standard defines {\sbf recommended programming languages} for different SIL levels.\fnote{The EN 50128 standard describes the different programming languages in Table A.15 in Annex A} It will come as no surprise that C, C++ or Assembler are among the recommended languages. However, the presence of languages such as C\# or Java may also come as a surprise. The standard also mentions more historical languages such as Pascal.
+
+
+
+\sec Level crossing system in CENELEC countries
+
+According to research,\fnote{Eurostat, 2023 - \url{https://ec.europa.eu/eurostat/statistics-explained/images/6/65/F6_Level_rail_track_crossings\%2C_2013_and_2023.png}
+} the average number of level crossings per 100 km in the European Union in 2023 is over 50. The record holder is Norway, which has more than 90 level crossings, while the Czech Republic, along with Austria, Hungary, and the Netherlands, has more than 80.
+
+\medskip
+\clabel[LevelCrossingGraphStates]{Level rail track crossings numbers by countries}
+\picw=14cm \cinspic img/02-level-crossing-graph-states.png
+\caption/f Level rail track crossings per 100 km by countries.
+\medskip
+
+Each country uses a different signaling standard, mainly due to historical development. I am describing a few country systems with potential deployment of the developing device.
+
+In Figures \ref[LevelCrossingSwitzerland], \ref[LevelCrossingGermany], \ref[LevelCrossingNorway], and \ref[LevelCrossingCzechia], the {\sbf passive status} indicates that no train is approaching or present on the crossing, meaning there are no immediate restrictions or hazards. The {\sbf active status} occurs when a train is in the immediate vicinity or on the crossing, signaling that entry is prohibited due to an ongoing or imminent train passage. Lastly, the {\sbf warning status}, used in Germany and some other countries, serves as a cautionary signal, indicating that the active status will soon follow.
+
+
+\medskip
+\clabel[LevelCrossingSwitzerland]{Level crossing signalization in Switzerland}
+\picw=14cm \cinspic img/02-level-crossing-switzerland.png
+\caption/f Level crossing signalization in Switzerland.
+\medskip
+
+In {\sbf Switzerland}, the crossing lights remain completely off in the passive state. In the active state, the red lights flash alternately, as illustrated in Figure \ref[LevelCrossingSwitzerland].  
+
+\medskip
+\clabel[LevelCrossingGermany]{Level crossing signalization in Germany}
+\picw=14cm \cinspic img/02-level-crossing-germany.png
+\caption/f Level crossing signalization in Germany.
+\medskip
+
+In {\sbf Germany}, multiple signaling types are used. The first type consists of a red and an orange light. In the passive state, both are off. When transitioning to the warning state, the orange light turns on while the red remains off. In the active state, the red light is on, and the orange light is off. The second type features only a single red light, which is off in the passive state and flashes at regular intervals in the active state. Both options are illustrated in Figure \ref[LevelCrossingGermany].
+
+
+\medskip
+\clabel[LevelCrossingNorway]{Level crossing signalization in Norway}
+\picw=14cm \cinspic img/02-level-crossing-norway.png
+\caption/f Level crossing signalization in Norway.
+\medskip
+
+{\sbf Norway} employs a two-color signaling system similar to Germany’s. The upper light is red, and the lower light is white. In the passive state, the red light is off, while the white light flashes at regular intervals. In the active state, the white light turns off, and the red light flashes at a slightly faster, consistent interval, as illustrated in Figure \ref[LevelCrossingNorway].
+
+
+\medskip
+\clabel[LevelCrossingCzechia]{Level crossing signalization in Czech Republic}
+\picw=14cm \cinspic img/02-level-crossing-czechia.png
+\caption/f Level crossing signalization in Czech Republic.
+\medskip
+
+In the {\sbf Czech Republic}, three lights are arranged in an inverted equilateral triangle, as shown in Figure \ref[LevelCrossingCzechia]. The upper two lights are red, and the lower one is white. In the passive state, the white light flashes at regular intervals while the red lights remain off. In the active state, the two red lights flash alternately, and the white light turns off.
+
+Some countries not mentioned here use the same signaling systems. For example, Austria follows the same signaling as Germany, while Slovakia uses the same system as the Czech Republic.  
+
+Additionally, some level crossings are equipped with audible signals and barriers to prevent vehicles, pedestrians, and other road users from entering the railway. However, since these mechanisms are not addressed in the developed equipment, they are not covered further in this thesis.
