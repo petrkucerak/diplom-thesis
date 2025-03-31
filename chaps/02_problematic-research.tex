@@ -118,9 +118,9 @@ Simply, verification answers the question {\it do we build things correctly}, va
 
 Defining system requirements is the first and very important step for a successful and secure system or component. In this phase, it is important to define the limits, interfaces, functions, and the environment of the system.
 
-It is important to note that SIL levels\fnote{Safety integrity level}, which we will discuss later, are always related to a component - e.g. a function. So we cannot say that the whole platform is a SIL, but only that the platform provides a service that has that SIL.
+It is important to note that SIL levels,\fnote{Safety integrity level} which we will discuss later, are always related to a component - e.g. a function. So we cannot say that the whole platform is a SIL, but only that the platform provides a service that has that SIL.
 
-To illustrate, let's take a concrete example: automatic train control, specifically emergency braking in case of a dangerous situation, e.g. when a train runs a red light. In this case the {\sbf function} is: automatic braking when passing a dangerous signal. The driver's cab, the track equipment and the signal transmission path are the {\sbf system}. The {\sbf Interfaces} for us are the wheels, the dashboard which serves as an API for the driver to communicate with the system and the warning light which signals the entry prohibition.
+To illustrate, let's take a concrete example: automatic train control, specifically emergency braking in case of a dangerous situation, e.g. when a train runs a red light. In this case the {\sbf function} is: automatic braking when passing a dangerous signal. The driver's cab, the track equipment and the signal transmission path are the {\sbf system}. The {\sbf Interfaces} for us are the wheels, the dashboard which serves as an API for the driver to communicate with the system, and the warning light which signals the entry prohibition.
 
 \seccc Risk analysis
 
@@ -134,7 +134,7 @@ Risk analysis consists of some of the methods already mentioned: hazard identifi
 
 \seccc Acceptable risk
 
-The European Union specifies in the CSM regulation\fnote{Common Safety Method for Risk Evaluation and Assessment} which methods can be used to calculate acceptable risk.
+The European Union specifies in the CSM regulation~\fnote{Common Safety Method for Risk Evaluation and Assessment} which methods can be used to calculate acceptable risk.
 
 \begitems
 * {\sbf Application of codes of practice}: The use of established norms, standards, and best practice methodologies for risk assessment and management that have been validated in practice.
@@ -173,10 +173,10 @@ $10^{-6} \leq TFFR < 10^{-5}$ & 1 \cr
 \cr
 $10^{-5} \leq TFFR$ & basic integrity \cr
 }
-\caption/t Table describes TFFR and SIL relation.\cite[SU4ccYhZgv796Fi2]
+\caption/t Relationship between TFFR and required Safety Integrity Level (SIL).\cite[SU4ccYhZgv796Fi2]
 \endinsert
 
-The norm describes 4 Safety Integrity Levels from 1 to 4 and Basic Integrity. The SIL 4 is the highest level and the Basic Integrity is the lowest, as described in the table~\ref[TFFRxSIL].~\fnote{The norm {\it EN 50129} from year 2003 introduced term {\sbf SIL 0} to indicate non-safety-related functions. This terms in no longer used in the new norms version.}
+The norm describes 4 Safety Integrity Levels from 1 to 4 and Basic Integrity. The SIL 4 is the highest level and the Basic Integrity is the lowest, as described in the table~\ref[TFFRxSIL].\fnote{The norm {\it EN 50129} from year 2003 introduced term {\sbf SIL 0} to indicate non-safety-related functions. This terms in no longer used in the new norms version.}
 
 \secc The five base questions
 
@@ -185,7 +185,7 @@ I would like to mention that an excellent mechanism to verify that we are we hav
 \begitems
 * {\sbf What} - What features must be implemented?
 * {\sbf How} - What steps must be followed during implementation?
-* {\sbf With what} - What tools must be used for implementation?~\fnote{The tool problematic is detailed discussed int the chap \ref[ToolsClassification].}
+* {\sbf With what} - What tools must be used for implementation?\fnote{The tool problematic is detailed discussed int the chap \ref[ToolsClassification].}
 * {\sbf Assurance} - How can I ensure that the first three questions are answered correctly?
 * {\sbf Traceability} - Have I recorded everything in a way that allows for audit and verification?
 \enditems
@@ -328,7 +328,7 @@ The {\sbf Defensive Programming} is one of the most important techniques in safe
 There are three basic techniques of defensive programming:
 
 \begitems
-* All data\fnote{By data we mean all values stored in memory such as variables, objects, arrays, etc.} is important until proven otherwise.
+* All data~\fnote{By data we mean all values stored in memory such as variables, objects, arrays, etc.} is important until proven otherwise.
 * All input data is potentially hazardous until proven otherwise.
 * All code is dangerous until proven otherwise.
 \enditems
@@ -337,7 +337,7 @@ There exist many techniques of defensive programming. For example, to ensure tha
 
 \begitems
 * variables should be range-checked;
-* where possible, values should be checked for plausibility;~\fnote{Plausibility means quality of seeming likely to be true, or possible to believe.~\cite[6i2KXzgcdbBD85cyPlausibility]}
+* where possible, values should be checked for plausibility;\fnote{Plausibility means quality of seeming likely to be true, or possible to believe.~\cite[6i2KXzgcdbBD85cyPlausibility]}
 * parameters to procedures should be type, dimension, and range checked at procedure entry.
 \enditems
 
@@ -376,7 +376,7 @@ The goal of {\sbf Failure Assertion Programming} is to detect residual faults du
 \caption/f Failure Assertion Programming illustration.
 \medskip
 
-The assertion programming method in safety software development follows the idea of checking a {\sbf pre-condition}\fnote{The initial conditions are checked for validity before a sequence of statements is executed.} and a {\sbf post-condition}\fnote{Results are checked after t he execution of a sequence of statements.} as illustrated on Figure \ref[FailureAssertionProgramming]. If either the pre-condition or the post-condition is not met, the processing terminates with an error.
+The assertion programming method in safety software development follows the idea of checking a {\sbf pre-condition}~\fnote{The initial conditions are checked for validity before a sequence of statements is executed.} and a {\sbf post-condition}~\fnote{Results are checked after t he execution of a sequence of statements.} as illustrated on Figure \ref[FailureAssertionProgramming]. If either the pre-condition or the post-condition is not met, the processing terminates with an error.
 
 \seccc Safety Bag Techniques
 
@@ -399,7 +399,7 @@ The technique is based on relying on multiple implementations of the same specif
 
 This technique does not eliminate residual software design faults but provides a mechanism to detect and mitigate them before they impact safety.
 
-Studies and experiments\fnote{Source is the norm {\it EN 50128}, Annex D, Chap D.16.} indicate that N-version programming does not always achieve the expected effectiveness. Despite using different algorithms, diverse software versions frequently fail on the same inputs.
+Studies and experiments~\fnote{Source is the norm {\it EN 50128}, Annex D, Chap D.16.} indicate that N-version programming does not always achieve the expected effectiveness. Despite using different algorithms, diverse software versions frequently fail on the same inputs.
 
 \seccc Recovery Block
 
@@ -463,7 +463,7 @@ The technique {\sbf Fully Defined Interface} leads to modularization. A {\sbf Mo
 * Components or modules shall communicate with other components or modules via their interfaces. Where global or common variables are used, they shall be well structured, access shall be controlled, and their use shall be justified in each instance.
 * All components or module's interfaces shall be fully documented.
 * Any component or module's interface shall contain the minimum number of parameters necessary for the component or module's function.
-* A suitable restriction of parameter number shall be specified.~\fnote{The norms {\it EN 50128} defines that suitable number is typically 5.}
+* A suitable restriction of parameter number shall be specified.\fnote{The norms {\it EN 50128} defines that suitable number is typically 5.}
 \enditems
 
 \seccc Formal methods
@@ -486,7 +486,7 @@ The {\sbf Temporal logic} aims to direct the expression of safety and operationa
 
 The {\sbf Vienna Development Method (VDM)}, {\sbf Z notation}, and {\sbf B method} are all formal methods used for specifying and verifying software systems, but they differ in their approaches and areas of application.
 
-{\sbf VDM} is a mathematically based, model-driven specification technique developed at the IBM Laboratory Vienna in the 1970s.~\cite[Bekić1984] It enables high-level abstraction in system modeling, facilitating early detection of design flaws and key system features. By providing a structured refinement process, validated models can be systematically transformed into detailed implementations while ensuring correctness through proof obligations. With its formal semantics, VDM allows for rigorous verification of model properties, offering a high level of assurance. Additionally, an executable subset supports testing and validation, making it accessible even to non-experts through graphical user interfaces.~\fnote{Recommending for simple human understanding description on Wikipedia for detail understanding of this method: \url{https://en.wikipedia.org/wiki/Vienna_Development_Method}.}
+{\sbf VDM} is a mathematically based, model-driven specification technique developed at the IBM Laboratory Vienna in the 1970s.~\cite[Bekić1984] It enables high-level abstraction in system modeling, facilitating early detection of design flaws and key system features. By providing a structured refinement process, validated models can be systematically transformed into detailed implementations while ensuring correctness through proof obligations. With its formal semantics, VDM allows for rigorous verification of model properties, offering a high level of assurance. Additionally, an executable subset supports testing and validation, making it accessible even to non-experts through graphical user interfaces.\fnote{Recommending for simple human understanding description on Wikipedia for detail understanding of this method: \url{https://en.wikipedia.org/wiki/Vienna_Development_Method}.}
 
 The {\sbf Z method}, like VDM, employs a model-based approach with set-theoretic structures to define system states and their transitions. However, Z focuses on structuring specifications through schemas, making it well-suited for data-oriented, sequential systems. Unlike VDM, Z is more of a notation rather than a complete development method, relying on additional methodologies to transition from specification to implementation.
 

@@ -3,6 +3,7 @@
 % která jsou jen pro tento dokument. Uživatelé si pravděpodobně budou
 % hlavní soubor kopírovat do svého dokumentu.
 
+
 \def\ctustyle{{\ssr CTUstyle}}
 \def\ttb{\tt\char`\\} % pro tisk kontrolních sekvencí v tabulkách
 
@@ -18,39 +19,38 @@ Given these advantages, ensuring safety and minimizing potential risks are param
 
 \secc High impact
 
-Due to the low friction of the steel wheels with the steel rail and the efficient power generation, in the case of electric propulsion in power plants, rail transport is used to transport large numbers of passengers and materials. In the figure \ref[PassangerCapacity] we can notice the capacity to transport the number of people by a given means of transport depending on time and area in an urban environment.
+The low rolling resistance of steel wheels on steel rails, combined with the efficiency of electric propulsion, makes rail transport ideal for moving large volumes of passengers and freight. As shown in Figure~\ref[PassangerCapacity], rail systems provide high passenger capacity relative to time and available space in urban environments.
 
-Transport is also energy-efficient. By comparison, train travel consumes one seventh less energy than car travel in an urban environment.~\cite[UZ7ymPeJEhdPijFh] It is for this reason that if a crash occurs, the damage is often tragic and high.
-
-\medskip
-\clabel[PassangerCapacity]{Passenger Capacity of different Transport Modes}
-\picw=10cm \cinspic img/01-passenger-capacity.png
-\caption/f Passenger Capacity of different Transport Modes. Number of passengers per hour on 3.5 m wide lanes in the city.\cite[tbBVVJc0f9An81Y4]
-\medskip
+Rail transport is also highly energy-efficient. Train travel consumes approximately seven times less energy per passenger than car travel in urban settings.~\cite[UZ7ymPeJEhdPijFh] However, due to the scale of rail transport, accidents can result in severe consequences.
 
 \secc Strategic importance
 
-Due to its large transport capacity and ability to carry heavy loads, the railway infrastructure is used to transport supplies that are important for the functioning of industry, such as coal or chemical components. The transport of military infrastructure and machinery such as pontoon bridges and tanks is also an integral part of the transport. Railways are also used today to supply Ukraine with military aid.~\cite[Gavenda2022] Railways are also relied upon in the event of natural disasters for the distribution of humanitarian aid.
+Railways play a critical role in industry by transporting essential supplies such as coal and chemical components, thanks to their high capacity and ability to handle heavy loads. They are also indispensable for military logistics, including the transport of pontoon bridges, tanks, and other infrastructure. In the ongoing conflict in Ukraine, railways remain vital for delivering military aid.~\cite[Gavenda2022] Additionally, rail transport is often a key component in distributing humanitarian aid during natural disasters.
 
-This is why it is important that the railway infrastructure is designed so that we can rely on it in most conditions. This is not only against human error but also against the elements of nature. That is why individual requirements vary in different geographical conditions. An example of this would be rail infrastructure for northern countries where it has to withstand low temperatures and large amounts of snow, versus more southern countries where resistance to high temperatures or heavy coastal rainfall is important.
+Thus, railway infrastructure must be designed for reliability under various conditions. Safety measures must address both human error and environmental factors. The specific requirements vary by geography—railways in northern regions must withstand extreme cold and heavy snowfall, while those in southern areas need to be resilient against high temperatures and coastal rainfall.
 
-\secc Private motivation
+\secc Personal motivation
 
-To be honest, I'm not a big rail fan. I'm more interested in the world of embedded devices, or rather the fact that as a developer I'm in control of everything, often controlling physical peripherals, occasionally getting my hands dirty, and not relying on a high level of abstraction. And it is the development of safe software, or Fail-Safe platform, that meets these conditions.
+My primary interest lies in embedded systems, where I can directly control hardware, interact with peripherals, and develop low-level software solutions. The development of safe software for fail-safe platforms aligns with these interests, as it involves ensuring reliability, handling physical constraints, and minimizing abstraction layers.
 
+\medskip
+\clabel[PassangerCapacity]{Passenger Capacity of different Transport Modes}
+\picw=12cm \cinspic img/01-passenger-capacity.png
+\caption/f Passenger Capacity of different Transport Modes. Number of passengers per hour on 3.5 m wide lanes in the city.~\cite[tbBVVJc0f9An81Y4]
+\medskip
 
 \sec The aim of this thesis
 
-The aim of this work is to design and implement a system for Railway Fail-Safe Platforms. Specifically, a component for a railroad crossing system that controls LED lights. The device must comply with CELENEC\fnote{European Committee for Electrotechnical Standardization} standards. More detailed system and functional requirements are discussed in chapter \ref[SystemRequirements].
+The aim of this work is to design and implement a system for Railway Fail-Safe Platforms. Specifically, a component for a railroad crossing system that controls LED lights. The device must comply with CENELEC~\fnote{European Committee for Electrotechnical Standardization} standards. More detailed system and functional requirements are discussed in Chapter~\ref[SystemRequirements].
 
-To accomplish this goal, I have set out several steps in which I would like to address the problem:
+To achieve this, I have outlined the following steps:
 
 \begitems
-* Study the standards for implementing software on fail-safe platforms for railway infrastructure. Identify the differences between SIL2 and SIL4 platforms. Discuss specific mechanisms leading to the fulfillment of individual requirements.
+* Analyze fail-safe software standards for railway systems. Identify the differences between SIL2 and SIL4 platforms and examine specific mechanisms that ensure compliance with safety requirements.
 
-* Select appropriate hardware and design an architecture that meets the CENELEC requirements for SIL2 and higher. The design should include a boot sequence and mechanisms for detecting and compensating for random errors and other typical software issues. The proposed device should consist of a safety part responsible for performing safe computations and a non-safety part responsible for monitoring the safety part and transmitting data using standard mechanisms over Ethernet.
+* Choose suitable hardware and design a CENELEC-compliant SIL2+ architecture. The design should include a boot sequence and mechanisms for detecting and mitigating random errors and software faults. The proposed device will consist of a safety part responsible for critical computations and a non-safety part responsible for monitoring and data transmission over Ethernet.
 
 * Implement the designed software architecture on the selected hardware.
 
-* Justify the implementation for SIL2, analyze and discuss possible steps and extended argumentation to achieve higher SIL levels.
+* Justify the implementation for SIL2 and evaluate potential steps required to achieve higher SIL levels.
 \enditems
