@@ -13,17 +13,22 @@ In this chapter, I would like to specify the system, functional requirements, an
 
 \sec System context
 
-The device is a component of a level crossing system that controls lights and road signals. The device is designed for a country that respects CENELEC norms.
+The proposed equipment is part of a level crossing safety system that controls traffic lights and signals. Previously, the system relied on a Simatic PLC~\fnote{\url{https://www.siemens.com/cz/cs/products/automation/systems/industrial/plc.html}} with digital inputs and outputs. However, it lacked the ability to analyze system functionality; issues could only be diagnosed manually using a multimeter. This becomes particularly problematic when the equipment is located in inaccessible areas or exposed to harsh conditions, such as freezing temperatures in Norway.
 
-The device is a road signal monitoring module that controls LED modules located on road signals and train signals based on commands from Simatic PLC. Besides the control of road signals, the device provides diagnostic data related to itself and to the operation of LED modules to allow the detection of faulty components. The device can send monitoring data to the parent server.
+The goal of the new system version is to integrate a component that enables such analysis, which is precisely the purpose of this device.
 
+The system is designed for use in a country that follows CENELEC standards. The device itself is a road signal monitoring module that controls LED modules on road and train signals based on commands from the Simatic PLC. In addition to managing the signals, it provides diagnostic data about both its own operation and the LED modules, helping to detect faulty components. The device can also transmit monitoring data to a higher-level server.
 
+{\it The term system and device will always mean a component of the overall security system. If this is not the case, this will always be explicitly mentioned.}
 
 
 \sec System specification
 
-type some text
+My implemented and proposed project serves as a prototype for the final device. Unlike the final version, it does not need to communicate with the PLC; it only needs to read information from LED modules and transmit the data further.  
 
+In the following diagrams and discussions, I will also include the PLC. This is necessary because its presence must be considered when designing the overall architecture, selecting hardware, and progressing through other development phases.  
+
+The device's safety functions must comply with SIL2, while the final system as a whole is designed to meet SIL4. However, since this prototype is purely a monitoring device and does not introduce any hazards, SIL2 is sufficient.
 
 \medskip
 \clabel[SystemDesign]{System design}
@@ -56,6 +61,8 @@ Device shall provide diagnostic data using simple REST API.
 \secc Safety
 
 \secc Diagnostics
+
+\secc Project limitation
 
 \sec Hazard analysis
 

@@ -180,7 +180,7 @@ The norm describes 4 Safety Integrity Levels from 1 to 4 and Basic Integrity. Th
 
 \secc The five base questions
 
-I would like to mention that an excellent mechanism to verify that we are we haven't forgotten anything elementary is to answer these five basic questions that based on {\it EN 50126}.
+I would like to mention that an excellent mechanism to verify that we haven't forgotten anything elementary is to answer these five basic questions that are based on {\it EN 50126}.
 
 \begitems
 * {\sbf What} - What features must be implemented?
@@ -235,7 +235,7 @@ In designing SIL software, the standard defines 7 basic principles. However, in 
 \begitems
 * {\sbf Inherent fail-safety}: This approach ensures the safety of the system due to the intrinsic properties of the design. Functions are designed to be fault tolerant without the need for external intervention. It is therefore more a matter of hardware design. This method cannot be implemented in software. As an example, the signal remains in a safe state even after a power failure, without external intervention. This mechanism is recommended (R) for {\it SIL 1} and {\it SIL 2}, and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
 
-* {\sbf Reactive fail-safety}: The approach focuses on responding to faults typically through fault detection and subsequent activation of protection mechanisms. The system is therefore able to react on its own without external intervention to ensure a safe state. Examples include activation of emergency braking or safety shutdown when a failure of the main system is detected. The mechanism is recommended (R) for {\it SIL 1} and {\it SIL 2} and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
+* {\sbf Reactive fail-safety}: The approach focuses on responding to faults typically through fault detection and subsequent activation of protection mechanisms. The system is therefore able to react on its own without external intervention to ensure a safe state. Examples include the activation of emergency braking or safety shutdown when a failure of the main system is detected. The mechanism is recommended (R) for {\it SIL 1} and {\it SIL 2} and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
 
 * {\sbf Composite fail-safety}: The approach combines multiple channels with fail-safe mechanisms for peer-to-peer comparison. This provides greater resilience to failure through redundancy and independence. An example would be the need to obtain a positive signal from at least two of the three independent units to activate an action element. This mechanism, like the inherent and reactive mechanisms, is recommended (R) for {\it SIL 1} and {\it SIL 2} and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
 \enditems
@@ -376,7 +376,7 @@ The goal of {\sbf Failure Assertion Programming} is to detect residual faults du
 \caption/f Failure Assertion Programming illustration.
 \medskip
 
-The assertion programming method in safety software development follows the idea of checking a {\sbf pre-condition}~\fnote{The initial conditions are checked for validity before a sequence of statements is executed.} and a {\sbf post-condition}~\fnote{Results are checked after t he execution of a sequence of statements.} as illustrated on Figure \ref[FailureAssertionProgramming]. If either the pre-condition or the post-condition is not met, the processing terminates with an error.
+The assertion programming method in safety software development follows the idea of checking a {\sbf pre-condition}~\fnote{The initial conditions are checked for validity before a sequence of statements is executed.} and a {\sbf post-condition}~\fnote{Results are checked after t he execution of a sequence of statements.} as illustrated in Figure \ref[FailureAssertionProgramming]. If either the pre-condition or the post-condition is not met, the processing terminates with an error.
 
 \seccc Safety Bag Techniques
 
