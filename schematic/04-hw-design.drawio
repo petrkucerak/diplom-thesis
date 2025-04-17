@@ -59,6 +59,12 @@
                 <mxCell id="15" value="LED&lt;br&gt;(user interface)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;container=0;" vertex="1" parent="1">
                     <mxGeometry x="273" y="428" width="99" height="41" as="geometry"/>
                 </mxCell>
+                <mxCell id="21" value="CN0254" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="486" y="143" width="62" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="Sitara AM243x" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="262" y="201" width="96" height="26" as="geometry"/>
+                </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
