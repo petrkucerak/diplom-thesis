@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e" scale="3" border="0">
     <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
-        <mxGraphModel dx="1713" dy="1435" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+        <mxGraphModel dx="2100" dy="1539" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -112,11 +112,11 @@
                 <mxCell id="45" value="registers access, common addres, ..." style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="101" y="604" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="47" style="edgeStyle=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="46" target="25">
+                <mxCell id="47" style="edgeStyle=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" parent="1" source="46" target="25" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="46" value="konfigurace bude nahraná pouze jednou při prvním nahrávíní, pak už se nebude mělnit, budou v ní pospána proudová okna, jestli žárovka svítí nebo ne a zároveň tam bude MAC adresa, sériové číslo, certifikát, ..." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="386" y="-68" width="322" height="60" as="geometry"/>
+                <mxCell id="46" value="The configuration will be uploaded only once during the initial setup and will not be modified thereafter. It will include descriptions of current windows, whether the bulb is on or off, as well as the MAC address, serial number, certificate, and other relevant details." style="rounded=0;whiteSpace=wrap;html=1;spacing=12;" parent="1" vertex="1">
+                    <mxGeometry x="359" y="-60" width="437" height="81" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
