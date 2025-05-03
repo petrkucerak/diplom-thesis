@@ -89,10 +89,10 @@
                 <mxCell id="294" value="update info block in the flash memory&lt;div&gt;remove new firmware address&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="-1210.5" y="-399" width="144" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="295" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; font-size: 11px; text-wrap-mode: nowrap;&quot;&gt;success update&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="295" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; text-wrap-mode: nowrap;&quot;&gt;&lt;font&gt;success update&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="-458" y="-428" width="151" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="296" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); font-size: 11px; text-wrap-mode: nowrap;&quot;&gt;failed update&lt;/span&gt;&lt;br style=&quot;color: rgb(63, 63, 63); font-size: 11px; text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); font-size: 11px; text-wrap-mode: nowrap;&quot;&gt;&amp;amp; run old firmware&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="296" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;font&gt;&lt;span style=&quot;color: rgb(63, 63, 63); text-wrap-mode: nowrap;&quot;&gt;failed update&lt;/span&gt;&lt;br style=&quot;color: rgb(63, 63, 63); text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); text-wrap-mode: nowrap;&quot;&gt;&amp;amp; run old firmware&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="-1214" y="-290" width="151" height="60" as="geometry"/>
                 </mxCell>
             </root>
