@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e" scale="3" border="0">
     <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
-        <mxGraphModel dx="2622" dy="2152" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+        <mxGraphModel dx="1303" dy="1112" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -43,7 +43,7 @@
                 <mxCell id="49" value="Start Secondary Bootmode&lt;div&gt;boot from Ethernet&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
                     <mxGeometry x="424" y="279" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="169" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="68" target="114" edge="1">
+                <mxCell id="172" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="68" target="114">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="68" value="Reboots with Loaded Image" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
@@ -88,7 +88,8 @@
                 <mxCell id="102" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="85" target="78" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="687" y="233"/>
+                            <mxPoint x="656" y="257"/>
+                            <mxPoint x="656" y="233"/>
                             <mxPoint x="28" y="233"/>
                         </Array>
                     </mxGeometry>
@@ -107,7 +108,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="85" value="Image&lt;br&gt;Integrity OK?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="605" y="258" width="164" height="102" as="geometry"/>
+                    <mxGeometry x="575" y="257" width="164" height="102" as="geometry"/>
                 </mxCell>
                 <mxCell id="92" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="90" target="47" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -125,28 +126,28 @@
                     <mxGeometry x="207" y="525" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="114" value="Run bootloader" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="-37" y="683" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="207" y="742" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="122" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="116" target="118" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="116" value="DMSC Issues Clock Stop and Reset the MCU" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
-                    <mxGeometry x="627" y="525" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="597" y="524" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="171" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="118" target="170">
+                <mxCell id="171" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="118" target="170" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="118" value="Reboots with Loaded Image" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-                    <mxGeometry x="627" y="634" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="597" y="633" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="129" value="Hardware" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;flipV=1;" parent="1" vertex="1">
-                    <mxGeometry x="-233" y="-45" width="120" height="22" as="geometry"/>
+                    <mxGeometry x="-89" y="-43" width="120" height="22" as="geometry"/>
                 </mxCell>
                 <mxCell id="130" value="DMSC" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;flipV=1;" parent="1" vertex="1">
-                    <mxGeometry x="-233" y="-6" width="120" height="22" as="geometry"/>
+                    <mxGeometry x="-89" y="-4" width="120" height="22" as="geometry"/>
                 </mxCell>
                 <mxCell id="131" value="R5-0-0" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;flipV=1;" parent="1" vertex="1">
-                    <mxGeometry x="-233" y="33" width="120" height="22" as="geometry"/>
+                    <mxGeometry x="-89" y="35" width="120" height="22" as="geometry"/>
                 </mxCell>
                 <mxCell id="151" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="149" target="104" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -158,10 +159,10 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="152" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;R5 Configures MAIN Domain PLLs&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-                    <mxGeometry x="627" y="416" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="597" y="415" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="170" value="Run uniflasher" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="627" y="743" width="120" height="60" as="geometry"/>
+                <mxCell id="170" value="Run uniflasher" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="597" y="742" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
