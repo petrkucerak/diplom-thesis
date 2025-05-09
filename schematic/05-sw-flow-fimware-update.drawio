@@ -1,73 +1,73 @@
 <mxfile host="65bd71144e" scale="3" border="0">
     <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
-        <mxGraphModel dx="2171" dy="1851" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+        <mxGraphModel dx="2644" dy="2339" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="297" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="250" target="286">
+                <mxCell id="297" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="250" target="286" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="250" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-size: 11px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;POST request&lt;/span&gt;&lt;div style=&quot;font-size: 11px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;/firmware&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;flipV=0;" parent="1" vertex="1">
                     <mxGeometry x="-725" y="-1007" width="151" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="298" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="286" target="287">
+                <mxCell id="298" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="286" target="287" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="286" value="save firmware to&lt;br&gt;flash memory" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;" vertex="1" parent="1">
+                <mxCell id="286" value="save firmware to&lt;br&gt;flash memory" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;" parent="1" vertex="1">
                     <mxGeometry x="-721.5" y="-895" width="144" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="299" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="287" target="288">
+                <mxCell id="299" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="287" target="288" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="287" value="update info block in the flash memory&lt;div&gt;set new firmware address and set&amp;nbsp;&lt;i&gt;status &lt;/i&gt;to 3&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;" vertex="1" parent="1">
+                <mxCell id="287" value="update info block in the flash memory&lt;div&gt;set new firmware address and set&amp;nbsp;&lt;i&gt;failure_count&amp;nbsp;&lt;/i&gt;to 3&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;" parent="1" vertex="1">
                     <mxGeometry x="-721.5" y="-792" width="144" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="300" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="288" target="290">
+                <mxCell id="300" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="288" target="290" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="288" value="reset device and run booting sequence&lt;br&gt;on R0-0" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;" vertex="1" parent="1">
+                <mxCell id="288" value="reset device and run booting sequence&lt;br&gt;on R0-0" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;" parent="1" vertex="1">
                     <mxGeometry x="-721.5" y="-685" width="144" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="301" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="290" target="291">
+                <mxCell id="301" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="290" target="291" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="308" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="301">
+                <mxCell id="308" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="301" vertex="1" connectable="0">
                     <mxGeometry x="0.0039" y="-2" relative="1" as="geometry">
                         <mxPoint x="-16" y="-10" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="303" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="290" target="292">
+                <mxCell id="303" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="290" target="292" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="309" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="303">
+                <mxCell id="309" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="303" vertex="1" connectable="0">
                     <mxGeometry x="-0.4372" y="2" relative="1" as="geometry">
                         <mxPoint x="4" y="-13" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="290" value="Is firmware update success?" style="rhombus;whiteSpace=wrap;html=1;flipV=0;" vertex="1" parent="1">
+                <mxCell id="290" value="Is firmware update success?" style="rhombus;whiteSpace=wrap;html=1;flipV=0;" parent="1" vertex="1">
                     <mxGeometry x="-771" y="-578" width="243" height="133" as="geometry"/>
                 </mxCell>
-                <mxCell id="302" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="291" target="295">
+                <mxCell id="302" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="291" target="295" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="291" value="update info block in the flash memory&lt;div&gt;change new firmware as a origin and set &lt;i&gt;status &lt;/i&gt;to 0&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="291" value="update info block in the flash memory&lt;div&gt;change new firmware as a origin and set&amp;nbsp;&lt;i style=&quot;color: rgb(63, 63, 63);&quot;&gt;failure_count&amp;nbsp;&amp;nbsp;&lt;/i&gt;to 0&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-475.5" y="-541.5" width="144" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="312" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="292" target="293">
+                <mxCell id="312" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="292" target="293" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="292" value="update info block in the flash memory&lt;div&gt;set &lt;i&gt;status &lt;/i&gt;-=1&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="292" value="update info block in the flash memory&lt;div&gt;set&amp;nbsp;&lt;i style=&quot;color: rgb(63, 63, 63);&quot;&gt;failure_count&amp;nbsp;&lt;/i&gt;-=1&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-964" y="-541.5" width="144" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="305" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="293" target="294">
+                <mxCell id="305" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="293" target="294" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="311" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="305">
+                <mxCell id="311" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="305" vertex="1" connectable="0">
                     <mxGeometry x="-0.4532" relative="1" as="geometry">
                         <mxPoint x="16" y="-6" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="313" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="293" target="287">
+                <mxCell id="313" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="293" target="287" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="-1053" y="-362"/>
@@ -76,27 +76,27 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="314" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="313">
+                <mxCell id="314" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="313" vertex="1" connectable="0">
                     <mxGeometry x="-0.949" y="-1" relative="1" as="geometry">
                         <mxPoint x="9" y="-8" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="293" value="Is &lt;i&gt;status &lt;/i&gt;&amp;lt;= 0?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="293" value="Is&amp;nbsp;&lt;i style=&quot;color: rgb(63, 63, 63);&quot;&gt;failure_count&amp;nbsp;&lt;/i&gt;&amp;lt;= 0?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-1013.5" y="-427.99999999999994" width="243" height="133" as="geometry"/>
                 </mxCell>
-                <mxCell id="306" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="294" target="296">
+                <mxCell id="306" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="294" target="296" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="294" value="update info block in the flash memory&lt;div&gt;remove new firmware address&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="294" value="update info block in the flash memory&lt;div&gt;remove new firmware address&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-964" y="-249" width="144" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="295" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; text-wrap-mode: nowrap;&quot;&gt;&lt;font&gt;success update&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="295" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; text-wrap-mode: nowrap;&quot;&gt;&lt;font&gt;success update&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-479" y="-428" width="151" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="296" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;font&gt;&lt;span style=&quot;color: rgb(63, 63, 63); text-wrap-mode: nowrap;&quot;&gt;failed update&lt;/span&gt;&lt;br style=&quot;color: rgb(63, 63, 63); text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); text-wrap-mode: nowrap;&quot;&gt;&amp;amp; run origin firmware&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="296" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;font&gt;&lt;span style=&quot;color: rgb(63, 63, 63); text-wrap-mode: nowrap;&quot;&gt;failed update&lt;/span&gt;&lt;br style=&quot;color: rgb(63, 63, 63); text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); text-wrap-mode: nowrap;&quot;&gt;&amp;amp; run origin firmware&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-967.5" y="-140" width="151" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="315" value="potencialni problemy&lt;br&gt;- spatny firmware - resi certifikat&lt;br&gt;- poskozena data - resi certifikat&lt;br&gt;- vypdek napajeni, reset, ... - behem nahravani - resi certifikat (vypadek pri nahravani do flash, vypadek pri nahravani do CPU)&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;- co kdyz v nekterem jadre zustane stary kod - nemuze zustat, protoze pred spustenim se vzdy bootloader zreseti a tak i vsechna ostatni jadra&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;br&gt;- co mi resi to, ze zmena informaci o firmware je atomicka&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                <mxCell id="315" value="potencialni problemy&lt;br&gt;- spatny firmware - resi certifikat&lt;br&gt;- poskozena data - resi certifikat&lt;br&gt;- vypdek napajeni, reset, ... - behem nahravani - resi certifikat (vypadek pri nahravani do flash, vypadek pri nahravani do CPU)&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;- co kdyz v nekterem jadre zustane stary kod - nemuze zustat, protoze pred spustenim se vzdy bootloader zreseti a tak i vsechna ostatni jadra&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;br&gt;- co mi resi to, ze zmena informaci o firmware je atomicka&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="-475.5" y="-833" width="314" height="103" as="geometry"/>
                 </mxCell>
             </root>
