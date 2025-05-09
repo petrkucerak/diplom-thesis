@@ -1,0 +1,49 @@
+<mxfile host="65bd71144e">
+    <diagram id="Tgi8ksahgy7pFNZKKF0Z" name="Page-1">
+        <mxGraphModel dx="1044" dy="739" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="STX" style="rounded=0;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="410" y="470" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="SOH" style="rounded=0;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="410" y="530" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="Blcok Num" style="rounded=0;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="530" y="470" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Blcok Num" style="rounded=0;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="530" y="530" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="Inv Block Num" style="rounded=0;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="650" y="470" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Inv Block Num" style="rounded=0;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="650" y="530" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="Data&lt;div&gt;1024 bytes&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="770" y="470" width="580" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Data&lt;div&gt;128 bytes&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="770" y="530" width="230" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="CRC" style="rounded=0;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="1350" y="470" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="CRC" style="rounded=0;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="1470" y="470" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="CRC" style="rounded=0;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="1120" y="530" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="CRC" style="rounded=0;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="1000" y="530" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="530" width="350" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
