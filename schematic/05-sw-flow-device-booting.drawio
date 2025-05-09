@@ -1,13 +1,10 @@
 <mxfile host="65bd71144e" scale="3" border="0">
     <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
-        <mxGraphModel dx="2205" dy="1824" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+        <mxGraphModel dx="2622" dy="2152" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="76" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="47" target="75" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="168" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;fillColor=#ffe6cc;strokeColor=#d79b00;dashed=1;endArrow=none;endFill=0;" edge="1" parent="1" source="47" target="132">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="47" value="DMSC Init" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
@@ -46,13 +43,7 @@
                 <mxCell id="49" value="Start Secondary Bootmode&lt;div&gt;boot from Ethernet&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
                     <mxGeometry x="424" y="279" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="124" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="60" target="121" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="60" value="Save firmware in the flash memory" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-                    <mxGeometry x="627" y="743" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="169" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="68" target="114">
+                <mxCell id="169" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="68" target="114" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="68" value="Reboots with Loaded Image" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
@@ -142,24 +133,11 @@
                 <mxCell id="116" value="DMSC Issues Clock Stop and Reset the MCU" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
                     <mxGeometry x="627" y="525" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="123" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="118" target="60" edge="1">
+                <mxCell id="171" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="118" target="170">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="118" value="Reboots with Loaded Image" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
                     <mxGeometry x="627" y="634" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="125" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="121" target="47" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points">
-                            <mxPoint x="687" y="941"/>
-                            <mxPoint x="799" y="941"/>
-                            <mxPoint x="799" y="29"/>
-                            <mxPoint x="267" y="29"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="121" value="Reset all system" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-                    <mxGeometry x="627" y="852" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="129" value="Hardware" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;flipV=1;" parent="1" vertex="1">
                     <mxGeometry x="-233" y="-45" width="120" height="22" as="geometry"/>
@@ -169,52 +147,6 @@
                 </mxCell>
                 <mxCell id="131" value="R5-0-0" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;flipV=1;" parent="1" vertex="1">
                     <mxGeometry x="-233" y="33" width="120" height="22" as="geometry"/>
-                </mxCell>
-                <mxCell id="132" value="&amp;nbsp; DMSC Init" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;" parent="1" vertex="1">
-                    <mxGeometry x="164" y="775" width="402" height="638" as="geometry"/>
-                </mxCell>
-                <mxCell id="141" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="134" target="136" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="134" value="DMSC ROM Configures PLLCTRL and Locks MCU PLL" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="249" y="911" width="200" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="140" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="135" target="134" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="146" style="edgeStyle=none;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;startArrow=classic;startFill=1;endArrow=none;endFill=0;" parent="1" source="135" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="349" y="711" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="135" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;DMSC ROM Configures&lt;br&gt;RTI WDT to 180s&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="249" y="809" width="200" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="142" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="136" target="137" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="136" value="DMSC Configures Default Firewalls Based on Boot Mode" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="249" y="1013" width="200" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="143" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="137" target="138" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="137" value="DMSC Configures MCU Sec. Proxy/Ring Acc." style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="249" y="1115" width="200" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="144" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="138" target="139" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="138" value="DMSC Sends Message to MCU&lt;br&gt;with Boot Mode Info" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="249" y="1217" width="200" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="145" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="139" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="349.1999999999998" y="1452.5599609375" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="139" value="DMSC Releases Reset to R5 CPU0" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="249" y="1319" width="200" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="151" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="149" target="104" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -227,6 +159,9 @@
                 </mxCell>
                 <mxCell id="152" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;R5 Configures MAIN Domain PLLs&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
                     <mxGeometry x="627" y="416" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="170" value="Run uniflasher" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="627" y="743" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
