@@ -16,9 +16,13 @@ In this chapter, I studied the standards for design and implementation of softwa
 
 Before studying the issue, it is necessary to get the terminology right. In the English language, there are two words: safety and security.
 
-The word {\sbf security} refers to the discipline that aims to protect against harmful attacks or actions such as vandalism, cyber-attack, or terrorism. Physical barriers, authentication, encryption, or monitoring systems are used to protect.~\cite[6i2KXzgcdbBD85cySecurity]
+The term {\sbf security} refers to the discipline that aims to protect against harmful attacks or actions such as vandalism, cyber-attack, or terrorism. Physical barriers, authentication, encryption, or monitoring systems are used to protect.~\cite[6i2KXzgcdbBD85cySecurity] Security mechanisms include physical barriers (e.g., access control systems), authentication protocols, encryption technologies, and surveillance systems to mitigate risks and ensure protection against deliberate threats.
 
-The word {\sbf safety} refers to the discipline that aims to protect against accidents, errors, or technical failures that can lead to injury, loss of life, or damage to property. Such typical threats are natural hazards, technical failures, or human factors, i.e. human failure.~\cite[6i2KXzgcdbBD85cySafety]
+The term {\sbf safety} refers to the discipline aimed at preventing unintentional incidents, such as accidents, errors, or technical failures, which may result in injury, loss of life, or property damage. Typical threats include natural hazards, equipment malfunctions, or human error. Safety measures encompass robust design standards, regular maintenance, and human factors engineering to minimize risks.~\cite[6i2KXzgcdbBD85cySafety]
+
+In the context of car transportation, safety is paramount due to the direct impact of accidents on human lives, property, and societal well-being. Unlike security, which primarily addresses external threats, safety focuses on mitigating risks inherent to the operation of vehicles, such as mechanical failures, driver errors, or environmental hazards. For instance, advancements in vehicle safety systems—such as anti-lock braking systems (ABS), electronic stability control (ESC), and autonomous emergency braking (AEB)—have significantly reduced collision rates and fatalities \cite[AdminaiteMarch2016]. Moreover, safety standards, such as those mandated by the National Highway Traffic Safety Administration (NHTSA) or the European New Car Assessment Programme (Euro NCAP), ensure that vehicles are designed to protect occupants and pedestrians in the event of a crash.
+
+The emphasis on safety over security in car transportation is driven by statistical evidence: road traffic accidents remain a leading cause of death globally, with approximately 1.19 million fatalities annually \cite[lFy5gqN2wnr2H6PZ]. In contrast, security-related incidents, such as cyberattacks on vehicles, while emerging as a concern, are less frequent and typically have less immediate impact on human lives. For example, a malfunctioning braking system poses a direct and immediate risk to occupants, whereas a security breach, such as unauthorized access to a vehicle's infotainment system, may compromise privacy but is less likely to cause physical harm. Therefore, prioritizing safety through robust engineering, driver training, and regulatory frameworks is critical to enhancing the reliability and trustworthiness of car transportation systems.
 
 
 \midinsert \clabel[SafetyvsSecurity]{Main differences between safety and security}
@@ -27,10 +31,10 @@ The word {\sbf safety} refers to the discipline that aims to protect against acc
 Focus & accident prevention & prevention of deliberate attacks \cr
 & and technical failures & \cr
 \cr
-Threats & natural hazards, errors, & human intentional actions,\cr
-& technical failures & cyber attacks \cr
+Threats & technical faults, random failures, & human intentional actions,\cr
+& technical failures & malicious actions \cr
 \cr
-Access & system reliability, & security, encryption, \cr
+Methods & system reliability, & security, encryption, \cr
 & standards & monitoring \cr
 \cr
 Example & fail-safe systems, & physical security, \cr
@@ -45,30 +49,51 @@ Table \ref[SafetyvsSecurity] compares the different aspects of safety and securi
 
 The safety requirements for transport infrastructure in the European Union are defined in standards issued by CENELEC.\fnote{European Committee for Electrotechnical Standardization} These standards are {\it EN 50126}, {\it EN 50128}, {\it EN 50129}, and {\it EN 50159}.
 
-The standard {\sbf EN 50126} relates to railway equipment in general and specifies and defines how to demonstrate reliability, availability, maintainability and safety (RAMS). For more information see chapter \ref[RAMS].
+The standard {\sbf EN 50126} relates to railway equipment in general and specifies and defines how to demonstrate reliability, availability, maintainability, and safety (RAMS). For more information see chapter \ref[RAMS].
 
-The standard {\sbf EN 50129} describes the standard for the railway communication and signaling system and the data processing system (software). The annexes provide detailed instructions on how to test hardware components including microcontroller components. The standard {\sbf EN 50159} complements the standard for secure communications.
+The standard {\sbf EN 50129} describes the standard for the railway communication and signaling system and the data processing system (software). The annexes provide detailed instructions on how to test hardware components including microcontroller components. The standard {\sbf EN 50159} complements the standard for safety communications.
 
-Standard {\sbf EN 50128} defines a standard on how to properly develop secure software for railway infrastructure.
+Standard {\sbf EN 50128} defines a standard on how to properly develop safety software for railway infrastructure.
+
+\secc New standard EN 50716
+In November 2023, CENELEC issued the new {\it EN 50716:2023}, titled Railway Applications - Requirements for software development, which replaces {\it EN 50128:2011} and {\it EN 50657:2017}.~\cite[lWTEHHuBfppEZeJk] This new standard unifies software development requirements for both signaling systems and vehicles, eliminating the need to separate specifications. It now applies to software with basic integrity (formerly {\it SIL0}), removing the restriction that excluded non-safety-related software. Key changes include:
+
+\begitems
+* {\sbf Scope and Normative References}: The standard no longer lists normative references, and the requirement for separate safety and non-safety specifications is clarified, with all system requirements now covered under a single {\it System Requirements Specification}.
+
+* {\sbf Terms and Definitions}: Terms are aligned with ISO~\fnote{International Organization for Standardization} and IEC~\fnote{International Standards} standards, and the {\it Integrator} role abbreviation is removed.
+
+* {\sbf Software Integrity}: A quality assurance process is now mandatory for non-safety-related software, with {\it basic integrity} requirements introduced. No assessor is required for basic integrity systems (SIL 0).
+
+* {\sbf Organization and Management}: Organizational independence is emphasized, addressing pressures from peers, supervisors, or profit-driven motives that could compromise safety. The integrator role is removed from the organizational structure.
+
+* {\sbf Software Assurance}: Validators can now perform additional audits, and documentation requirements for basic integrity are relaxed (e.g., software architecture and design specifications are now recommended rather than highly recommended).
+
+* {\sbf Software Development}: The integrator role is replaced by a tester, and programming language criteria are updated to focus on features like modular programming and strict typing, enabling the use of modern languages like Rust.
+
+* {\sbf Application Data and Maintenance}: Chapters 8 and 9, covering application data/algorithms and software deployment/maintenance, are critical for system configuration and safety, but require separate detailed analysis due to their complexity.
+\enditems
+
+This thesis primarily builds on the {\it EN 50128:2011} standard, as the core work was completed prior to the application of {\it EN 50716:2023} to the working process.
 
 \label[RAMS]
 \sec RAMS
 
 The acronym RAMS is composed of the initial letters of the words {\sbf Reliability} (components do not fail too often), {\sbf Availability} (to be sure that components will work as required and that if they fail, they will not affect the functionality of the equipment), {\sbf Maintainability} (and easy replaceability in the event of damage), and {\sbf Safety} (described in the Chap \ref[SafetySecurity]).
 
-We are never able to achieve 100\% success in any of the RAMS aspects, we are always only approaching it. The level at which we want to achieve it needs to be defined.
+No approach can achieve 100\% success in any RAMS aspect; it can only be approximated. The desired level of achievement must be clearly defined.
 
-It is necessary to remember the economic side of the issue. The ratio of the investment in making the platform safe and how much it will cost to develop and produce is growing exponentially, in general. Thus, going from 20\% to 60\% security will be much less economically challenging than going from 99.99\% to 99.999999\%. If we develop this theory into implications, we necessarily arrive at the question - how expensive is human life? Theoretically, this cost could be quantified according to standards, state-specific requirements, and crash statistics.
+It is necessary to remember the economic side of the issue. The ratio of the investment in making the platform safe and how much it will cost to develop and produce is growing exponentially, in general. Thus, going from 20\% to 60\% safety will be much less economically challenging than going from 99.99\% to 99.999999\%. If we develop this theory into implications, we necessarily arrive at the question - how expensive is human life? Theoretically, this cost could be quantified according to standards, state-specific requirements, and crash statistics.
 
-If we go back to all four aspects, we find that some of the essences are mutually defining. For example, we're going to make the equipment more secure and more robust; it's going to complicate the ease of replacement.
+If we go back to all four aspects, we find that some of the essences are mutually defining. For example, we're going to make the equipment safer and more robust; it's going to reduce availability and reliability.
 
-I also see it important to answer the question - why is it necessary to pay attention to system availability or repairability? After all, it is only the security itself that is important to us. If we think about it, as a result, all the aspects already mentioned are important because they complement each other. You cannot achieve safety without having a low failure rate system, or you cannot achieve safety without a possible system failure affecting the requirement that the component is supposed to fulfill.
+I also see it important to answer the question - why is it necessary to pay attention to system availability or repairability? After all, it is only the safety itself that is important to us. If we think about it, as a result, all the aspects already mentioned are important because they complement each other. You cannot achieve safety without having a low failure rate system, or you cannot achieve safety without a possible system failure affecting the requirement that the component is supposed to fulfill.
 
-\sec System and random failures
+\sec Systematic and random failures
 
-{\sbf Random failures} can be described by statistical distributions.~\cite[GaaBVFT5zA4FlnK8] We cannot control failures, we can only predict and model them mathematically. In most cases, the failure is due to a physical cause such as material fatigue, wear, corrosion, or random failures of electronic components.
+{\sbf Random failures} can be described by statistical distributions.~\cite[GaaBVFT5zA4FlnK8] We cannot control failures; we can only predict and model them mathematically. In most cases, the failure is due to a physical cause such as material fatigue, wear, corrosion, or random failures of electronic components.
 
-The {\it EN 50126} standard defines {\sbf system failures} as failures caused by errors in system life cycle activities that lead to deterministic failure of a product, system, or process under certain combinations of inputs or conditions.~\cite[GaaBVFT5zA4FlnK8] Unlike random failures, system failures are usually caused by human errors at various stages of the system life cycle, namely specification, system design, development, manufacture, or installation. These failures, on the other hand, are preventable from accidental failures by process, testing, and validation phases.
+The {\it EN 50126} standard defines {\sbf systematic failures} as failures caused by errors in system life cycle activities that lead to deterministic failure of a product, system, or process under certain combinations of inputs or conditions.~\cite[GaaBVFT5zA4FlnK8] Unlike random failures, systematic failures are usually caused by human errors at various stages of the system life cycle, namely specification, system design, development, manufacture, or operation and maintenance. These failures, on the other hand, are preventable from accidental failures by process, testing, and validation phases.
 
 By the norm {\it EN 50129}, these errors are, for example: specification errors, design errors, manufacturing errors, installation errors, operation errors, maintenance errors, or modification errors.
 
@@ -96,7 +121,7 @@ Examples & rail breakage, & software error, \cr
 \label[RAMSCycle]
 \secc RAMS development cycle
 
-{\sbf The RAMS development cycle} is described by the V-model, that uses {\it top-down} and {\it bottom-up} approaches.~\cite[SU4ccYhZgv796Fi2] It is a graphical representation of the complete development lifecycle.\cite[L9XZRy6g04sicEwo] The advantages of this model are a clear structure, easy traceability between the design, respective requirements, and testing results. As a result, the use of this model enables early identification of problems.
+{\sbf The RAMS development cycle} is described by the V-model, which uses {\it top-down} and {\it bottom-up} approaches.~\cite[SU4ccYhZgv796Fi2] It is a graphical representation of the complete development lifecycle.~\cite[L9XZRy6g04sicEwo] The advantages of this model are a clear structure, easy traceability between the design, respective requirements, and testing results.
 
 The model also has many disadvantages such as the lack of flexibility; the later a bug is discovered, the more expensive it is to fix.\cite[1fwla6zm8H5QiWZn] However, in the context of rail transport, these weaknesses are a necessity to ensure our safety.
 
@@ -110,15 +135,15 @@ The model also has many disadvantages such as the lack of flexibility; the later
 
 \seccc Verification and validation
 
-The standard defines {\sbf verification} as the confirmation, through provided objective evidence, that defined requirements have been met and {\sbf validation} as the confirmation, through provided objective evidence, that requirements for a specific purpose or application have been met.~\cite[GaaBVFT5zA4FlnK8]
+The standard defines {\sbf verification} as the confirmation, through provided objective evidence, that defined requirements have been met, and {\sbf validation} as the confirmation, through provided objective evidence, that requirements for a specific purpose or application have been met.~\cite[GaaBVFT5zA4FlnK8]
 
 Simply, verification answers the question {\it do we build things correctly}, validation answers the question {\it do we build the right thing}?
 
 \seccc System description
 
-Defining system requirements is the first and very important step for a successful and secure system or component. In this phase, it is important to define the limits, interfaces, functions, and the environment of the system.
+Defining system requirements is the first and very important step for a successful and safety system or component. In this phase, it is important to define the limits, interfaces, functions, and the environment of the system.
 
-It is important to note that SIL levels,\fnote{Safety integrity level} which we will discuss later, are always related to a component - e.g. a function. So we cannot say that the whole platform is a SIL, but only that the platform provides a service that has that SIL.
+It is important to note that SIL levels,\fnote{Safety integrity level} which we will discuss later, are always related to a component - e.g. a function. So we cannot say that the whole platform is a SIL, but only that the platform provides a function that has that SIL.
 
 To illustrate, let's take a concrete example: automatic train control, specifically emergency braking in case of a dangerous situation, e.g. when a train runs a red light. In this case the {\sbf function} is: automatic braking when passing a dangerous signal. The driver's cab, the track equipment and the signal transmission path are the {\sbf system}. The {\sbf Interfaces} for us are the wheels, the dashboard which serves as an API for the driver to communicate with the system, and the warning light which signals the entry prohibition.
 
@@ -126,7 +151,7 @@ To illustrate, let's take a concrete example: automatic train control, specifica
 
 We now specify the gambles in this setting. The {\sbf hazard} standard defines it as any condition that can lead to an accident.\cite[GaaBVFT5zA4FlnK8]
 
-In our example, we can consider a gamble as the system not initiating emergency braking or not receiving information to stop. In security, if there is a gamble, there is always a risk. The standard defines {\sbf risk} as the combination of the expected frequency of occurrence of the hazard and the expected severity of the hazard.
+In our example, we can consider a gamble as the system not initiating emergency braking or not receiving information to stop. In safety, if there is a gamble, there is always a risk. The standard defines {\sbf risk} as the combination of the expected frequency of occurrence of the hazard and the expected severity of the hazard.
 
 To make a system safe, our goal is to minimize risk to the point that it is equal to or less than the acceptable risk. We achieve this by adding just safe features to our system such as the redundancy principle, the watchdog principle, or the error detection principle.
 
@@ -150,7 +175,7 @@ The standard {\it EN 50126} recommends the use of top-down analysis for hazard a
 
 \seccc Tolerated risk ratios (THR, TFFR)
 
-{\sbf Tolerable Hazard Rate (THR)}, which represents the maximum frequency of occurrence of a particular hazard. It therefore determines how many times a potentially hazardous event can occur in a defined period without affecting the overall security of the system.~\cite[vDBnVxdnHZs4vPl6]
+{\sbf Tolerable Hazard Rate (THR)}, which represents the maximum frequency of occurrence of a particular hazard. It therefore determines how many times a potentially hazardous event can occur in a defined period without affecting the overall safety of the system.~\cite[vDBnVxdnHZs4vPl6]
 
 {\sbf Tolerable Functional Failure Rate (TFFR)}, which represents the maximum frequency of failure of a specific system function, focuses on the system's functional aspects and considers how often a function can fail without leading to unacceptable risk.~\cite[vDBnVxdnHZs4vPl6]
 
@@ -364,7 +389,7 @@ Special applicable methods for software level are {\sbf assertion programming}, 
 
 The techniques {\sbf Error Detecting and Correcting Codes} aim to detect and correct errors in sensitive information.~\cite[vDBnVxdnHZs4vPl6]
 
-To secure $n$ bits information is necessary to generate $k$ bits of block code. The block code can be generated by different methods, like: Hamming codes, cyclic codes, polynomial codes, hash codes, or cryptographic codes.
+To safety $n$ bits information is necessary to generate $k$ bits of block code. The block code can be generated by different methods, like: Hamming codes, cyclic codes, polynomial codes, hash codes, or cryptographic codes.
 
 \seccc Failure Assertion Programming
 
@@ -573,7 +598,7 @@ Compared to other types of software, the development of the safe one differs mai
 
 Specific techniques for safe development are also {\sbf limited size and complexity of functions, subroutines, and methods} and {\sbf input or output strategies for functions, subroutines, and methods}.
 
-The other techniques are not, in my view, specific to secure development, but are principles that are appropriate for any software development, such as following the {\sbf coding standard}, the {\sbf coding style guide} that leads to improved readability, or the {\sbf limited use of global variables}.
+The other techniques are not, in my view, specific to safety development, but are principles that are appropriate for any software development, such as following the {\sbf coding standard}, the {\sbf coding style guide} that leads to improved readability, or the {\sbf limited use of global variables}.
 
 The norm {\it EN 50128} defines a set of essential rules that coding standards should include. The most important ones are:
 
@@ -587,7 +612,7 @@ The norm {\it EN 50128} defines a set of essential rules that coding standards s
 It may also be interesting to note that the standard defines {\sbf recommended programming languages} for different SIL levels.\fnote{The EN 50128 standard describes the different programming languages in Table A.15 in Annex A} It will come as no surprise that C, C++ or Assembler are among the recommended languages. However, the presence of languages such as C\# or Java may also come as a surprise. The standard also mentions more historical languages such as Pascal.
 
 
-
+\label[LevelCrossingSingalization]
 \sec Level crossing system in CENELEC countries
 
 According to research,\fnote{Eurostat, 2023 - \url{https://ec.europa.eu/eurostat/statistics-explained/images/6/65/F6_Level_rail_track_crossings\%2C_2013_and_2023.png}
