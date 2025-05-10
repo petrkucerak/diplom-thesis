@@ -1,19 +1,19 @@
 <mxfile host="65bd71144e" scale="3" border="0">
     <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
-        <mxGraphModel dx="2056" dy="1790" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+        <mxGraphModel dx="2004" dy="2066" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="344" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="316" target="341">
+                <mxCell id="371" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="316" target="341">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="360" value="New software" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="344">
-                    <mxGeometry x="-0.6064" y="-2" relative="1" as="geometry">
-                        <mxPoint x="26" y="-17" as="offset"/>
+                <mxCell id="372" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;New software&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="371">
+                    <mxGeometry x="-0.2194" y="2" relative="1" as="geometry">
+                        <mxPoint x="42" y="20" as="offset"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="316" value="Value: 0&lt;br&gt;Flashwriter&lt;div&gt;first software&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-                    <mxGeometry x="-402" y="-650" width="166" height="72" as="geometry"/>
+                    <mxGeometry x="-154" y="-780" width="166" height="72" as="geometry"/>
                 </mxCell>
                 <mxCell id="345" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="341" target="342">
                     <mxGeometry relative="1" as="geometry"/>
@@ -105,6 +105,11 @@
                 </mxCell>
                 <mxCell id="363" value="&lt;font&gt;Update failed&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="1">
                     <mxGeometry x="549.9963796192458" y="-629.9983713519426" as="geometry"/>
+                </mxCell>
+                <mxCell id="373" value="New software" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="-197.00371992072382" y="-634.0003105449453" as="geometry">
+                        <mxPoint x="-2" y="-1" as="offset"/>
+                    </mxGeometry>
                 </mxCell>
             </root>
         </mxGraphModel>
