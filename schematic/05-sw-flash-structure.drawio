@@ -23,13 +23,13 @@
                     <mxGeometry x="-1176" y="-632" width="1102" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="265" value="failure count&lt;div&gt;uint8_t&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=15;" parent="1" vertex="1">
-                    <mxGeometry x="-1176" y="-632" width="212" height="60" as="geometry"/>
+                    <mxGeometry x="-1176" y="-632" width="165" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="266" value="origin software address&lt;div&gt;uint32_t&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=15;" parent="1" vertex="1">
-                    <mxGeometry x="-965" y="-632" width="441" height="60" as="geometry"/>
+                    <mxGeometry x="-820" y="-632" width="373" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="267" value="new&amp;nbsp;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;software&amp;nbsp;&lt;/span&gt;address&lt;div&gt;uint32_t&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=15;" parent="1" vertex="1">
-                    <mxGeometry x="-524" y="-632" width="450" height="60" as="geometry"/>
+                    <mxGeometry x="-447" y="-632" width="373" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="270" value="0x00&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;0000&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=15;" parent="1" vertex="1">
                     <mxGeometry x="-1179" y="-694" width="84" height="30" as="geometry"/>
@@ -54,6 +54,9 @@
                 </mxCell>
                 <mxCell id="277" value="only atomic operation" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
                     <mxGeometry x="-1179" y="-864" width="236" height="29" as="geometry"/>
+                </mxCell>
+                <mxCell id="278" value="failure info&lt;br&gt;&lt;div&gt;uint8_t&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=15;" vertex="1" parent="1">
+                    <mxGeometry x="-1011" y="-632" width="191" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
