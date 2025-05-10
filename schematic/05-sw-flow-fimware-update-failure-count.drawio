@@ -1,0 +1,112 @@
+<mxfile host="65bd71144e" scale="3" border="0">
+    <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
+        <mxGraphModel dx="2056" dy="1790" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="344" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="316" target="341">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="360" value="New software" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="344">
+                    <mxGeometry x="-0.6064" y="-2" relative="1" as="geometry">
+                        <mxPoint x="26" y="-17" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="316" value="Value: 0&lt;br&gt;Flashwriter&lt;div&gt;first software&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="-402" y="-650" width="166" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="345" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="341" target="342">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="361" value="Update failed" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="345">
+                    <mxGeometry x="-0.2111" y="2" relative="1" as="geometry">
+                        <mxPoint x="9" y="-13" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="346" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="341" target="343">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="341" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;Value: 1&lt;br&gt;Software Update&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;new software&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+                    <mxGeometry x="-152" y="-651" width="164" height="74" as="geometry"/>
+                </mxCell>
+                <mxCell id="347" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="342" target="343">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="353" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="342" target="348">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="362" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;Update failed&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="353">
+                    <mxGeometry x="-0.3242" y="2" relative="1" as="geometry">
+                        <mxPoint x="14" y="-12" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="342" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;Value: 2&lt;br&gt;Software Update&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;new software - failed&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+                    <mxGeometry x="96" y="-652" width="164" height="74" as="geometry"/>
+                </mxCell>
+                <mxCell id="356" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="343" target="341">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="-198" y="-483"/>
+                            <mxPoint x="-198" y="-614"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="343" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;Value: 0&lt;br&gt;Software Update&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;succes update&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="-152" y="-520" width="164" height="74" as="geometry"/>
+                </mxCell>
+                <mxCell id="351" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="348" target="343">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="354" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;dashed=1;" edge="1" parent="1" source="348" target="352">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="348" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;Value: 3&lt;br&gt;Software Update&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;new software - failed&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+                    <mxGeometry x="344" y="-651" width="164" height="74" as="geometry"/>
+                </mxCell>
+                <mxCell id="366" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="352" target="357">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="781" y="-614"/>
+                            <mxPoint x="781" y="-352"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="367" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Migrate to origin software version&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;and set error code the the&amp;nbsp;&lt;/span&gt;&lt;i&gt;failure info&lt;/i&gt;" style="edgeLabel;html=1;align=left;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="366">
+                    <mxGeometry x="-0.3879" y="1" relative="1" as="geometry">
+                        <mxPoint x="-721" y="-22" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="368" value="&lt;span style=&quot;color: rgb(63, 63, 63); font-size: 12px;&quot;&gt;Update failed&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="366">
+                    <mxGeometry x="-0.9799" relative="1" as="geometry">
+                        <mxPoint x="31" y="-13" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="369" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="352" target="343">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="370" value="Update success" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="369">
+                    <mxGeometry x="0.6623" relative="1" as="geometry">
+                        <mxPoint x="-74" y="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="352" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;Value: N (max limit)&lt;br&gt;Software Update&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;new software - failed&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+                    <mxGeometry x="592" y="-651" width="164" height="74" as="geometry"/>
+                </mxCell>
+                <mxCell id="359" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="357" target="341">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="-198" y="-352"/>
+                            <mxPoint x="-198" y="-614"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="357" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;Value: 0&lt;br&gt;Software Update&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;failure update&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                    <mxGeometry x="-152" y="-389" width="164" height="74" as="geometry"/>
+                </mxCell>
+                <mxCell id="363" value="&lt;font&gt;Update failed&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="549.9963796192458" y="-629.9983713519426" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
