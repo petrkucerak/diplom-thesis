@@ -1,14 +1,14 @@
 <mxfile host="65bd71144e" scale="3" border="0">
     <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
-        <mxGraphModel dx="1511" dy="2076" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+        <mxGraphModel dx="1870" dy="2044" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="362" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;" edge="1" parent="1" source="352" target="353">
+                <mxCell id="381" style="edgeStyle=none;html=1;" edge="1" parent="1" source="352" target="378">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="352" value="Start Initialization Checks" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="1">
-                    <mxGeometry x="-309" y="-1048" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="-500" y="-1172" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="363" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;" edge="1" parent="1" source="353" target="357">
                     <mxGeometry relative="1" as="geometry"/>
@@ -33,14 +33,14 @@
                         <mxPoint x="15" y="-3" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="370" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="357" target="360">
+                <mxCell id="370" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="357" target="360">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="-88" y="-793.5" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="374" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="370">
                     <mxGeometry x="-0.0968" y="1" relative="1" as="geometry">
-                        <mxPoint x="-90" y="-112" as="offset"/>
+                        <mxPoint x="80" y="-117" as="offset"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="357" value="Is SPI ADC self test OK?" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="1">
@@ -54,21 +54,48 @@
                         <mxPoint x="16" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="371" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="359" target="360">
+                <mxCell id="371" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="359" target="360">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="-88" y="-543" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="376" value="&lt;font&gt;No&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="371">
                     <mxGeometry x="-0.712" y="-1" relative="1" as="geometry">
-                        <mxPoint x="-17" y="-12" as="offset"/>
+                        <mxPoint x="17" y="-12" as="offset"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="359" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Recieve same message?&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="1">
                     <mxGeometry x="-348" y="-604" width="198" height="121" as="geometry"/>
                 </mxCell>
                 <mxCell id="360" value="Safety shutdown process" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="1">
-                    <mxGeometry x="-109" y="-449" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="-500" y="-449" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="382" style="edgeStyle=none;html=1;" edge="1" parent="1" source="378" target="379">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="378" value="Config CPU" style="rounded=0;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="1">
+                    <mxGeometry x="-500" y="-1070" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="380" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="379" target="360">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-518.592529296875" y="-490.9629810474537" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="386" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="380">
+                    <mxGeometry x="-0.9241" relative="1" as="geometry">
+                        <mxPoint x="15" y="-6" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="384" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="379" target="353">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="385" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="384">
+                    <mxGeometry x="-0.4143" relative="1" as="geometry">
+                        <mxPoint x="-6" y="-9" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="379" value="Is CPU configuration OK?" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="1">
+                    <mxGeometry x="-539" y="-978.5" width="198" height="121" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
