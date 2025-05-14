@@ -55,7 +55,7 @@
                 <mxCell id="293" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="291" target="163">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="291" value="Setup watchdog interrupt" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="291" value="Setup extern. watchdog interrupt" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="-2197" y="-1061" width="154" height="60" as="geometry"/>
                 </mxCell>
             </root>
