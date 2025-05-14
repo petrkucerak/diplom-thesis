@@ -16,7 +16,7 @@
                 <mxCell id="340" value="set boot info&lt;br&gt;(failure info) code" style="rounded=0;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1">
                     <mxGeometry x="-257" y="-921.5" width="164" height="75" as="geometry"/>
                 </mxCell>
-                <mxCell id="342" value="Power Off device&lt;div&gt;do not response&lt;br&gt;ext. watchdog&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1">
+                <mxCell id="342" value="Device termination&lt;div&gt;do not response&lt;br&gt;ext. watchdog&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1">
                     <mxGeometry x="-30.5" y="-776.5" width="166" height="72" as="geometry"/>
                 </mxCell>
                 <mxCell id="343" value="Reboot device&lt;div&gt;use SYSFW&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1">
