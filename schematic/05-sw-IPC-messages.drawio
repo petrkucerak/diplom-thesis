@@ -4,16 +4,16 @@
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="405" value="start integrity id&lt;div&gt;uint8_t&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;fontSize=13;" vertex="1" parent="1">
+                <mxCell id="405" value="start integrity id&lt;div&gt;uint8_t&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;fontSize=14;" vertex="1" parent="1">
                     <mxGeometry x="-903" y="-816.5" width="148" height="45" as="geometry"/>
                 </mxCell>
-                <mxCell id="410" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;end integrty id&lt;/span&gt;&lt;div&gt;uint8_t&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;fontSize=13;" vertex="1" parent="1">
+                <mxCell id="410" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;end integrty id&lt;/span&gt;&lt;div&gt;uint8_t&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;fontSize=14;" vertex="1" parent="1">
                     <mxGeometry x="-107" y="-816.5" width="148" height="45" as="geometry"/>
                 </mxCell>
-                <mxCell id="411" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;message code&lt;/span&gt;&lt;div&gt;uint8_t&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;fontSize=13;" vertex="1" parent="1">
+                <mxCell id="411" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;message code&lt;/span&gt;&lt;div&gt;uint8_t&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;fontSize=14;" vertex="1" parent="1">
                     <mxGeometry x="-755" y="-816.5" width="148" height="45" as="geometry"/>
                 </mxCell>
-                <mxCell id="412" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;message data&lt;/span&gt;&lt;div&gt;uint8_t [8]&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;fontSize=13;" vertex="1" parent="1">
+                <mxCell id="412" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;message data&lt;/span&gt;&lt;div&gt;uint8_t [8]&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;fontSize=14;" vertex="1" parent="1">
                     <mxGeometry x="-607" y="-816.5" width="500" height="45" as="geometry"/>
                 </mxCell>
             </root>
