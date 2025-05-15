@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e" scale="3" border="0">
     <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
-        <mxGraphModel dx="4904" dy="2319" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+        <mxGraphModel dx="4478" dy="1939" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -41,10 +41,10 @@
                 <mxCell id="239" value="Wait for request&lt;div&gt;&lt;i&gt;(wait forever)&lt;/i&gt;&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-2855" y="-503" width="164" height="102" as="geometry"/>
                 </mxCell>
-                <mxCell id="244" value="start firmware&lt;br&gt;update process" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="244" value="start software&lt;br&gt;update process" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-3128" y="-338" width="151" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="287" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="252" edge="1">
+                <mxCell id="287" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="-3075" y="-695"/>
