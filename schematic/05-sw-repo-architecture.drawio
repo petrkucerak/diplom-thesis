@@ -87,7 +87,7 @@
                 <mxCell id="grV72W3vSZKwKavAzxWr-9" value="Boot Loader" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="240" y="400" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="grV72W3vSZKwKavAzxWr-11" value="DvpEnv&lt;div&gt;Scripts - signing, monitoring,&amp;nbsp;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="grV72W3vSZKwKavAzxWr-11" value="DvpEnv&lt;div&gt;Scripts - signing, monitoring, ...&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="500" y="130" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="grV72W3vSZKwKavAzxWr-34" value="Siemens SDK" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
