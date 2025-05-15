@@ -16,17 +16,13 @@
                 <mxCell id="353" value="Set up SPI communication" style="rounded=0;whiteSpace=wrap;html=1;fontSize=12;" parent="1" vertex="1">
                     <mxGeometry x="-309" y="-948" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="365" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;" parent="1" source="354" target="359" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="354" value="Send Inter-Core communication testing message" style="rounded=0;whiteSpace=wrap;html=1;fontSize=12;" parent="1" vertex="1">
-                    <mxGeometry x="-309" y="-699" width="120" height="60" as="geometry"/>
-                </mxCell>
                 <mxCell id="356" value="Run SIL application" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" parent="1" vertex="1">
-                    <mxGeometry x="-309" y="-359" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="-309" y="-609" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="364" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;" parent="1" source="357" target="354" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="364" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="357" target="388" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-201" y="-706" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="375" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="364" vertex="1" connectable="0">
                     <mxGeometry x="-0.5337" relative="1" as="geometry">
@@ -40,35 +36,14 @@
                 </mxCell>
                 <mxCell id="374" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="370" vertex="1" connectable="0">
                     <mxGeometry x="-0.0968" y="1" relative="1" as="geometry">
-                        <mxPoint x="80" y="-117" as="offset"/>
+                        <mxPoint x="73" y="-13" as="offset"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="357" value="Is SPI ADC self test OK?" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;" parent="1" vertex="1">
                     <mxGeometry x="-348" y="-854" width="198" height="121" as="geometry"/>
                 </mxCell>
-                <mxCell id="367" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="359" target="388" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="377" value="&lt;font&gt;Yes&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="367" vertex="1" connectable="0">
-                    <mxGeometry x="-0.5308" y="-1" relative="1" as="geometry">
-                        <mxPoint x="16" as="offset"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="371" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;" parent="1" source="359" target="387" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="-88" y="-543" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="376" value="&lt;font&gt;No&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="371" vertex="1" connectable="0">
-                    <mxGeometry x="-0.712" y="-1" relative="1" as="geometry">
-                        <mxPoint x="17" y="-12" as="offset"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="359" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Does work Inter-Core communication OK?&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;" parent="1" vertex="1">
-                    <mxGeometry x="-348" y="-604" width="198" height="121" as="geometry"/>
-                </mxCell>
                 <mxCell id="360" value="Safety shutdown process" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" parent="1" vertex="1">
-                    <mxGeometry x="-500" y="-359" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="-500" y="-609" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="382" style="edgeStyle=none;html=1;" parent="1" source="378" target="379" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -83,7 +58,7 @@
                 </mxCell>
                 <mxCell id="386" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="380" vertex="1" connectable="0">
                     <mxGeometry x="-0.9241" relative="1" as="geometry">
-                        <mxPoint x="15" y="-6" as="offset"/>
+                        <mxPoint x="13" y="2" as="offset"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="384" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="379" target="353" edge="1">
@@ -101,13 +76,13 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="387" value="Notify R0 core about problem" style="rounded=0;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="1">
-                    <mxGeometry x="-500" y="-449" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="-500" y="-699" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="389" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="388" target="356">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="388" value="Notify R0 core about success" style="rounded=0;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="1">
-                    <mxGeometry x="-309" y="-449" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="-309" y="-699" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
