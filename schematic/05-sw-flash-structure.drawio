@@ -8,16 +8,16 @@
                     <mxGeometry x="-1179" y="-760" width="1105" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="257" value="bootloader image" style="rounded=0;whiteSpace=wrap;html=1;fontSize=17;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-                    <mxGeometry x="-1179" y="-760" width="213" height="60" as="geometry"/>
+                    <mxGeometry x="-1179" y="-760" width="166" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="258" value="device info" style="rounded=0;whiteSpace=wrap;html=1;fontSize=17;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-                    <mxGeometry x="-966" y="-760" width="113" height="60" as="geometry"/>
+                    <mxGeometry x="-1014" y="-760" width="106" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="259" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;origin&amp;nbsp;&lt;/span&gt;software" style="rounded=0;whiteSpace=wrap;html=1;fontSize=17;" parent="1" vertex="1">
-                    <mxGeometry x="-684" y="-760" width="305" height="60" as="geometry"/>
+                    <mxGeometry x="-642" y="-760" width="289" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="260" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;new&amp;nbsp;&lt;/span&gt;software" style="rounded=0;whiteSpace=wrap;html=1;fontSize=17;" parent="1" vertex="1">
-                    <mxGeometry x="-379" y="-760" width="305" height="60" as="geometry"/>
+                    <mxGeometry x="-359" y="-760" width="285" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="262" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=17;" parent="1" vertex="1">
                     <mxGeometry x="-1176" y="-632" width="1102" height="60" as="geometry"/>
@@ -28,8 +28,8 @@
                 <mxCell id="270" value="0x00&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;0000&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=17;" parent="1" vertex="1">
                     <mxGeometry x="-1179" y="-693" width="93" height="32" as="geometry"/>
                 </mxCell>
-                <mxCell id="273" value="boot info" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=17;" parent="1" vertex="1">
-                    <mxGeometry x="-853" y="-760" width="169" height="60" as="geometry"/>
+                <mxCell id="273" value="boot info&lt;div&gt;slot A&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=17;" parent="1" vertex="1">
+                    <mxGeometry x="-908" y="-760" width="133" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="274" value="" style="endArrow=none;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=0;exitDy=0;fontSize=17;" parent="1" target="258" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -37,7 +37,7 @@
                         <mxPoint x="-825" y="-665" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="275" value="" style="endArrow=none;html=1;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0;exitDx=0;exitDy=0;fontSize=17;" parent="1" target="259" edge="1">
+                <mxCell id="275" value="" style="endArrow=none;html=1;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0;exitDx=0;exitDy=0;fontSize=17;" parent="1" target="294" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="-74" y="-632" as="sourcePoint"/>
                         <mxPoint x="-683" y="-685" as="targetPoint"/>
@@ -81,6 +81,9 @@
                         <mxPoint x="-440" y="-551" as="sourcePoint"/>
                         <mxPoint x="-833" y="-680" as="targetPoint"/>
                     </mxGeometry>
+                </mxCell>
+                <mxCell id="294" value="boot info&lt;div&gt;slot B&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=17;" vertex="1" parent="1">
+                    <mxGeometry x="-775" y="-760" width="133" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
