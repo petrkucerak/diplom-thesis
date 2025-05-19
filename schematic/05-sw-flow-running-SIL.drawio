@@ -1,10 +1,10 @@
 <mxfile host="65bd71144e" scale="3" border="0">
     <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
-        <mxGraphModel dx="3275" dy="1890" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+        <mxGraphModel dx="3798" dy="2339" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="270" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="200" edge="1">
+                <mxCell id="270" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="-2393" y="-107"/>
@@ -30,7 +30,7 @@
                 <mxCell id="165" value="Inter-Core communication" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-1977" y="-849" width="154" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="290" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="169" target="163">
+                <mxCell id="290" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="169" target="163" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="-1900" y="-965"/>
@@ -46,16 +46,16 @@
                         <mxPoint x="-2120" y="-884" as="sourcePoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="292" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="287" target="291">
+                <mxCell id="292" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="287" target="291" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="287" value="Run Initialization Test Sequence&lt;br&gt;(Includes peripherial setup)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="287" value="Run Initialization Test Sequence&lt;br&gt;(Includes peripherial setup)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-2197" y="-1156" width="154" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="293" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="291" target="163">
+                <mxCell id="293" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="291" target="163" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="291" value="Setup extern. watchdog interrupt" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="291" value="Setup extern. watchdog" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="-2197" y="-1061" width="154" height="60" as="geometry"/>
                 </mxCell>
             </root>
