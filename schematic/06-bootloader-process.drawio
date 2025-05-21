@@ -1,0 +1,77 @@
+<mxfile host="65bd71144e" scale="3" border="0">
+    <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
+        <mxGraphModel dx="1103" dy="876" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="59" value="for each core&amp;nbsp;&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;align=right;verticalAlign=top;fontSize=13;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+                    <mxGeometry x="255" y="273" width="449" height="244" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="36" target="37">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="Device Start&lt;div&gt;OSPI FLASH BOOT MODE&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;flipV=0;flipH=1;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="322" y="33" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="37" target="38">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="ROM Code start bootloader image" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;flipH=1;fontSize=14;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="322" y="115" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="38" target="39">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="Device Setup" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;flipH=1;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+                    <mxGeometry x="322" y="197" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="39" target="49">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="Parse&lt;br&gt;&amp;amp; Authenticate Image" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;flipH=0;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+                    <mxGeometry x="322" y="294" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="41" target="42">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="Load Image&lt;br&gt;to CPU-RAM" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;flipH=0;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+                    <mxGeometry x="542" y="412" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="Success Process" style="rounded=1;whiteSpace=wrap;html=1;flipV=0;flipH=1;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="542" y="546" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="49" target="41">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="55">
+                    <mxGeometry x="-0.5735" y="2" relative="1" as="geometry">
+                        <mxPoint y="-7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="56" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="49" target="50">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="56">
+                    <mxGeometry x="-0.641" y="2" relative="1" as="geometry">
+                        <mxPoint x="19" y="-3" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="49" value="&lt;font&gt;Is Image Valid?&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;fontSize=15;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+                    <mxGeometry x="283.5" y="389" width="197" height="106" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="Fail Process" style="rounded=1;whiteSpace=wrap;html=1;flipV=0;flipH=1;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="322" y="546" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="PC" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;flipH=0;fontSize=12;dashed=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+                    <mxGeometry x="584" y="33" width="120" height="27" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" value="DMSC" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;flipH=0;fontSize=12;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+                    <mxGeometry x="584" y="74" width="120" height="27" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" value="R0-0" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;flipH=0;fontSize=12;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+                    <mxGeometry x="584" y="115" width="120" height="27" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
