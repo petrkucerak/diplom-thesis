@@ -14,7 +14,7 @@ The proposed device must support communication through the following interfaces:
 
 \begitems
 * An analog interface for reading LED module values,
-* Serial communication with the {\it Simatic PLC} (though out of scope for this work, the necessary pins must be included),
+* I/O communication with the {\it Simatic PLC} (though out of scope for this work, the necessary pins must be included),
 * Two Ethernet ports supporting 100Base-TX, functioning as a switch to enable daisy-chain wiring.
 * Additionally, the device should manage indication LEDs as a user interface and support the connection of non-SIL peripherals for analysis.
 \enditems
@@ -49,20 +49,18 @@ Indicator LEDs & GPIO Support & GPIO Support  \cr
 \cr
 Non-SIL Peripherals & SPI, I2C, USB, CAN & SPI, I2C, USB, CAN \cr
 }
-\caption/t Comparison of suitable Microcontrollers ~\cite[SPRS717K,DS12505, IMXRT1060IEC,DS60001527E]
+\caption/t Comparison of suitable Microcontrollers~\cite[SPRS717K,DS12505, IMXRT1060IEC,DS60001527E]
 \endinsert
 
-Two of them meet the requirement for an internal ADC converter, which in the end could not be used anyway, because ADC converters must be able to measure voltages up to 36 V. So you will need to use external converters that can be communicated with via SPI, I2C or other peripherals. Therefore, I discarded the {\it STM32MP1} and the {\it NXP i.MX RT1060} devices whose great advantage was this functionality.
+Two of them meet the requirement for an internal ADC converter, which in the end could not be used anyway, because ADC converters must be able to measure voltages up to 36 V. The second reason for using an external ADC is the necessity to meet safety requirements defined in \ref[safetyRecSpec], which mandate that the device must employ two independent channels for the LED modules connected to the main control unit. So you will need to use external converters that can be communicated with via SPI, I2C or other peripherals. Therefore, I discarded the {\it STM32MP1} and the {\it NXP i.MX RT1060} devices whose great advantage was this functionality.
 
 {\it Microchip SAM E70} microcontroller has only one Ethernet port; it would be necessary to connect an external switch, so I rejected it.
 
-As a result, I was deciding between devices from Texas Instrument's Sitara series, specifically the {\it AM335x} and {\it AM243x}. However, the devices from the {\it AM335x} series are built on the Arm Cortex-A8 core, which is unnecessarily powerful for my purposes and is more suited for handling 3D graphics, graphics accelerators, running higher-end operating systems like Android or Linux, etc.~\cite[ow6UXp80FhDCOefy] That's why in the end I opted for the AM243x processor from Texas Instruments. For development, I will use the {\sbf Evaluation Board LaunchPad™ AM-243}.
+As a result, I was deciding between devices from Texas Instrument's Sitara series, specifically the {\it AM335x} and {\it AM243x}. However, the devices from the {\it AM335x} series are built on the Arm Cortex-A8 core, which is unnecessarily powerful for my purposes and is more suited for handling 3D graphics, graphics accelerators, running higher-end operating systems like Android or Linux, etc~\cite[ow6UXp80FhDCOefy]. That's why in the end I opted for the AM243x processor from Texas Instruments. For development, I will use the {\sbf Evaluation Board LaunchPad™ AM-243}.
 
 \sec Microcontroller description
 
-The {\sbf Evaluation Board LaunchPad AM-243x} (LP-AM243x) is equipped with the AM2434 ALX MCU, which is composed of 4x Arm Cortex-R5 and 1x Arm Cortex-M4 cores. The Evaluation Board has a large number of interfaces including Industrial Ethernet, Fast Serial Interface, CAN transceiver, or 512Mb QSOI flash memory. For debugging, the Evaluation Board is equipped with the On-Board debugger XDS110.~\cite[gCEW8O4yxLcIgH5I]
-
-The processor series is similar in architecture, registers, and most features to the AM64x series. Therefore, most of the documentation for these two processor series is the same.
+The {\sbf Evaluation Board LaunchPad AM-243x} (LP-AM243x)\fnote{This processor series shares a similar architecture, registers, and most features with the AM64x series. Consequently, the majority of documentation for these two processor series is identical. This can occasionally be confusing, primarily because the documentation and manuals focus on the AM64x version, which offers a broader range of resources, internal modules, and peripherals.} is equipped with the AM2434 ALX MCU, which is composed of 4x Arm Cortex-R5 and 1x Arm Cortex-M4 cores. The Evaluation Board has a large number of interfaces including Industrial Ethernet, Fast Serial Interface, CAN transceiver, and 512MB QSPI flash memory. For debugging, the Evaluation Board is equipped with the On-Board debugger XDS110~\cite[gCEW8O4yxLcIgH5I].
 
 The device is organized into two domains: MAIN and MCU.
 
@@ -75,7 +73,7 @@ The {\sbf MAIN domain} is made up of Arm Cortex-R5, which are 4 on the developme
 * {\sbf Single core mode}: one free-operating core and one non-operating core.
 \enditems
 
-The cores also allow operating in lockstep mode. {\sbf Lock-step mode} refers to a fault-tolerant operational configuration in which a redundant instance of the CPU logic (and optionally the Accelerator Coherency Port - ACP) executes in parallel with the primary CPU. Both the primary and redundant logic are driven by identical inputs and share the same cache memory, eliminating the need for duplicate cache RAMs. The redundant logic operates synchronously with the functional CPU, replicating its behavior in real time. However, it does not influence the system's outputs or processor behavior directly. Its primary purpose is to enable the detection of faults by comparing the results of the redundant logic with those of the functional CPU.~\cite[8MtYuqxzmRkwRi75] However, I don't use it in my project, as I use the {\it isolated core} option for safe functions. By TI safety documentation, AM243x doesn't support full Lockstep mode.\fnote{Details are described in the {\it Functional Safety for AM2x and Hercules™ Microcontrollers} on the official TI webpage  \url{https://www.ti.com/product/AM2434}.}\cite[mhMhwmghbfIhOJ4A]
+The cores also allow operating in lockstep mode. {\sbf Lock-step mode} refers to a fault-tolerant operational configuration in which a redundant instance of the CPU logic (and optionally the Accelerator Coherency Port - ACP) executes in parallel with the primary CPU. Both the primary and redundant logic are driven by identical inputs and share the same cache memory, eliminating the need for duplicate cache RAMs. The redundant logic operates synchronously with the functional CPU, replicating its behavior in real time. However, it does not influence the system's outputs or processor behavior directly. Its primary purpose is to enable the detection of faults by comparing the results of the redundant logic with those of the functional CPU~\cite[8MtYuqxzmRkwRi75]. However, I don't use it in my project, as I use the {\it isolated core} option for safe functions. By TI safety documentation, AM243x doesn't support full Lockstep mode\fnote{Details are described in the {\it Functional Safety for AM2x and Hercules™ Microcontrollers} on the official TI webpage \url{https://www.ti.com/product/AM2434}.}~\cite[mhMhwmghbfIhOJ4A].
 
 The MAIN domain also integrates several subsystems that serve to operate real-time systems, meet industry standards for communication, memory access or inter-core communication. Specifically, these are:
 \begitems
@@ -88,6 +86,7 @@ The MAIN domain also integrates several subsystems that serve to operate real-ti
 * {\sbf Internal Diagnostics Modules} that provide monitoring and diagnostic functions required to achieve certain safety compliance levels.
 \enditems
 
+\label[MCUDomainTitle]
 \secc The MCU domain
 
 
@@ -99,7 +98,7 @@ Similarly to the MAIN domain, the MCU domain consists of multiple subdomains in 
 \begitems
 * One instance of the Dual Clock Comparator (MCU-DCC) module, which is used to determine the accuracy of the clock signal while the application is running.
 * One instance of the Error Signaling Module (MCU-ESM) for safety-related events and errors aggregation from throughout the device into one location.
-* Multiple ECC aggregator modules supporting ECC mechanisms for providing increased system reliability via reduction of memory software errors by allowing single bit errors to be detected and corrected (SEC) and double bit errors to be detected (DED).
+* Multiple ECC aggregator modules supporting ECC mechanisms for providing increased system reliability via reduction of memory software errors by allowing single-bit errors to be detected and corrected (SEC) and double-bit errors to be detected (DED).
 * Memory Cyclic Redundancy Check module used to perform CRC to verify the integrity of a memory system.
 \enditems
 
@@ -115,11 +114,18 @@ The MCU domain is designed to ensure {\sbf isolation from the broader SoC archit
 * Separate I/O voltage supply rail to ensure electrical isolation and minimize interference from other SoC components.
 \enditems
 
-\sec ADC module description
+\sec ADC Module Description
 
-For reading data from the LED modules, I selected an ADC module from Analog Devices, specifically the {\sbf CN0254}. It is a cost-effective, highly integrated 16-bit, 250~kSPS,\fnote{thousands a samples per second} 8-channel data acquisition system that can digitize ±10 V industrial-level signals.~\cite[9nEIxoFYfksIIwGB] The module can communicate using various peripherals such as I2C, SPI, or USB, provided an external converter from Analog Devices is utilized. In my case, I opted to use SPI.
 
-TODO, add schematic of connection
+For reading data from the LED modules, I selected an Analog Devices ADC module, specifically the {\sbf CN0254} evaluation board with the {\sbf AD7682} ADC. This cost-effective, highly integrated 16-bit, 250 kSPS\fnote{kilosamples per second} 8-channel data acquisition system can digitize industrial-level signals ranging from ±10 V~\cite[9nEIxoFYfksIIwGB]. The module supports communication via various peripherals, including I2C, SPI, or USB, when paired with an external converter from Analog Devices. For this application, I chose to use the SPI interface.
+
+\medskip
+\clabel[ADCDevBoard]{ADC Evaluation Board Photo}
+\picw=13cm \cinspic img/04-adc-dev-board.jpg
+\caption/f Photo illustrates the ADC Evaluation Board connected with a few modifications. 1) On-board SPI pins, 2) 6 V power supply, 3) ADC inputs.
+\medskip
+
+The device requires a 6 V power supply and can measure input voltages from 6 to 24 V. To utilize the CN0254 evaluation board, two points on the printed circuit board need to be connected.\fnote{Specifically, two modifications were required to enable the use of the onboard SPI and power the ADC evaluation board from a 6 V supply. These involved adjusting the amplifier’s resistance and grounding. I consulted with experts on this matter and will not discuss these changes further, as I am not an expert in this field, and this thesis does not focus on the hardware aspects of the project.} Further details on ADC communication via SPI are provided in Chapter \ref[ADCImplemChap].
 
 \sec Hardware design
 

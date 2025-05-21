@@ -16,7 +16,7 @@ In this chapter, I would like to specify the system, functional requirements, an
 
 \sec System context
 
-The proposed equipment is part of a level crossing safety system that controls traffic lights and signals. Previously, the system relied on a {\it Simatic PLC}~\fnote{\url{https://www.siemens.com/cz/cs/products/automation/systems/industrial/plc.html}} with digital inputs and outputs. However, it lacked the ability to analyze system functionality; issues could only be diagnosed manually using a multimeter. This becomes particularly problematic when the equipment is located in inaccessible areas or exposed to harsh conditions, such as freezing temperatures in Norway.
+The proposed equipment is part of a level crossing safety system that controls traffic lights and signals. Previously, the system relied on a {\it Simatic PLC}\fnote{\url{https://www.siemens.com/cz/cs/products/automation/systems/industrial/plc.html}} with digital inputs and outputs. However, it lacked the ability to analyze system functionality; issues could only be diagnosed manually using a multimeter. This becomes particularly problematic when the equipment is located in inaccessible areas or exposed to harsh conditions, such as freezing temperatures in Norway.
 
 The goal of the new system version is to integrate a component that enables such analysis, which is precisely the purpose of this device.
 
@@ -27,7 +27,7 @@ The system is designed for use in a country that follows CENELEC standards. The 
 \label[SystemSpecification]
 \sec System specification
 
-My implemented and proposed project serves as a prototype for the final device. Unlike the final version, it does not need to communicate with the PLC.~\fnote{The feature can be using a {\it daisy-chain} wiring scheme, where multiple devices are connected in sequence, allowing communication with the {\it Simatic PLC} through a single connection. This approach simplifies wiring, reduces cabling complexity, and enables efficient signal distribution across multiple devices.} It only needs to read information from LED modules and transmit the data further.  
+My implemented and proposed project serves as a prototype for the final device. Unlike the final version, it does not need to communicate with the PLC.\fnote{The feature can be using a {\it daisy-chain} wiring scheme, where multiple devices are connected in sequence, allowing communication with the {\it Simatic PLC} through a single connection. This approach simplifies wiring, reduces cabling complexity, and enables efficient signal distribution across multiple devices.} It only needs to read information from LED modules and transmit the data further.  
 
 In the following diagrams and discussions, I will include all device components, not only relevant for the prototype device. This is necessary because their presence must be considered when designing the overall architecture, selecting hardware, and progressing through other development phases.
 
@@ -35,11 +35,11 @@ The device's safety functions must comply with SIL2, while the final system as a
 
 \secc Interface specification
 
-The device shell provides three interfaces:
+Three interfaces are provided by the device shell:
 
 \begitems
 * {\sbf analog interfaces} to LED, that support relevant road signal modules,\fnote{Relevant for this project is modules {\it Silux/Yulux 2.40RS} and {\it Silux/Yulux 1.40}.}
-* interface for {\sbf communication with Simatic PLC}~\fnote{\url{https://www.siemens.com/cz/cs/products/automation/systems/industrial/plc.html}}
+* interface for {\sbf communication with Simatic PLC}\fnote{\url{https://www.siemens.com/cz/cs/products/automation/systems/industrial/plc.html}}
 * and {\sbf two Ethernet ports} supporting 100Base-Tx, that shall act as a switch to support daisy-chain connection of multiple devices.
 \enditems
 
@@ -51,19 +51,19 @@ The device shell provides three interfaces:
 
 \secc Function requirements
 
-As previously mentioned, since this is solely a monitoring component, compliance with SIL2 is sufficient, even though the entire system is rated SIL4.\fnote{Safety integrity level 4, detailed describes chap \ref[RAMSCycle]} 
+As previously mentioned, since this is solely a monitoring component, compliance with SIL2 is sufficient, even though the entire system is rated SIL4.\fnote{Safety integrity level 4, detailed describes Chapter \ref[RAMSCycle]} 
 
-The system shall be capable of controlling up to eight LED modules installed on road signals, organized into at least three groups. Each group should have common control and status signals. 
+The system shall be capable of controlling multiple LED modules installed on road signals, organized into multiple groups. The reason for multiple groups is that a railway crossing is typically illuminated by several railroad crossing signals. Each group should have common control and status signals.
 
 To ensure proper signal operation, the system will evaluate LED functionality by measuring current. It must support three operational states: power on, static illumination, and flashing at frequencies specified by railroad regulations.\fnote{60 flashes per minute and 90 flashes per minute, both with a 1:1 duty cycle.}  
 
-Additionally, the system shall support {\it emergency signaling} in the event of a {\it Simatic PLC} shutdown. It should also allow {\it daisy-chaining} of control signals from the {\it Simatic PLC} to the LED modules within a group.  
+Additionally, the system shall support {\it emergency signaling} in the event of a {\it Simatic PLC} shutdown.
 
 The system shall be compatible with both {\it high-side} and {\it low-side switching} of road signals, accommodating different wiring requirements depending on national regulations. It should also support various hardware configurations for different signaling states, as described in Chapter \ref[LevelCrossingSingalization]. These configurations include:  
 
 \begitems
 * two alternating red lights,
-* two alternating red lights with white lights,
+* two alternating red lights with white light,
 * flashing red light with flashing white light, 
 * static red light with static yellow light.
 \enditems
@@ -93,6 +93,7 @@ The LED interface should provide information on the following conditions:
 
 Additionally, it is crucial for my device to indicate its own status using an {\it LED indicator}, which can be integrated into the system’s human-reporting interface.
 
+\label[safetyRecSpec]
 \secc Safety
 
 The system should meet SIL4 for isolation between two independent LED chain channels. According to CENELEC standards, this can be achieved with two independent LEDs connected to one main unit.

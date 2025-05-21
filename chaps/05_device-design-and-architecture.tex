@@ -9,20 +9,32 @@
 
 \chap Device design and architecture
 
+In this chapter, I propose the architecture, encompassing all mechanisms and processes intended for inclusion in the final device, as opposed to the prototype developed within the scope of this thesis.
 
-\sec Requirements discussion
 
-The system is designed to fulfill both Safety Integrity Level (SIL) and non-SIL functions. For simplicity in development and discussion, the device can be divided into two main components: the SIL component and the non-SIL component.
+\sec System Requirements Analysis
 
-The SIL component is responsible for monitoring the functionality of the LED modules, communicating their status to the Simatic PLC, and sharing this data with the non-SIL software. In the context of the device’s overall operation (see TOODODDDDDDD Illustration 2.7), the SIL component reads data from the LED modules, processes it, stores it in a location accessible to the non-SIL component, and transmits it to the Simatic PLC. The PLC then uses this feedback to determine whether the requested action has been executed correctly.
+The system is designed to meet both Safety Integrity Level (SIL) requirements and non-SIL requirements, ensuring robust functionality for safety-critical and supplementary tasks. For clarity in development and analysis, the device is divided into two primary components: the SIL component and the non-SIL component.
 
-The non-SIL component ensures reliable retrieval of status data from the SIL component regarding the LED modules. It handles the booting and initialization of the SIL component and hosts a REST API server to enable data monitoring and software updates. Additionally, it supports supplementary non-SIL monitoring functions.
+The SIL component, operating on the isolated M4 core, monitors the functionality of LED modules, communicates their status to the Simatic PLC, and shares this data with the non-SIL software. Due to the M4 core’s isolation requirements, shared memory is not feasible; instead, communication is facilitated by hardware mechanisms provided by the AM243x system, such as inter-core messaging or dedicated registers.
+
+The non-SIL component retrieves status data from the SIL component regarding the LED modules, ensuring reliable data access through AM243x inter-core communication mechanisms. It manages the bootloader and initialization of the SIL component and hosts a REST API server to enable data monitoring and software updates. Additionally, it supports auxiliary non-SIL monitoring functions.
+
+\medskip
+\clabel[SWArchitecture]{Software Architecture}
+\picw=14cm \cinspic img/05-sw-architecture.png
+\caption/f Diagram illustrating the software architecture overview.
+\medskip
+
+
+Figure \ref[SWArchitecture] provides an overview of the software architecture, illustrating the relationships between the SIL and non-SIL components and specifying the interfaces used for communication with external systems. This diagram is relevant to the prototype's architecture.
+
 
 To better understand, let’s divide the software into four basic components:
 
 \begitems
 * Booting
-* Standard operation
+* Standard operation (Safety Software and Non-SIL software)
 * Software update
 * Safety shutdown
 \enditems
@@ -31,10 +43,11 @@ To better understand, let’s divide the software into four basic components:
 
 First, let’s describe the boot process. The AM243x is a multi-core processor that utilizes a multistage booting sequence. By TI naming convention, the booting sequence is divided into {\it ROM boot} and {\it SBL boot}.
 
-\secc ROM boot
+\label[ROMCode]
+\secc ROM Boot
 
 The {\sbf ROM boot} (also RBL) is stored in read-only memory and is almost considered as part of the SoC. As soon as the board is powered ON, the ROM bootloader or RBL starts running. The RBL is the primary bootloader.
-Depending on which boot mode is selected, the RBL will load the secondary bootloader or SBL from a boot media. It is via UART in our case. The rest of the booting is done by the SBL.~\cite[sde5XPrz4Ejc1Hax]
+Depending on which boot mode is selected, the RBL will load the secondary bootloader or SBL from a boot media. It is via UART in our case. The rest of the booting is done by the SBL~\cite[sde5XPrz4Ejc1Hax].
 
 The {\sbf ROM code} is code that is executed in this phase.
 
@@ -48,7 +61,7 @@ The ROM can operate in the three modes by the device type:
 
 Final system is targeting the HS-SE device type. The thesis prototype device is targeting the GP device type only.
 
-In a general-purpose device, DMSC ROM (Device Management System Controller ROM) performs the following functions:
+In a general-purpose device, DMSC ROM (Device Management System Controller ROM) runs on the Arm Cortex M3 and performs the following functions:
 
 \begitems
 * Device management
@@ -60,7 +73,7 @@ In a general-purpose device, DMSC ROM (Device Management System Controller ROM) 
 * DMSC firmware loading~\cite[fcLWZx8KgBoQyWDm]
 \enditems
 
-\secc SBL boot
+\secc SBL Boot
 
 The {\sbf SBL boot} (Secondary Bootloader) typically does a bunch of SoC-specific initializations and proceeds to the application loading. Depending on the type of SBL loaded, the SBL looks for the multicore app image of the application binary at a specified location in a boot media.
 
@@ -72,7 +85,7 @@ Device allows several boot modes divided into two classes:
 * and {\sbf memory} boot modes (MMCSD,\fnote{eMMC Flash or SD card} GPMC,\fnote{NOR flash, NAND flash} QSPI, ...).
 \enditems
 
-Device provides {\sbf Primary Boot Mode} and {\sbf Secondary (Backup) Boot Mode}, that is started when Primary Boot Mode fails (it is illustrated in the Figure \ref[SWFlowBoot]). The mode is set up by BOOTMODE pins.~\fnote{Detail description can be found in the {\it AM243x Technical Reference Manual} in the chap 4.3.1 \cite[fcLWZx8KgBoQyWDm].} On the Devkit, a hardware mutex is placed to control BOOT pins (illustrated in the Figure \ref[BootPinMutexPhoto]).
+Device provides {\sbf Primary Boot Mode} and {\sbf Secondary (Backup) Boot Mode}, that is started when Primary Boot Mode fails (it is illustrated in Figure \ref[SWFlowBootSystemInitialization]). The mode is set up by BOOTMODE pins.\fnote{Detail description can be found in the {\it AM243x Technical Reference Manual} in the Chapter 4.3.1~\cite[fcLWZx8KgBoQyWDm].} On the Devkit, a hardware mutex is placed to control BOOT pins (illustrated in Figure \ref[BootPinMutexPhoto]).
 
 
 \medskip
@@ -81,7 +94,7 @@ Device provides {\sbf Primary Boot Mode} and {\sbf Secondary (Backup) Boot Mode}
 \caption/f The Boot Pin Mutex on the Devkit board LP-AM243x.
 \medskip
 
-\secc Device boot phases
+\secc Device Boot Phases
 
 In my device, I divide the boot process into two phases. These phases are not the same as RBL and SBL. It is a different division. RBL and SBL are, to some extent, part of both phases.
 
@@ -105,11 +118,26 @@ Overall, the software comprises the following parts:
 \caption/f Overview of the boot process, illustrating the relationships and transitions between the bootloader, flash writer, and core operation phases.
 \medskip
 
-Due to the multi-core architecture, it is necessary to use the DMSC (Device Management System Controller) in the device, which is managed by firmware referred to by TI as SYSFW (System Firmware). This layer functions as a {\it black box} and provides an API for Resource Management, Power Management, and Security. The DMSC is uploaded in the device as a part of the SDK with device images.
+Due to the multi-core architecture, it is necessary to use the DMSC (Device Management System Controller) in the device, which is managed by firmware referred to by TI as SYSFW (System Firmware). This layer functions as a {\it black box} and provides an API for Resource Management, Power Management, and Security. The DMSC is uploaded in the device as part of the SDK with device images.
 
-\secc Boot image format
+\seccc Detailed SYSFW description
 
-Each block consists of a certificate and the software itself and is loaded into flash memory at a specific address (illustrated in the Figure \ref[BootImageFormat]). The device uses X.509 certificates described in the norm RFC 5280~\fnote{\url{https://datatracker.ietf.org/doc/html/rfc5280}}.
+SYSFW comprises two primary components: TI Foundational Security (TIFS) and Device Manager (DM). TIFS provides security services, including authentication and decryption of binary data using root-of-trust keys, processor boot control, JTAG unlock, access to device-unique keys, and management of Customer One-Time Programmable (OTP) eFuses. Additionally, TIFS configures device firewalls and Initiator-Side Security Control (ISC) to manage initiator credentials, controlling access to memories, peripherals, and other System-on-Chip (SoC) resources. These services support critical security use cases, such as authenticated processor boot, device configuration, trusted execution environments, and isolation~\cite[UHVnMJCNhmh92Bmj].
+
+The DM component delivers centralized Resource Management (RM) and Power Management (PM) services essential for device operation. PM services encompass configuration and control of module power states, clock states, frequency settings, multiplexer selections, and system resets. RM services manage the allocation and assignment of key SoC resources, including Direct Memory Access (DMA), Ring Accelerator, Interrupt Aggregator, Interrupt Router, and various Interrupt Router instances across the SoC.
+
+SYSFW is distributed as part of TI’s Processor SDKs. TIFS is provided as a binary-only image, which, on high-security devices, is signed and encrypted with TI’s proprietary keys, rendering it closed to development and intended for integration as a black-box component. TIFS is loaded via the MAIN R5F bootloader during the default boot sequence in the SDK, with TI supplying standard board configuration entries to support SDK examples and use cases.
+
+The DM is implemented through a set of libraries and a reference TI System Control Interface (TISCI) server running on the DMSC core, provided via the SCIClient component in the Processor SDK RTOS. TI SDKs include a prebuilt RTOS-based DM reference implementation, loaded through standard device boot procedures.
+
+Neither TIFS nor DM (including RM and PM services) is safety-certified, as they are developed according to TI’s baseline quality process rather than functional safety standards.
+
+
+The DMSC-Lite, an ARM Cortex-M3-based subsystem, is the first subsystem activated after a power-on reset in the AM243x device. It serves as the central hub for both device management and security control, orchestrating the initial boot sequence, resource allocation, and security configurations. The DMSC-Lite executes the SYSFW, ensuring seamless integration of TIFS and DM services to support the multi-core architecture’s operational and security requirements~\cite[UHVnMJCNhmh92Bmj].
+
+\secc Boot Image Format
+
+Each block consists of a certificate and the software itself and is loaded into flash memory at a specific address (illustrated in the Figure \ref[BootImageFormat]). The device uses X.509 certificates described in the norm RFC 5280\fnote{\url{https://datatracker.ietf.org/doc/html/rfc5280}}.
 
 \medskip
 \clabel[BootImageFormat]{Boot Image Format}
@@ -117,7 +145,7 @@ Each block consists of a certificate and the software itself and is loaded into 
 \caption/f The Boot Image format.
 \medskip
 
-In general, an X.509 certificate contains a public key which has been signed by a private key. The public ROM code does not directly use the keys. In non-secure devices (GP), the public key value is in general a don't care condition. The exception is certificates containing a degenerate RSA public key. GP devices with a degenerate RSA key allow for integrity checking of most (but not all) of the certificate. As I mentioned below, we are using the device in the GP mode. It means that our device integrity in the prototype is validated by the degenerate RSA public key.~\cite[fcLWZx8KgBoQyWDm]
+In general, an X.509 certificate contains a public key which has been signed by a private key. The public ROM code does not directly use the keys. In non-secure devices (GP), the public key value is in general a don't care condition. The exception is certificates containing a degenerate RSA public key. GP devices with a degenerate RSA key allow for integrity checking of most (but not all) of the certificate. As I mentioned below, we are using the device in the GP mode. It means that our device integrity in the prototype is validated by the degenerate RSA public key~\cite[fcLWZx8KgBoQyWDm].
 
 The ROM code is getting two additional pieces of information from the X.509 certificate:
 
@@ -128,6 +156,7 @@ The ROM code is getting two additional pieces of information from the X.509 cert
 
 The ROM defines several extensions that are used only by TI for boot. These are placed in the extensions field of the TBS\fnote{to be signed} certificate.
 
+\label[BootingDetailDescriptionChapt]
 \secc Detailed System Initialization Description
 
 During the DMSC initialization phase, as depicted in Figure \ref[SWFlowBootDeviceDMSCInit], the R5 core reads the boot mode pins to configure the appropriate peripheral interface, enabling access to the boot image. The R5 performs a preliminary validation of the image before transferring it to the DMSC. The DMSC ROM then verifies the code and loads the validated boot image into on-chip RAM. If the image verification fails but the boot mode pins indicate a secondary (backup) boot mode, the DMSC ROM loads the backup image into on-chip RAM. This functionality is utilized by our system to initially boot software using the flash writer component. After receiving the image, the R5 enters a clean state and idles. The DMSC ROM asserts a reset on the MCU, redirects the boot vector to the newly loaded image, and releases the reset. This process restarts the R5 with the Public ROM code fully disconnected, as illustrated in Figure \ref[SWFlowBootSystemInitialization].
@@ -140,9 +169,9 @@ The boot sequence then proceeds based on the boot mode: for the primary mode, th
 \caption/f Diagram illustrating the complete system initialization process, detailing the sequence of boot image loading, verification, and core reset for R5 startup.
 \medskip
 
-{\it Note:} The DMSC ROM configures a 3-minute watchdog timer ({MCU_RTI0}) timeout. The MCU boot must complete within this period; otherwise, a watchdog timer reset occurs. Once the R5 image (SBL) is loaded, the DMSC ROM restarts the watchdog timer for an additional 3 minutes upon entering the R5 SBL. The customer-provided MCU image must load and install the TI-provided SYSFW image into the DMSC, which manages the watchdog timer during runtime.~\cite[fcLWZx8KgBoQyWDm]
+{\it Note:} The DMSC ROM configures a 3-minute watchdog timer ({MCU_RTI0}) timeout. The MCU boot must complete within this period; otherwise, a watchdog timer reset occurs. Once the R5 image (SBL) is loaded, the DMSC ROM restarts the watchdog timer for an additional 3 minutes upon entering the R5 SBL. The customer-provided MCU image must load and install the TI-provided SYSFW image into the DMSC, which manages the watchdog timer during runtime~\cite[fcLWZx8KgBoQyWDm].
 
-\seccc The DMSC initialization
+\seccc The DMSC Initialization
 
 The DMSC serves as the boot controller for the Public ROM, managing essential configurations such as firewalls, clocks, PLLs, and inter-core communication modes.\fnote{The device supports two primary inter-core topologies: Proxy and Ring.} As shown in Figure \ref[SWFlowBootDeviceDMSCInit], the DMSC releases the reset for R5 CPU0.\fnote{R5FSS_0-0} Its configuration depends on the specified boot mode, with host boot mode imposing different requirements compared to memory boot mode.
 
@@ -177,22 +206,35 @@ Flash memory is used to store software for individual cores and information that
 \begitems
 * {\sbf Bootloader Image}: Contains the software for running the bootloader. The image comprises an X.509 certificate and a compiled binary code file, as illustrated in Figure \ref[BootImageFormat].
 * {\sbf Device Info}: Stores static information such as the serial number, MAC address, certificates, and other device-specific data.
-* {\sbf Boot Info}: A simple structure containing three values: {\it failure count}, {\it failure info}, and the addresses of the original and new software. Access to this memory section must always use atomic operations to ensure error-free updates, particularly during software updates. The {\it failure count} indicates whether the new software launched successfully and {\it failure info} variable contains the error code, with further details provided in the firmware update section \ref[SoftwareUpdate].
-* {\sbf Original Software}: A memory region for the functional, already in use software for all cores.
+* {\sbf Boot Info}: A simple structure containing three values: {\it failure count}, {\it failure info}, and the addresses of the original and new software. Access to this memory section must always use pseudo-atomic operations to ensure error-free updates, particularly during software updates. (The pseudo-atomic operation mechanism is described in Chapter \ref[PseudoAtomicOperation].) The {\it failure count} indicates whether the new software launched successfully and {\it failure info} variable contains the error code, with further details provided in the software update section \ref[SoftwareUpdate].
+
+
+* {\sbf Original Software}: A memory region for the functional, already in-use software for all cores.
 * {\sbf New Software}: A memory region for new, unverified software for all cores.
 \enditems
 
 \medskip
 \clabel[SWFlashStructure]{Flash memory map}
 \picw=14cm \cinspic img/05-sw-flash-structure.png
-\caption/f The illustration of flash memory map structure
+\caption/f The illustration of flash memory map structure.
 \medskip
 
 The Bootloader Image and Device Info sections are written only once during the initial software loading via the {\sbf flash writer} component. Afterward, these flash memory regions are locked, allowing read-only access and preventing overwrites.
 
+\label[PseudoAtomicOperation]
+\secc Pseudo-atomic Flash Update Operations
 
-\label[Flash writer Description]
-\secc Flash writer description
+Pseudo-atomic operations are necessary primarily to prevent a state where memory is only partially modified, which could occur due to events such as power failures or high-priority interrupts. To mitigate this, a modified {\sbf bitwise memcpy} operation using the Compare-and-Swap instruction, which verifies update consistency, would ideally be employed~\cite[1sBbZOKXLScuI4se]. However, this approach is not feasible, as the system operates over external flash memory rather than stack memory. Flash memory updates rely on paging, where an entire page is rewritten for any change. While this might seem to satisfy the requirement for single-operation updates, the challenge lies in the fact that updates are managed by an external controller via Quad Serial Peripheral Interface (QSPI) flash. Consequently, an alternative solution is required.
+
+The proposed solution employs {\sbf encapsulation} to ensure data integrity, guaranteeing that the most recent valid data is used during reads. It duplicates the boot information block, storing each in a distinct memory block, referred to here as Block A and Block B. Each block comprises a data section (as described previously) and a header containing a Cyclic Redundancy Check (CRC) and an identifier (ID). The CRC verifies data integrity, while the ID indicates which block is newer.
+
+The {\sbf read operation} involves loading both blocks, with the block having a valid CRC and the higher ID designated as the valid data.
+
+The {\sbf write operation} targets the memory block without a valid CRC or, if both blocks have valid CRCs, the block with the lower ID. The ID is cyclic, and to prevent overflow, the value 0xFF is treated as lower than 0x00. After writing, a read operation is performed to verify that the data was written correctly. If verification fails, the write operation is repeated.
+
+
+\label[FlashWriterDescription]
+\secc Flash Writer Description
 
 The {\sbf flash writer} is a specialized component integral to the software update process, yet designed to operate independently as it is also used during the initial software loading of the device. The term {\it flash writer} refers to a standalone module responsible for the first-time provisioning of the device. When the device attempts to load data from flash memory and finds it empty—typically during factory settings, as no data has been written yet—it activates the secondary (backup) boot mode, where the flash writer plays a critical role. The primary objectives of the flash writer are:
 
@@ -207,15 +249,15 @@ The Public ROM code provides the {\sbf BOOTP/TFTP protocol} for Ethernet-based b
 
 \seccc The Ethernet Booting Process Description
 
-After device configuration, the bootloader performs a standard BOOTP/TFTP boot. The device sends a BOOTP request with its MAC address to a host TFTP server to be assigned an IP from a pool of addresses. The timeout for each BOOTP packet is 4 seconds, and the ROM will attempt 10 BOOTP retries, after which the boot mode will fail. If the connection is established, the device initiates a TFTP download and is able to receive image data encapsulated in Ethernet packets.\fnote{Device supporting only IPv4 packets.} There is a timeout of 1 second to receive a response for the READ request, and the ROM will retry the READ request 10 times, after which the boot mode will fail. If the TFTP download is successful, data received is stripped of its network headers and the boot data is stored in internal RAM. When the transfer completes and the image is found to have good integrity, the ROM Code will branch to the address defined in the Boot Info field of the boot header.~\cite[fcLWZx8KgBoQyWDm]
+After device configuration, the bootloader performs a standard BOOTP/TFTP boot. The device sends a BOOTP request with its MAC address to a host TFTP server to be assigned an IP from a pool of addresses. The timeout for each BOOTP packet is 4 seconds, and the ROM will attempt 10 BOOTP retries, after which the boot mode will fail. If the connection is established, the device initiates a TFTP download and is able to receive image data encapsulated in Ethernet packets.\fnote{Device supporting only IPv4 packets.} There is a timeout of 1 second to receive a response for the READ request, and the ROM will retry the READ request 10 times, after which the boot mode will fail. If the TFTP download is successful, data received is stripped of its network headers and the boot data is stored in internal RAM. When the transfer completes and the image is found to have good integrity, the ROM Code will branch to the address defined in the Boot Info field of the boot header~\cite[fcLWZx8KgBoQyWDm].
 
-There are a few limitations as received packets cannot be IP fragmented or only DIX Ethernet headers are supported.\fnote{Device not support 802.3 with SNAP/LLC, DIX Ethernet with VLAN, and 802.3 with VLAN and SNAP/LLC.} But they don't limit my project in any way.
+There are a few limitations as received packets cannot be IP fragmented or only DIX Ethernet headers are supported.\fnote{Device not supports 802.3 with SNAP/LLC, DIX Ethernet with VLAN, and 802.3 with VLAN and SNAP/LLC.} But they don't limit my project in any way.
 
 \seccc The UART Booting Process Description
 
-The ROM Code is always configured on the UART with a transmission speed of 115200 kbaud in 8-n-1 mode.\fnote{This mode means 8 data bits, no parity, and 1 stop bit.~\cite[xncDia3v5VnFFl3k]}
+The ROM Code is always configured on the UART with a transmission speed of 115200 kbaud in 8-n-1 mode.\fnote{This mode means 8 data bits, no parity, and 1 stop bit~\cite[xncDia3v5VnFFl3k].}
 
-After the ROM code configures the UART interface, the device transmits ASCII capital 'C' characters as pings for several seconds, detectable by the host. An example of the XMODEM protocol in half-duplex transfer is shown in Figure \ref[SWXMODEMExample]. The UART boot mode exclusively supports the CRC mode of the XMODEM protocol, with no support for CHECKSUM mode, and accommodates block sizes of 128 or 1024 bytes. The host must initiate the transfer of the boot image using the XMODEM protocol before the device’s pings cease.~\cite[fcLWZx8KgBoQyWDm]
+After the ROM code configures the UART interface, the device transmits ASCII capital 'C' characters as pings for several seconds, detectable by the host. An example of the XMODEM protocol in half-duplex transfer is shown in Figure \ref[SWXMODEMExample]. The UART boot mode exclusively supports the CRC mode of the XMODEM protocol, with no support for CHECKSUM mode, and accommodates block sizes of 128 or 1024 bytes. The host must initiate the transfer of the boot image using the XMODEM protocol before the device’s pings cease~\cite[fcLWZx8KgBoQyWDm].
 
 
 \medskip
@@ -244,7 +286,7 @@ CRC & Based on data & The 16-bit CRC generated from the polynomial \cr
  & &  0x1021. \cr
 \cr
 }
-\caption/t The table describes fields in the XMODEM frame format illustrated in the Figure \ref[SWXMODEMFrame].
+\caption/t The table describes fields in the XMODEM frame format illustrated in the figure \ref[SWXMODEMFrame].
 \endinsert
 
 \medskip
@@ -268,26 +310,54 @@ The flash writer then locks the flash memory regions containing the bootloader i
 
 
 \label[SoftwareUpdate]
-\sec Firmware Update Process
+\sec Software Update Process
 
-The firmware update component operates during the standard runtime of the program on the primary real-time core, {\it R5_0-0}. Its primary objective, as implied by its name, is to facilitate the migration of the system to a new software version. Given the need to update secure software, this process is non-trivial and requires careful design to prevent undefined states or unrecoverable errors.
+The software update component operates during the standard runtime of the program on the primary real-time core, {\it R5_0-0}. Its primary objective, as implied by its name, is to facilitate the migration of the system to a new software version. Given the need to update secure software, this process is non-trivial and requires careful design to prevent undefined states or unrecoverable errors.
 
 
-The software update process is structured as follows: The update is initiated when the web interface receives a POST request. First, the {\it failure count} variable in the flash memory’s boot info structure is set to 1 using an atomic operation. The {\it failure count} serves as a counter for attempts to launch the new software, with its role in determining the software version to boot detailed in the bootloader section \ref[BootloaderFunctionDescription]. A {\it failure count} of 0 indicates that the original software is valid, while a non-zero value signifies an ongoing attempt to boot the new software. The maximum number of attempts is configurable, set to 4 in our case, allowing three retries. Incoming data is then received and stored at the {\it new software} address in flash memory, as defined in the flash memory layout Figure \ref[SWFlashStructure].
+The software update process is structured as follows: The update is initiated when the web interface receives a POST request. First, the {\it failure count} variable in the flash memory’s boot info structure is set to 1 using a pseudo atomic operation. The {\it failure count} serves as a counter for attempts to launch the new software, with its role in determining the software version to boot detailed in the bootloader section \ref[BootloaderFunctionDescription]. A {\it failure count} of 0 indicates that the original software is valid, while a non-zero value signifies an ongoing attempt to boot the new software. The maximum number of attempts is configurable, set to 4 in our case, allowing three retries. Incoming data is then received and stored at the {\it new software} address in flash memory, as defined in the flash memory layout Figure \ref[SWFlashStructure].
 
 After storing the data, the device restarts, and the bootloader detects the non-zero {\it failure count}, prompting it to attempt booting the new image. The system then enters standard operation to verify whether the device functions correctly. Two outcomes are possible:
 
 \begitems
-* {\sbf Failure}: The {\it failure count} is incremented by 1, and the device restarts. If the {\it failure count} reaches the maximum limit (e.g., 4), the boot info structure is updated to reset {\it failure count} to 0, ensuring the original software is booted on the next attempt. An error code corresponding to the failure is recorded in the {\it failure info} field, with all states detailed in Table \ref[SWFlashFailureInfo].
-* {\sbf Success}: The boot info structure is updated to set {\it failure count} to 0, and the addresses of {\it original software} and {\it new software} are swapped, marking the update as successful.
+* {\sbf Failure}: The {\it failure count} is incremented by 1, and the device restarts. If the {\it failure count} reaches the maximum limit (e.g., 4), the boot info structure is updated to reset {\it failure count} to 0, ensuring the original software is booted on the next attempt. An error code corresponding to the failure is recorded in the {\it failure info} field, with all states detailed in Table \ref[SWFlashFailureInfo]. The Figure \ref[SWSoftwareUpdateFailureCount] illustrates the {\it failure count} variable states.
+* {\sbf Success}: The boot info structure is updated to set the {\it failure count} to 0, and the addresses of {\it original software} and the {\it new software} are swapped, marking the update as successful.
 \enditems
+
+\medskip
+\clabel[SWSoftwareUpdateFailureCount]{Failure Count Variable Diagram}
+\picw=15cm \cinspic img/05-sw-flow-fimware-update-failure-count.png
+\caption/f Diagram illustrates the {\it failure count} variable from boot info structure in the flash memory.
+\medskip
 
 \midinsert \clabel[SWFlashFailureInfo]{Interpretation of Failure Info Memory Block}
 \ctable{ll}{
 {\sbf Value} & {\sbf Description} \crl
 0x00 & No error code. \cr
+\cr
 0x01 & Software update failed, the system uses the original version. \cr
+\cr
 0x02 & Software update failed, the new software has not valid certificate. \cr
+\cr
+0x03 & Software initialization check failed, the SPI communication \cr
+& doesn't operate correctly. \cr
+\cr
+0x04 & Software initialization check failed, the Inter-core communication\cr
+& doesn't operate correctly. \cr
+\cr
+0x05 & Software running check failed, the Inter-core communication\cr
+& doesn't operate correctly. \cr
+\cr
+0x05 & Software running check failed, the Inter-core communication\cr
+& doesn't operate correctly. \cr
+\cr
+0x06 & Software initialization check failed, CPU resources\cr
+\cr
+0x07 & Testing Initial Sequence Timeout\cr
+\cr
+0x08 & Error detected in the ESM\cr
+\cr
+0xFF & Not defined error \cr
 }
 \caption/t The table describes codes in the Failure Info Memory Block in the flash at the position defined by \ref[SWFlashStructure].
 \endinsert
@@ -295,61 +365,521 @@ After storing the data, the device restarts, and the bootloader detects the non-
 \medskip
 \clabel[SWSoftwareUpdate]{Software Update Process Diagram}
 \picw=14cm \cinspic img/05-sw-flow-fimware-update.png
-\caption/f Diagram illustrating the firmware update process.
+\caption/f Diagram illustrating the software update process.
 \medskip
 
 
-\seccc Ensuring Robustness in Firmware Updates
+\seccc Ensuring Robustness in Software Updates
 
 A key challenge is verifying that the software update completed successfully and preventing failures that could render the system inoperable. The potential issues and their mitigations are as follows:
 
 \begitems
 * {\sbf Corrupted or Malicious Software}: If invalid software is uploaded (e.g., due to an attack or process error), the bootloader’s X.509 certificate validation during RAM loading detects the issue, logging error code {\it 0x02} in the {\it failure info} field of the boot info structure.
-* {\sbf Damaged Data}: Corrupted data is similarly addressed through certificate-based integrity checks, ensuring the software image’s validity.~\cite[fcLWZx8KgBoQyWDm]
+* {\sbf Damaged Data}: Corrupted data is similarly addressed through certificate-based integrity checks, ensuring the software image’s validity~\cite[fcLWZx8KgBoQyWDm].
 * {\sbf Restart During Update}: If the device restarts (intentionally, unintentionally, or due to a power outage) during the update:
     \begitems
     * {\sbf Incomplete Software Upload}: Certificate validation prevents partial uploads from being executed.
     * {\sbf Interruption During Runtime Validation}: The system increments the {\it failure count} and retries, as the bootloader uses the {\it failure count} to boot the new software upon restart.
-    * {\sbf Restart Before Boot Info Update}: The device uploading the firmware receives a negative acknowledgment, indicating an incomplete download. Once the boot info is updated, the internal mechanism handles such errors autonomously.
+    * {\sbf Restart Before Boot Info Update}: The device uploading the software receives a negative acknowledgment, indicating an incomplete download. Once the boot info is updated, the internal mechanism handles such errors autonomously.
     \enditems
 * {\sbf Residual Old Code in a Core}: This scenario is impossible, as the device restart clears all CPU RAM contents, and the bootloader reloads the new software into RAM from flash memory.
 \enditems
 
-To ensure these guarantees, the boot info structure’s integrity must be maintained. This is achieved by using atomic operations for all modifications, ensuring data is never partially altered. A modified {\sbf bitwise memcpy} leveraging the Compare-and-Swap (CASA) instruction\fnote{Compare and Save} prevents interruptions, even by interrupts, guaranteeing complete and consistent updates.~\cite[1sBbZOKXLScuI4se]
 
-
+The second question addressed Ascertaining {\sbf whether the software update was successful} was partially addressed in the software update section. To confirm that the updated software operates correctly, the system transitions to the standard runtime phase, which begins with an initialization check. This check verifies peripheral configurations, communication integrity, and other critical parameters. If an error occurs during this phase, the device enters a safety shutdown, as detailed in Chapter \ref[SafetyShutdownChap]. Upon successful completion of the initialization check, further described in Chapter \ref[InitialChecks], the system is deemed operational, and the boot info structure is updated, as previously outlined.
 
 \label[SafetyShutdownChap]
-\sec Safety shutdown
+\sec Safety Shutdown
 
-\label[StandardOperationChap]
-\sec Stadard operation
+One of the device’s operational states is the safety shutdown, which is triggered when an error occurs, allowing the device to respond to the fault. The safety shutdown state can lead to one of two actions: {\sbf device reboot} or {\sbf termination}.
+
+\secc External Monitor Device
+
+The TI Functional Safety Manual\fnote{The internal Functional Safety Manual is under NDA.~\cite[UHVnMJCNhmh92Bmj].} recommends using an external monitoring device for higher SIL levels to disconnect the power supply in case of a device failure.\fnote{See points [{SA_7}], [{SA_8}], and [{SA_19}] in the Safety Function Manual.~\cite[UHVnMJCNhmh92Bmj]} Specifically, TI advocates for an external Power Management Integrated Circuit (PMIC) suitable for SIL-2 solutions. TI PMIC devices provide the following functionalities:
+
+\begitems
+* Overvoltage and undervoltage monitoring of power resource voltage outputs.
+* Overvoltage monitoring of the PMIC input.
+* Watchdog monitoring of the safety processor.
+* MCU error monitoring.
+* MCU reset.
+* I2C communication with Cyclic Redundancy Check (CRC).
+* Error indicator to drive external circuitry.
+\enditems
+
+A potential illustration of the integration between the AM243x and a Power Management Integrated Circuit (PMIC) is presented in Figure \ref[SWSafetyShutdownPMIC]. The PMIC regulates the AM243x power supply based on safety functions, including a Q\&A watchdog that expects periodic responses and employs Cyclic Redundancy Check (CRC) to protect against errors. Additionally, a safety unit integrated within the AM243x can notify the PMIC of any faults. The PMIC also supports sending interrupts to the MCU to alert it of critical conditions. While the configuration can be significantly more advanced, this schematic aims solely to illustrate a possible implementation.
+
+\medskip
+\clabel[SWSafetyShutdownPMIC]{PMIC connection example}
+\picw=14cm \cinspic img/05-sw-PMIC-example.png
+\caption/f Diagram illustrates the possible connection between AM243x and the PMIC device.
+\medskip
+
+\label[SafetyShutdonwProcessDescription]
+\secc Safety Shutdown Process Description
+
+There is used an {\sbf external Q\&A Watchdog} monitor with a similar function as the described PMIC. It monitors the device’s operation, expecting periodic confirmation that the processor is functioning correctly. If this confirmation is not received, the watchdog hardware disconnects the power supply, shutting down the entire device. The device may also be powered off if an error occurs in another component communicating with it, with this action managed by the hardware.
+
+The external watchdog’s functionality is utilized for one type of termination: if the device stops sending the periodic confirmation message and the {\sbf error pin output}\fnote{{MCU_SAFETY_ERRORn}} signals a problem, the watchdog initiates a shutdown. The safety shutdown process is straightforward, as depicted in Figure \ref[SWSafetyShutdown], and consists of two primary steps: storing an error code in the flash memory’s boot info structure, specifically in the {\it failure info} field, and executing termination based on the specific error state. When the device boots a new image, in addition to setting an error code, the boot failure count variable is incremented if an error occurs. The various scenarios are detailed in Table \ref[SWSafetyShutdownStatus], with corresponding error codes and descriptions listed in Table \ref[SWFlashFailureInfo].
+
+The safety shutdown process executes on the R0 core, as the M4 core cannot directly modify flash memory. In the event of a failure in the M4 core, it ceases sending periodic messages to the external watchdog based on the error code and sends a request to the R5 core to update the flash memory.
+
+\medskip
+\clabel[SWSafetyShutdown]{Device Safety Shutdown Process}
+\picw=14cm \cinspic img/05-sw-flow-safety-shouldown.png
+\caption/f Diagram illustrating the device safety shutdown process.
+\medskip
+
+The safety shutdown function can be triggered by errors detected during the initialization test sequence, runtime software failures, an invalid new software image, or faults identified by the Error Signaling Module (ESM). The ESM is an independent unit that monitors both the MAIN and MCU domains, with a dedicated ESM instance in each domain.\fnote{The MCU domain includes {\it MCU_ESM0}, while the MAIN domain includes {\it ESM0}.} When an error is detected by the ESM, the safety shutdown process is initiated. The ESM aggregates safety-relevant events from across the System-on-Chip (SoC) into a single point and signals them to the R0 core via interrupts for processing. The R0 core handles the error with the corresponding error code, as illustrated in Figure \ref[SWSafetyShutdown]. Errors reported by the ESM are categorized into two groups: corrected faults and non-corrected faults.\fnote{A detailed description of how to work with this module is available in the Technical Reference Manual.}
+
+\medskip
+\clabel[SWSafetyShutdownESM]{ESM Module Overview}
+\picw=14cm \cinspic img/05-sw-ESM-overview.png
+\caption/f Diagram illustrating the ESM module overview connection. The {\it MCU_ESM0} is placed in the MCU domain, the {\it EMS0} is placed in the MAIN domain.
+\medskip
+
+In general, a failure to start the device correctly does not constitute a safety hazard. The critical issue arises when the device starts, operates correctly for a period, and then fails. To mitigate this, initialization errors trigger a reboot, prompting the device to attempt a full restart. Conversely, runtime errors result in termination, as they represent a safety hazard.
 
 
+
+\midinsert \clabel[SWSafetyShutdownStatus]{Safety Shutdown State Description}
+\ctable{lll}{
+{\sbf Description} & {\sbf Error Code} & {\sbf Termination Mode} \crl
+SPI initialization error & 0x03 & Reboot \cr
+\cr
+Inter-Core communication initialization error & 0x04 & Reboot \cr
+\cr
+Inter-Core communication runtime error & 0x05 & Termination \cr
+\cr
+CPU resources initialization error & 0x06 & Reboot \cr
+\cr
+Testing Initial Sequence Timeout & 0x07 & Reboot \cr
+\cr
+ESM detected error & 0x08 & Termination \cr
+\cr
+Undefined error & 0xFF & Termination \cr
+}
+\caption/t This table outlines the safety shutdown states, their corresponding error codes, and the associated termination modes.
+\endinsert
+
+
+
+
+\label[InitialChecks]
+\sec Initialization Test Sequence
+
+Before launching the application, an initialization test (check) sequence is executed to:
+
+\begitems
+* Verify that all SIL software components function correctly.
+* Validate the correct behavior of the software during an update.
+\enditems
+
+The process consists of a few steps, each testing a single component. If an error occurs, the device transitions to a safety shutdown state with the corresponding error code, and the safety shutdown process handles the fault. The process is illustrated in the Figure \ref[SWInitialChecks].
+
+\medskip
+\clabel[SWInitialChecks]{Software Initialization Check Process}
+\picw=8cm \cinspic img/05-sw-flow-initialization-check.png
+\caption/f Diagram illustrating the software initialization check process.
+\medskip
+
+\begitems
+* CPU verification involves configuring clocks, PLL, GPIO, IPC mechanisms, memory allocation, and other essentials. An initialization error occurs when internal checks fail, prompting the device to enter a safety shutdown state with the appropriate error code. This description is not entirely precise, as checks typically occur after each initialization step. Based on the implementation, it is advisable to expand and refine the error codes to correspond to specific issues.
+
+* The ADC verification over SPI involves initializing the SPI interface, configuring the ADC converter, and performing a self-test. The ADC converter allows reading values from its registers using a callback configuration. Verification is conducted by configuring the ADC and expecting the configuration to be read back correctly. If this fails, the process is repeated twice more (a total of three attempts). If none of the attempts succeed, the SPI test via ADC is deemed unsuccessful.
+
+* Inter-core communication does not require a dedicated test step, as successful completion of the initialization sequence depends on its proper functioning. The entire sequence executes on the M4 core in isolated mode. Upon completion, the M4 core must send a message to the R5 core indicating either successful initialization or an error with the corresponding error code. If the R5 core does not receive this message within a specified timeout period, it determines that the M4 core is malfunctioning, and an error code is logged in the flash memory. This process is illustrated in the Figure \ref [SWInitialChecksR5].
+
+\medskip
+\clabel[SWInitialChecksR5]{Software Initialization Check Process in the R5 core}
+\picw=14cm \cinspic img/05-sw-flow-initialization-check-R5.png
+\caption/f Diagram illustrating the software initialization check process in the R5 core.
+\medskip
+
+
+\enditems
+
+The success of the {\sbf software update} process critically depends on this initialization sequence. These initialization checks serve as the primary mechanism for determining whether the software update was successful.
+
+To summarize, SIL software is considered {\sbf successfully} launched if:
+\begitems
+* The X.509 certificate is valid (verified by the bootloader).
+* The Testing Initialization Sequence in the M4 core completes successfully.
+\enditems
+
+\label[SafeSoftwareChap]
 \sec Safe software
 
-\sec Realtime software
+The SIL component, operating on the isolated M4 core, is tasked with fulfilling safety functions that are relatively straightforward. Its primary role is to read data from ADC modules, evaluate the data, and send a corresponding binary signal to the Simatic PLC via a binary output. This constitutes its core safety function. Its secondary function is to provide the collected data to the R5 core, which uses the information for monitoring purposes.
 
-\sec Component communication
+\secc Core Isolation Description
 
-\medskip
-\clabel[SWArchitecture]{Software Architecture}
-\picw=14cm \cinspic img/05-sw-architecture.png
-\caption/f Software Architecture
-\medskip
+The safety processor is separated out in its own domain called the MCU domain (safety channel) and the rest of the SOC, which includes the application processor. MCU domain owns dedicated peripherals such as GPIOs, I2C, UART, SPI, interconnect, and configuration logic. This makes sure that the M4F in the MCU channel can execute independently using dedicated resources. After the AM243x device is booted up, the MCU domain can be configured to be isolated from the MAIN domain. This is done by enabling {\sbf clock gating isolation}. Dedicated Local Power Sleep Controller (LPSC) controllers present in the device can provide for all clock stop control for all the transactions between the MAIN domain and MCU domain. When this isolation is enabled, any transaction from the MAIN domain will be blocked from entering the safety channel. These transactions are terminated gracefully, and the MAIN domain processor will be notified of these violations. Note that IPC communication is not hindered by clock gating.
 
+{\sbf Independent reset} pins for both the MAIN and MCU domain provide flexibility to reset the MAIN domain while the MCU domain is still active. Additionally, both the MAIN and the MCU domain can issue a reset to the MAIN domain independently through dedicated reset control registers, which can result in a warm reset or POR\fnote{Power-on Reset} of the MAIN domain. At this point, the MCU domain can function independently. The reset of the MCU domain, however, will result in the reset of the entire device~\cite[UHVnMJCNhmh92Bmj].
 
+\secc Process Description
 
-\medskip
-\clabel[SWFlowRunningParallel]{Software Flow Running Parallel}
-\picw=14cm \cinspic img/05-sw-flow-running-parallel.png
-\caption/f Software Flow Running Parallel
-\medskip
-
-
+The operation of the SIL core is cyclic, as illustrated in Figure \ref[SWSILSoftware]. The core is isolated, running independently of the R5 cores’ resources (MAIN domain), including its own clock, RAM, and peripherals. The system supports separate restarts for the MAIN domain and the MCU domain (where the isolated core operates), though this functionality is not utilized from the perspective of the M4 core.
 
 \medskip
-\clabel[SWFlowRunningSequential]{Software Flow Running Sequential}
-\picw=14cm \cinspic img/05-sw-flow-running-sequential.png
-\caption/f Software Flow Running Sequential
+\clabel[SWSILSoftware]{Process in the SIL component}
+\picw=8cm \cinspic img/05-sw-flow-running-SIL.png
+\caption/f Diagram illustrating the process in the SIL component.
 \medskip
+
+
+The process begins with the initialization of essential components, including the configuration of clocks, PLL, peripherals, and memory resources. This sequence is part of the Initialization Test Sequence described in Chapter \ref[InitialChecks]. Subsequently, the Q\&A watchdog is initialized to oversee the operation of the entire device. Initially, I intended to use a timer for its management, but this approach undermines the watchdog’s functionality. It is expected that checks will be implemented in the main loop, ensuring that in the event of software failure (e.g., jumping to undefined memory), the watchdog responds and terminates the device. The watchdog function is described in greater detail in Chapter \ref[SafetyShutdownChap].
+
+Once all components are initialized, a loop is executed that performs the following sequence: reading data from the SPI interface, processing the data, and evaluating its state. The evaluation varies based on the hardware configuration, specifically depending on the type of railway crossing and the country in which the device is deployed. Further details on these configurations are provided in Chapter \ref[LevelCrossingSingalization].
+
+After evaluating the state, data is exchanged with the MAIN domain (i.e., the R5 core), which serves as a monitoring device. Data is not sent in every cycle but rather once every $n$ cycles. This is because ADC data reading requires near-real-time performance with low latency (in practice, high-speed data transfer from the ADC module via SPI is limited due to hardware protections, such as high-impedance resistors), whereas the monitoring device does not require real-time data. Inter-core communication is further described in Chapter \ref[InteCoreCommunicationChap].
+
+In the final step of the loop, a signal is sent to the Simatic PLC as a binary output. This signal is not transmitted via serial communication but consists of simple binary states: {\it HIGH} or {\it LOW}.
+
+
+\label[StandardOperationChap]
+\sec Non-SIL software
+
+In contrast to the SIL software, which focuses on safety-critical functions, the non-SIL software encompasses a broader range of functionalities and operates primarily on a single R5 core within the MAIN domain. Its responsibilities include:
+
+\begitems
+* Communicating with the SIL software (i.e., the MCU domain) to acquire measured and evaluated data.
+* Running a web server to provide measured data and facilitate software updates.
+* Indicating the device’s status using informational LEDs.
+* Performing additional measurements to better understand the device’s state, though these do not fulfill SIL-relevant functions.
+\enditems
+
+The core runs on a real-time operating system, specifically FreeRTOS. An alternative, Zephyr, is better suited for larger-scale projects that function as platforms,\fnote{It is the result of discussion with Texas Instrument engineers on the workshop.} but its use is not justified in the context of this project. The primary motivation for using a real-time operating system is to optimize the operation of the web server and enable task prioritization. Since the system runs on FreeRTOS, a decision must be made regarding the structure of the non-SIL software.
+
+
+\medskip
+\clabel[SWFlowRunningNonSILParallel]{Software Flow non-SIL Parallel Version}
+\picw=14cm \cinspic img/05-sw-flow-running-non-SIL-parallel.png
+\caption/f The diagram illustrates the parallel version of non-SIL software
+\medskip
+
+Two general approaches exist. The first involves parallelizing all subtasks, as illustrated in Figure \ref[SWFlowRunningNonSILParallel]. In this scenario, each task is handled by a separate FreeRTOS task. The advantage of this approach is the ability to prioritize certain tasks, such as those responsible for measurements, over the web server’s operation. However, a disadvantage is the need to manage access to shared data.
+
+The second approach adopts a more sequential structure, as depicted in Figure \ref[SWFlowRunningNonSILSequential]. Here, only two main tasks are used (though more may exist, as one way to implement the web server is to spawn a new task for each client request). One task handles the web server, while the other manages cyclic measurement tasks. The advantage of this approach is the minimization of shared data access, as the measurement task primarily writes to memory, and the web server task only reads from it. A potential drawback could be limited task prioritization. However, this is not an issue in this project, as measurement components are prioritized over the web server. Additionally, the measurement components are relatively simple and do not involve complex operations in terms of code scope. For these reasons, I opted for the second approach, the more sequential structure.
+
+\medskip
+\clabel[SWFlowRunningNonSILSequential]{Software Flow non-SIL Parallel Sequential}
+\picw=8cm \cinspic img/05-sw-flow-running-non-SIL-sequential.png
+\caption/f The diagram illustrates the sequential version of non-SIL software.
+\medskip
+
+Let us examine the operation of the non-SIL software in greater detail. Upon startup, the system performs initial configuration of data structures and FreeRTOS settings. Additionally, it participates in the {\sbf Initialization Test Sequence}, specifically by echoing back a test message for inter-core communication (IPC) verification. Following this basic configuration, the FreeRTOS system is launched, initiating its individual tasks.
+
+The cyclic operations are managed within the {\it t_measuring} task, with its configuration performed at the task’s outset. For clarity and to illustrate the sequence of steps cohesively, I have chosen to present the process as a unified loop. The {\it t_measuring} task comprises three sequences: {\it read_from_isolated_core}, {\it additional_measure}, and {\it LED_information}.
+
+The {\it read_from_isolated_core} sequence handles data acquisition from the isolated M4 core, as discussed in detail in Chapter \ref[InteCoreCommunicationChap], which covers inter-core communication.
+
+\medskip
+\clabel[SWFlowRunningNonSILMeasure]{Software Flow non-SIL Additional Measure Task}
+\picw=7cm \cinspic {img/05-sw-flow-running-non-SIL-additional_measure.png}
+\caption/f The diagram illustrates {\it additional_measure} sequence.
+\medskip
+
+The {\it additional_measure} sequence aims to provide supplementary data to better identify error states and their causes. Currently, it includes one additional ADC module measuring the voltage of a non-SIL2-relevant component, thus not safety-critical. This sequence configures the peripheral, cyclically reads data from the ADC module, decodes and evaluates the data, and stores the results in a buffer. These results are made available via the web server upon request, alongside other data. As this sequence is non-critical, it can be executed intermittently. A sleep function pauses the sequence for n seconds, with an estimated interval of 1 second deemed sufficient, to be finalized during implementation.
+
+
+\medskip
+\clabel[SWFlowRunningNonSILLED]{Software Flow non-SIL LED Information Task}
+\picw=9cm \cinspic img/05-sw-flow-running-non-SIL-LED-information.png
+\caption/f The diagram illustrates {\it LED_information} sequence.
+\medskip
+
+The {\it LED_information} sequence displays the device’s status using LEDs, with one LED assigned to each ADC module connected to the M4 core. Each LED can indicate three states across four conditions: unpowered (a), powered (b), off (c), or undefined (d). Two LEDs are used for signaling: one lights up when the device is powered, the other when it is off, and both illuminate for an undefined state. These states are illustrated in Figure \ref[SWFlowRunningNonSILLEDStatus].
+
+\medskip
+\clabel[SWFlowRunningNonSILLEDStatus]{Information LED Status Illustration}
+\picw=12cm \cinspic img/05-sw-flow-running-non-SIL-LED-signalization-status.png
+\caption/f Information LED Status Illustration. 
+\medskip
+
+The {\it t_web_server} task delivers measured data via HTTP responses and supports software updates. This task runs at a lower priority than the {\it t_measuring} task, which is responsible for data acquisition. The process begins by launching the web server, which involves configuring the Ethernet interface available on the development kit. Once active, the web server awaits incoming requests, handling two types: a GET request to the {\it /data} URL path, returning measured data in a JSON structure, and a POST request to the {\it /software} URL path, initiating a software update. The update process is detailed in Chapter \ref[SoftwareUpdate]. If an unknown request is received, the web server returns an error code in the response.
+
+\medskip
+\clabel[SWFlowRunningNonSILWebServer]{Software Flow non-SIL Web Server Task}
+\picw=10cm \cinspic img/05-sw-flow-running-non-SIL-web-server.png
+\caption/f The diagram illustrates {\it t_web_server} task process.
+\medskip
+
+
+As noted in the introductory discussion, the sequential approach minimizes conflicts in accessing shared resources. The web server reads data structures populated by the measurement sequences but does not modify them, avoiding write conflicts. The only requirement is to ensure the web server does not return inconsistent data, such as data being actively modified by the measurement task.
+
+\label[InteCoreCommunicationChap]
+\sec Inter-Core Communication
+
+The device requires the capability to communicate between cores, specifically between the isolated MCU domain and the MAIN domain, where the non-SIL software operates. This necessitates the configuration of an inter-core communication mechanism. The objectives of this layer are:
+
+To enable the transmission of measured data from the isolated M4 core to the non-SIL R5 core for display purposes.
+To facilitate the reporting of error codes and their logging in flash memory, particularly during the Initialization Test Sequence (described in Chapter \ref[InitialChecks]).
+
+Two primary approaches are available. The AM243x device provides an IPC mechanism that utilizes a {\sbf mailbox system} to send notifications and messages. Alternatively, a {\sbf shared memory region} can be defined and used as a communication medium between cores.
+
+
+{\sbf Mailbox module} serves to facilitate the communication between the various on-chip processors of the device by providing a queued mailbox-interrupt mechanism. The queued mailbox-interrupt mechanism allows the software to establish a communication channel between two processors (users) through a set of registers and associated interrupt signals. The module does not support the hardware protection to prevent users from reading FIFO mailboxes that they don’t own as receiver or writing to FIFO mailboxes that they don’t own as sender~\cite[fcLWZx8KgBoQyWDm].
+
+
+\medskip
+\clabel[SWMailboxSystemExample]{Mailbox System Example}
+\picw=14cm \cinspic img/05-inter-core-communication-example.jpg
+\caption/f The figure illustrates inter-core communication between two processors using the AM243x mailbox system. A 32-bit message written to the {\it MAILBOX_MESSAGE_y} register is appended to a FIFO queue with a capacity of four messages; if the queue is full, the message is discarded. Overflow is prevented by checking the {\it MAILBOX_FIFO_STATUS_y} register to ensure the queue is not full before writing. Reading the {\it MAILBOX_MESSAGE_y} register retrieves and removes the first message from the queue, returning 0 if the queue is empty. A new message interrupt is triggered when at least one message is present, with the {\it MAILBOX_MSG_STATUS_y} register indicating the number of queued messages~\cite[fcLWZx8KgBoQyWDm].
+\medskip
+
+
+The alternative approach to inter-core communication is to utilize {\sbf shared memory}. However, to ensure safety, memory operations must be protected. The advantages of this approach include simpler implementation and the elimination of the need for a dedicated subsystem. Consequently, I opted for this method, though it requires enhancements to meet safety requirements.
+
+Communication is designed to be unidirectional: the M4 core can access and write to the shared memory, while the real-time R5 core is restricted to read-only access. To prevent memory corruption due to erroneous jumps, {\sbf firewall mechanisms} are employed.
+
+The AM243x device supports two primary types of firewalls: region-based and channelized. {\sbf Channelized firewalls} are implemented solely to protect registers controlling the power domain and Local Power Sleep Controller (LPSC) for the security enclave, with their settings fixed and non-modifiable by users. {\sbf Region-based firewalls}, positioned at the target endpoint in the interconnect, are shared by groups of target interfaces. Each region-based firewall is configured with:
+\begitems
+* {\sbf FWID}: A unique identifier for the firewall block.
+* {\sbf Number of protected regions}: Specifies the number of user-definable protected regions.
+* {\sbf Memory regions behind the firewall}: Transactions targeting these regions are subject to firewall protection.
+\enditems
+
+Most memory regions in the System-on-Chip (SoC) are safeguarded by region-based firewalls, except for the public boot ROM, debug cell, and System Trace Module (STM).\fnote{The device using Arm CoreSight STM with supporting logic that maps initiator IDs to specific STP Major Source IDs.}
+
+Memory protected by a firewall must be aligned to a 4KB boundary, with a minimum size of 4KB. Each firewall can protect only a single memory block, preventing the stacking of multiple firewalls~\cite[bX9db1UMLfKoFyfd].
+
+The firewall is configured to permit write access exclusively to the M4 core, while other cores, such as the R5 core, are limited to read-only access. This mechanism ensures that the memory used by the M4 core for SIL-relevant operations, allocated in the MAIN domain, cannot be overwritten. It also guarantees that only the M4 core can perform writes, eliminating potential conflicts. The primary challenge is ensuring data consistency, preventing the R5 core from reading data during a write operation, which could result in incomplete or inconsistent values.
+
+Multiple solutions exist to address this issue. An atomic operation, similar to those used for modifying flash memory structures, is unnecessary in this context. Alternatively, a spinlock or mutex mechanism could lock the structure during access, but this is overly complex for the given scenario, as absolute data correctness is not required. It suffices to discard and ignore inconsistent data, a situation expected to occur rarely due to the rapid nature of read operations. Nevertheless, this possibility must be accounted for.
+
+To ensure consistency, the shared memory is organized into multiple structures. Each structure includes an identifier at its start and end, incremented by one with each write. Data is written sequentially, and consistency is verified if the start and end identifiers match. This mechanism is applied to every structure.
+
+
+\medskip
+\clabel[SWInterCoreCommunicationOverviewStructure]{Overview of Inter-Core Communication Shared Memory}
+\picw=14.5cm \cinspic img/05-sw-IPC-overview.png
+\caption/f The overview of inter-core communication shared memory.
+\medskip
+
+Two primary structures are defined in the shared memory, both protected by the described consistency mechanism. The first, illustrated in Figure \ref[SWInterCoreCommunicationMessageStructure], facilitates message transmission from the M4 core to the R5 core, primarily for reporting errors or confirming the successful completion of the Initialization Test Sequence.
+
+
+\medskip
+\clabel[SWInterCoreCommunicationMessageStructure]{Message Frame of Inter-Core Communication}
+\picw=14.5cm \cinspic img/05-sw-IPC-messages.png
+\caption/f The message frame of inter-core communication.
+\medskip
+
+
+The second structure, depicted in Figure \ref[SWInterCoreCommunicationDataStructure], transfers measured data from ADC modules to the R5 core for reporting via its web server. This structure comprises a header, protected by the consistency mechanism to ensure integrity, which includes metadata about the subsequent circular buffer, such as the latest element’s ID and the block size, in addition to integrity IDs.
+
+\medskip
+\clabel[SWInterCoreCommunicationDataStructure]{Data Frame of Inter-Core Communication}
+\picw=14.5cm \cinspic img/05-sw-IPC-data.png
+\caption/f The data frame of inter-core communication.
+\medskip
+
+The circular buffer is updated as follows: First, the {\it start integrity id} is incremented. Based on the latest element’s ID and {\it block size}, the system locates the oldest element. The {\it start position} (the oldest element, typically one position behind the latest element, except at the buffer’s end) is incremented, and the new value is written. Finally, the {\it end integrity id} is incremented.
+
+
+
+
+\sec Safety Mechanisms and Requirements
+
+As discussed in previous chapters, the system is divided into SIL (Safety Integrity Level) and non-SIL components. For the SIL component, it is critical to ensure that no unhandled error states occur. This section analyzes potential failure scenarios, their mitigations, and the general mechanisms defined by the relevant standard that apply to our project.
+
+As discussed in the chapter reviewing relevant manuals (Chapter \ref[RAMS]), two primary types of faults must be addressed: systematic and random faults. {\sbf Systematic faults} are mitigated through development processes and adherence to established guidelines. In contrast, {\sbf random faults}, which cannot be prevented, must be managed during device operation. The following sections primarily focus on methods for minimizing systematic faults. Toward the end of the chapter, I will examine the techniques and features provided by the AM243x device for addressing both fault types.
+
+The system is designed to address safety-critical issues primarily through hardware, leveraging inherent fail-safety mechanisms (Chapter \ref[SILArchitectureBaseMechanisms]). This approach enhances maintainability and simplifies the software update process. Nevertheless, the SIL component must operate in a safe mode. To achieve this, in addition to procedural guidelines, several techniques and architectural approaches are employed. As previously mentioned, most safety requirements are addressed through inherent hardware mechanisms. Additionally, an external watchdog is connected to the device to monitor its behavior, expecting a confirmation code at regular intervals. If the code is not received, the watchdog disconnects the device from its power supply. Further details on the watchdog’s functionality are provided in Chapter \ref[SafetyShutdownChap].
+
+The standard outlines several mechanisms, discussed in Chapter \ref[SoftwareArchitectureTechnique]. For this project, the following methods relevant to the software architecture were selected:
+
+\begitems
+* {\sbf Defensive Programming}: Defined by coding standards, further detailed in Chapter \ref[SoftwareArchitectureTechnique].
+* {\sbf Fault Detection and Diagnosis}: Implemented within the railway crossing control system by this device.
+* {\sbf Information Encapsulation}: Incorporated as part of object-oriented programming, described in Chapter \ref[SoftwareArchitectureTechnique].
+* {\sbf Fully Defined Interfaces}: Also part of object-oriented programming, with principles outlined in Chapter \ref[SoftwareArchitectureTechnique].
+\enditems
+
+From the programming techniques listed in Table \ref[TechniquesCoding], this project employs:
+
+\begitems
+* Coding Standard and Coding Style Guide
+* No Unconditional Jumps
+* Limited Size and Complexity of Functions, Subroutines, and Methods
+* Entry/Exit Point Strategy for Functions, Subroutines, and Methods
+* Limited Use of Global Variables
+\enditems
+
+As specified by the standard, the project is developed using a strongly typed programming language, specifically C and C++.
+
+For object-oriented development, the SIL component adheres to the following standard-defined mechanisms:
+
+\begitems
+* Inheritance is used only when the derived class is a refinement of its base class.
+* Depth of inheritance is restricted by coding standards.\fnote{In this work, I'm using the Siemens internal Coding Standard.}
+* Overriding of operations (methods) is strictly controlled.
+* Multiple inheritance is used exclusively for interface classes.
+\enditems
+
+
+\secc TI Functional Safety Constraints and Assumptions
+
+The TI Functional Safety Manual outlines functional safety constraints and assumptions that, when adhered to, enable software to be classified as SIL-compliant. I aim to highlight and discuss those constraints relevant to system design and development, which must be followed.\fnote{{\it NOTE}: For identification, I will use the notations from the TI manual, i.e., {[SA_<number>]}, such as {[SA_12]}. The Functional Safety Manual is under a NDA, preventing its inclusion as an appendix. To access this document, request permission through the forms at \url{https://www.ti.com/drr/opn/AM64X-RESTRICTED-DOCS-SAFETY} and \url{https://www.ti.com/drr/opn/AM243X-RESTRICTED-SECURITY}.}
+
+\begitems
+
+* Constraints {\sbf [SA_6]}, {\sbf [SA_7]}, and {\sbf [SA_19]} pertain to external monitoring devices, in my case an external watchdog rather than a PMIC. The watchdog’s role is further detailed in {\sbf [SA_8]}, with additional information provided in Chapter \ref[SafetyShutdownChap].
+
+* Constraint {\sbf [SA_13]} addresses power requirements and a safety-critical approach, which is fulfilled by the device's design.
+
+* Paraphrased, {\sbf [SA_20]} stipulates that safety functions should only be activated after successful device initialization. This condition is met through the Initialization Testing Sequence, described in Chapter \ref[InitialChecks].
+
+* Constraint {\sbf [SA_22]} requires the MCU domain to control the power device. This is achieved by employing an external debugger that expects periodic messages from the MCU domain, specifically the isolated M4 core.
+
+* Constraint {\sbf [SA_25]} mandates that when multiple components access the same resource, the SIL level must correspond to the higher requirement. This condition is satisfied, as the device shares no resources except for shared memory used for inter-core communication, which is adequately protected.
+\enditems
+
+Other statements primarily address procedural aspects or conditions irrelevant to this work.
+
+
+
+
+\secc Safety Perspective on Process Execution Analysis
+
+To ensure the safety of processor operations, we analyze the system’s execution in detail, dividing it into distinct phases and addressing key safety-related questions for each. For this discussion, the system’s operation is categorized as follows:
+
+\begitems
+* Booting and Initialization
+* Device Operation
+* Termination
+\enditems
+
+{\sbf Software Update}: This is detailed in Chapter \ref[SoftwareUpdate] and does not involve safety-critical code, so it will not be further discussed here.
+
+
+\seccc Booting and Initialization
+
+\begitems
+* {\sbf How do we ensure the software’s integrity?} Each core’s image is signed with an X.509 certificate, which verifies the software’s integrity (ensuring it was not corrupted during download) and authenticity (confirming it was signed with our private key).
+
+* {\sbf How do we prevent non-SIL code from running on the SIL core or SIL code on the non-SIL core?} The AM243x incorporates an Arm Cortex-R5F and an Arm Cortex-M4F, both utilizing the ARMv7 instruction set (specifically ARMv7-M and ARMv7-R). These cores share identical register address spaces and are based on the same ARMv7 versions. The primary difference is that ARMv7-M architectures always include divide instructions, whereas ARMv7-R includes them in the Thumb instruction set but optionally in its 32-bit instruction set~\cite[SrbbUYlzgn7p7sQd, epj6gRPBBzv8PadX].
+
+Theoretically, it might be possible to execute code intended for one core on the other. However, successful initialization requires a core-specific sequence, ensuring that non-SIL code (designed for the R5F core) cannot successfully execute on the SIL M4 core, nor can SIL code execute on the non-SIL R5F core. Running incorrect code on the safety-critical M4 core poses a significant hazard due to potential direct safety impacts, whereas the reverse scenario (SIL code on the non-SIL core) is less critical for our system.
+
+* {\sbf How do we verify the correct configuration of the device’s clocks and PLL?} Incorrect configuration of the clocks or PLL may cause failures in components synchronized by the clock signal, such as erroneous data reading from flash memory during the boot phase. While this issue is not critical for our system, the priority lies with processes running on the isolated M4 core, particularly data acquisition via SPI and inter-core communication. Correct configuration is verified using a predefined sequence, specifically the initial setup of the ADC via SPI on the M4 core. If the timing is incorrect, the device will fail, and the initialization sequence will not complete successfully. Additionally, an external debugger monitors the device during runtime to ensure proper operation.
+
+* {\sbf How do we verify the correct configuration of firewalls and communication modes?} If the cores cannot communicate with each other, the R5 core will be unable to read data sent by the M4 core, compromising the device’s primary functionality, though SIL functions would remain intact. The verification process is similar to the clock and PLL case: a predefined sequence of data is transmitted between the cores in both directions to confirm correct inter-core communication. If this communication fails, the condition for successful processor operation, as described in the software update process (Chapter \ref[SoftwareUpdate]), is not met, indicating that the code did not execute correctly, and an error is logged in the flash memory.
+
+* {\sbf How do we ensure that the CPU’s memory is properly initialized?} The bootloader loads the code into the internal RAM, and its integrity is verified using an X.509 certificate. If the certificate or the entire image is invalid, an error occurs during the bootloader process, and this information is stored in the flash memory.
+
+* {\sbf How do we verify the correct initialization of peripherals?} The SIL component utilizes only two peripherals: GPIO for sending binary signals to the Simatic PLC and SPI for communication with the ADC converter. The correct initialization of SPI is verified through the aforementioned initialization sequence for the ADC converter's initial configuration. If an error occurs, it is logged in the flash memory, and the device restarts. The functionality of GPIO pins is not verified during each device initialization; it is only tested during manufacturing as part of the firmware loading process.
+
+* {\sbf How do we verify the correct operation of SYSFW and DMSC?} The System Firmware (SYSFW), which manages the Device Management Security Controller (DMSC), is detailed in Chapter \ref[ROMCode]. SYSFW facilitates access to system resources, including authentication mechanisms, inter-processor communication (IPC) for messaging and notifications, and mechanisms for loading software from flash memory into the RAM of individual CPUs during the boot phase. From the perspective of SIL functions, SYSFW is not a critical component. The M4 core utilizes this layer only during its startup and not during runtime. The bootloader, which primarily relies on SYSFW, does not handle safety-critical code. In the event of a failure, the DMSC implements internal mechanisms to address the error, ensuring system stability~\cite[fcLWZx8KgBoQyWDm].
+
+\enditems
+
+
+\seccc Device Operation
+
+\begitems
+* {\sbf How do we verify that the software performs its intended functions correctly?} The correct transmission of binary signals to the Simatic PLC is ensured through signal duplication.
+
+Data reading from the ADC is verified by an initial sequence, as described in the previous section. During runtime, the ADC is not periodically rechecked. If a read error occurs, data cannot be retrieved, triggering a transition to a safety shutdown. In the case of a hardware failure, the hardware addresses the issue by disconnecting the device from its power supply.
+
+However, the proposed solution may significantly reduce EMC resilience. Therefore, it is advisable to consider implementing a mechanism in the future that ensures an error must occur multiple times before triggering a shutdown.
+
+Other functions employ standard-defined approaches outlined earlier, such as defensive programming, to prevent potential errors.
+
+* {\sbf How do we ensure the memory operates correctly?} Memory verification is not required for SIL2 compliance. However, the memory is monitored by the Internal Diagnostic Module, as described in the hardware introduction (\ref[MCUDomainTitle]). If code corruption occurs during runtime, the device addresses this by transitioning to a safe shutdown state, performing a reboot, and reloading the RAM for all cores from flash memory.
+
+* {\sbf How do we confirm that the clocks and PLL function correctly?} Unlike initialization, long-term discrepancies during runtime on the R5 cores can be detected using the Internal Diagnostic Module, which operates in both the MAIN and MCU domains. This module includes the Dual Clock Comparator (MCU-DCC), which assesses the accuracy of the clock signal during application execution. Additionally, an external debugger detects persistent errors by expecting regular responses. If the expected message is not received, the debugger disconnects the device from its power source, effectively shutting it down.
+
+* {\sbf How do we verify that GPIO functions correctly?} In the SIL component, GPIO and SPI are critical. SPI verification was addressed previously. For GPIO, I rely on hardware protection implemented through the required combination of multiple signals to enable positive transmission, illustrated in the Figure \ref[SWGPIOSafety]. Specifically, this involves the output from the ESM and an output from the power management unit responsible for the device’s power supply. These three signals are combined in a logical AND operation. The initial configuration is verified only during initialization, and the software does not modify the configuration during runtime.
+
+\medskip
+\clabel[SWGPIOSafety]{GPIO Safety Connection Schema}
+\picw=9cm \cinspic img/05-sw-GPIO-safety.png
+\caption/f The schema illustrates the GPIO logical safety connection with ESM Status Output and Power Management Unit Status Output.
+\medskip
+
+* {\sbf How do we ensure that firewalls and inter-CPU communication function correctly?} Firewall settings do not require runtime verification, as they are configured only during initialization, with testing described earlier. Inter-CPU communication is validated during initialization using predefined sequences. If the non-SIL component does not receive a message from the isolated core within the specified deadline, it assumes an error has occurred and transitions to a safety shutdown, which addresses the situation.
+
+It is necessary to consider whether the options for device termination and reboot are sufficient. The M4 core is isolated and executes the safety function. However, if the R5 core fails, only the monitoring and error logging to flash memory will be affected. The question is whether such an error warrants halting railway traffic by terminating the device. The proposed system is undoubtedly safe, but to enhance system trustworthiness and availability, it would be advisable in the future to design a mechanism that merely notifies of the error without shutting down the entire system.
+
+* {\sbf How do we ensure secure Ethernet communication?} The Ethernet network is isolated from external access and operates within a physically secured environment to minimize the risk of unauthorized access. For communication beyond the local network, a dedicated gateway unit is used. This gateway enforces encryption standards (e.g., TLS) and implements secure communication protocols. To further enhance security, HTTPS with properly configured TLS certificates should be used for all web-based interfaces. Regular certificate rotation and the use of certificate pinning can help prevent man-in-the-middle attacks. Physical access to networking equipment should be restricted to authorized personnel only, with access controls such as locked cabinets, surveillance, and audit logs in place.
+
+\enditems
+
+\seccc Device Termination
+
+\begitems
+* {\sbf How is device termination ensured in the event of an error?} Termination is achieved through an external watchdog that expects periodic confirmation messages. If these messages are not received, the watchdog disconnects the power supply, resulting in device termination. Thus, if the SIL core does not operate as expected, the external hardware automatically initiates a shutdown.
+\enditems
+The termination process is discussed in greater detail in Chapter \ref[SafetyShutdownChap], which describes the safety shutdown mechanism.
+
+
+\secc Functional Safety Mechanism Examples
+
+The AM243x device provides a range of mechanisms to mitigate random failures. Some are purely hardware-based but require software activation, while others are pre-implemented by TI, leaving the system integrator to decide whether to utilize them. These mechanisms, along with principles for designing peripheral hardware and development processes, are detailed in the Functional Safety Mechanism Manual.\fnote{Note that this manual covers both the AM64x and AM243x processor families. The AM243x series, used in this work, is significantly reduced in functionality. Thus, it is essential to verify that specific features are implemented. For example, Lockstep mode is supported only on AM64x, not AM243x, despite the presence of dual ARM R5 cores designed to enable this mode.}
+
+
+\seccc Access Management Using Firewalls
+The interconnect subsystem incorporates firewalls, primarily at the slave termination points, to restrict resource access to authorized masters based on their privilege ID (privID), transaction privilege, and transaction type. Unauthorized transactions are blocked, with writes failing to complete and reads returning zeros. Such attempts are logged, and an error event is generated. These features can be tested through software by initiating transactions that violate firewall permissions. This mechanism is employed for inter-core communication and to secure shared memory, as detailed in Chapter \ref[InteCoreCommunicationChap].
+
+\seccc Alignment Error Detection
+If an Ethernet frame contains an uneven byte count (not a multiple of 8), the module flags an Alignment Error. Error response and software requirements are defined by the system integrator.
+
+\seccc Auto Mode CRC Check
+The Multi-Channel CRC (MCRC) Controller, when operated in Auto mode, combines Direct Memory Access (DMA) with Cyclic Redundancy Check (CRC) calculations. This hardware accelerator offloads the CPU, increasing its capacity for other tasks. Additionally, it supports high-speed operations, enhancing system efficiency.
+
+\seccc Bit Multiplexing in Memory Array
+SRAM modules implement a bit multiplexing scheme, ensuring that bits forming a logical word are not physically adjacent. This reduces the likelihood of physical multi-bit faults manifesting as logical multi-bit faults, instead presenting as multiple single-bit faults. In Single Error Correction and Double Error Detection (SECDED) SRAM, where Error Correcting Code (ECC) corrects single-bit faults, this scheme enhances ECC diagnostic effectiveness. Similarly, in parity SRAM, it improves parity diagnostic reliability. Bit multiplexing is a mandatory architectural feature and cannot be modified by software.
+
+\seccc Dual Clock Comparator (DCC)
+One or more Dual Clock Comparators (DCCs) are implemented as versatile safety diagnostics to detect incorrect clock frequencies or drift between clock sources. Each DCC consists of two counter blocks: one serves as a reference time base, and the other tests the target clock. Both reference and test clocks, as well as the expected frequency ratio, are software-configurable. Deviations from the expected ratio trigger an error signal to the Error Signaling Module (ESM). DCC diagnostics are disabled by default and must be enabled via software. In our case, DCC is used to detect clock timing errors, preventing issues such as communication failures with ADC modules or malfunctions in internal components.
+
+\seccc External Monitoring of MCU Safety Error Pin
+The {\it MCU_SAFETY_ERRORz} pin, part of the MCU domain’s ESM, significantly enhances safety, as discussed in Chapter \ref[SafetyShutdonwProcessDescription]. This signal indicates the reset error state of the MCU domain. An external monitor can detect expected or unexpected changes in the reset signal’s state. Error response, diagnostic testability, and software requirements depend on the external monitor chosen by the system integrator. The AM243x also supports additional external monitoring via signals such as {\it SOC_PROC_OUT}, which indicates resets in the MAIN domain, and SYSCLKOUT and OBSCLK, which enable monitoring of internal clock signals using external peripherals. Further external monitoring devices, such as PMIC and watchdog, are detailed in Chapter \ref[SafetyShutdownChap].
+
+\seccc Flash Authentication Protection and Flash ECC Protection
+Encryption and authentication are applied to data blocks stored in attached flash memory (e.g., Hyperbus or Octal SPI). Error Correcting Code (ECC) enhances protection against soft errors by detecting and correcting single-bit errors and detecting double-bit errors. Flash ECC is calculated on 32-byte or 36-byte data blocks, with the block address included in the ECC calculation for 32-byte blocks. These functions are available only in Non-Bypass Mode.
+
+\seccc Illegal Operation and Instruction Trapping
+The Cortex-R5F processor includes diagnostics for illegal operations and instructions, serving as safety mechanisms. Many of these traps are disabled after reset and must be configured during R5 processor initialization. Examples include traps for illegal instructions, floating-point underflow/overflow, floating-point division errors, and privilege violations.
+
+
+The AM243x supports numerous additional safety techniques, such as Over-temperature Warning, Information Redundancy through various approaches, and periodic checks of memory and peripheral functionality using register readback.
+
+
+
+
+
+\sec Modular Architecture and Component Design
+
+The project is not built on an existing platform, necessitating the development of all components, including those responsible for launching the application, such as the Flash Writer (Chapter \ref[FlashWriterDescription]) and Bootloader (Chapter \ref[BootloaderFunctionDescription]). For clarity, the project’s components, or modules, are described below. Each module resides in its own repository, submodule, or subrepository within the project. The design philosophy enables independent versioning of each module, allowing new releases without impacting other components. For instance, although both the Bootloader and non-SIL software run on the R0 core, they are maintained in separate modules. The Bootloader is intended to remain fixed at a single version, while the non-SIL software may undergo regular updates.
+
+\medskip
+\clabel[SWRepoArchitectire]{Project Module Architecture}
+\picw=8cm \cinspic img/05-sw-repo-architecture.png
+\caption/f The diagram illustrates the module structure for the entire project.
+\medskip
+
+The modules, along with their dependencies, are illustrated in Figure \ref[SWRepoArchitectire]. The following outlines each component:
+
+\begitems
+
+* {\sbf Non-SIL Software}: This module encompasses the non-SIL software, producing software images for the R5 cores. Its behavior is detailed in Chapter \ref[StandardOperationChap].
+
+* {\sbf Safety Software}: This module contains the SIL software, generating an image for the M4 core to fulfill safety-critical functions. Its behavior is elaborated in Chapter \ref[SafeSoftwareChap].
+
+* {\sbf Bootloader}: Operating on the R0 core, this component loads the SIL and non-SIL software images into the CPU’s internal RAM. Its functionality is described in Chapter \ref[BootloaderFunctionDescription].
+
+* {\sbf Flash Writer}: This module facilitates the initial software upload via Ethernet in the factory. It collaborates with the Factory Test Runner to verify hardware functionality post-upload, as detailed in Chapter \ref[FlashWriterDescription].
+
+* {\sbf DvpEnv}: This module includes project and automation scripts to streamline development, such as pre-commit hooks. It also contains scripts used across modules for tasks like compiling, signing images, monitoring devices, and decoding TI Trace Logs.
+
+* {\sbf Siemens SDK}: This component provides pre-implemented functions from other projects using the same hardware.
+
+* {\sbf Utils (Shared Code)}: This module houses libraries shared across multiple components, such as ADC module communication and communication frameworks.
+
+* {\sbf TI SDK}: This refers to the Texas Instruments MCU PLUS SDK for the AM243x Sitara series. All components, except the M4 core, rely on this SDK. The M4 core uses a custom implementation, with register configuration performed via direct register writes, bypassing the TI SDK's HAL layer.
+
+\enditems

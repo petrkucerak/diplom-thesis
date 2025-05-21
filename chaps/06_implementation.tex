@@ -7,12 +7,171 @@
 \def\ttb{\tt\char`\\} % pro tisk kontrolních sekvencí v tabulkách
 
 
-\chap Implementation
+\chap Prototype Implementation
 
-\sec Booting
+In this chapter, I describe the implementation and development of the prototype device, analyzing in detail the specific challenges encountered and the solutions devised to address them.
+
+\sec Prototype Specification
+
+The objective of the implementation phase of my project was to design and develop software for a hardware prototype intended for testing hardware components. To accelerate development, software development commenced concurrently with hardware development. The development was conducted on the previously mentioned AM243x LaunchPad development board.
+
+The prototype must be capable of communicating with an ADC module via SPI, managing GPIO, facilitating communication between the isolated and real-time cores, and reporting measured data via Ethernet. The prototype’s goals include enabling device booting, establishing a development environment, and implementing device debugging. When developing software for the isolated core, it is ideal to adhere to the guidelines outlined in the relevant standard to simplify future safety-critical development.
+
+\sec Architecture Overview
+
+The prototype’s structure comprises the main Sitara AM243x MCU and the following components:
+\begitems
+* {\sbf XDS110}: An integrated debugger used for code monitoring.
+* {\sbf ADC Module}: Communicates via SPI.
+* {\sbf UART1} Interface: Facilitates system-level log transmission.
+* {\sbf GPIO}: In this case, directly connected to onboard LEDs, serving as a user interface.
+* {\sbf Gateway}: Transmits measured data via an Ethernet interface.
+\enditems
+
+\medskip
+\clabel[Prototype]{Prototype Architecture Overview}
+\picw=14cm \cinspic img/06-hw-prototype.png
+\caption/f The diagram illustrates the prototype architecture overview.
+\medskip
+
+The project’s software is divided into the following three components:
+
+\begitems
+* {\sbf Flash Writer}: Also referred to as Uniflash, this component handles the uploading of firmware to flash memory. In the prototype, it uses UART for this purpose. Further details are provided in Chapter \ref[FlashWriterImplementation].
+
+* {\sbf Bootloader}: Referred to in the implementation as SBL OSPI Multi-Partition, it manages the boot process. Specifically, it ensures that firmware is loaded from flash memory into the RAM of individual CPUs and verifies the X.509 certificates used to sign software images. Further details are provided in Chapter \ref[BootingImplementaion].
+
+* {\sbf System}: This component includes subcomponents containing software images for each core, responsible for managing the application's runtime.
+\enditems
+
+
+\sec Development Environment and Build System
+
+The development was built upon the TI SDK\fnote{Specifically, this refers to the {mcu_plus_sdk}, available at \url{https://www.ti.com/tool/MCU-PLUS-SDK-AM243X} or in the GitHub repository \url{https://github.com/TexasInstruments/mcupsdk-core}. However, I do not recommend using the GitHub version, as it is not regularly maintained, TI does not incorporate GitHub Issues into its development process, and the repository lacks properly resolved dependencies, requiring user intervention.} for AM243x and AM64x. TI recommends using its IDE, Code Composer Studio (CCS),\fnote{\url{https://www.ti.com/tool/CCSTUDIO}} which is based on Eclipse, and also offers a newer version called Theia,\fnote{\url{https://www.ti.com/tool/download/CCSTUDIO-THEIA/1.5.1}} which is more similar to the VS Code design. Personally, I did not use either IDE for development due to two reasons: first, I encountered issues with missing components during installation, preventing a swift setup; second, I found it more efficient to use a build system like CMake or Make for better portability, such as in automated testing or pipeline builds, where a build system simplifies execution compared to an IDE. Instead, I used Visual Studio Code for development and Makefiles for building, which the TI SDK also employs.
+
+However, I utilize Code Composer Studio for debugging, as it supports communication with TI’s integrated XDS110 debugger. This is discussed further in Chapter \ref[DebuggingChapter]. To ensure the project functions correctly, additional tools must be installed, on which the system depends. These include:
+
+\begitems
+* {\sbf Code Composer Studio (CCS)}: As mentioned, it is used for debugging and is capable of running additional tools, such as the energy monitor for measuring device power consumption based on its activities, or installing dependencies, including drivers for XDS110 debugger communication.
+
+* {\sbf TI SysConfig}: SysConfig is a configuration tool designed to simplify hardware and software configuration challenges to accelerate software development~\cite[8RLlJwln4N1wsmDk]. A detailed description is in Chapter \ref[SysConfigChap].
+
+* {\sbf TI ARM Clang}: For software compilation, specifically version 4.0.1.\fnote{Available at \url{https://www.ti.com/tool/download/ARM-CGT-CLANG/4.0.1.LTS}}
+
+* {\sbf Node.js}: \fnote{TI specifies version 12.18.4 LTS, though I used a newer version.} This web server runs the SysConfig application, enabling code generation as an API between the TI SDK and my code.
+
+* {\sbf Doxygen}: For generating SDK documentation.
+
+* {\sbf OpenSSL}: For signing software images with X.509 certificates.
+
+* {\sbf Python3}: For running scripts, such as flashing software via the flashwriter, decoding SoC Trace logs, or signing software images.
+
+* {\sbf Uniflash}: \fnote{\url{https://www.ti.com/tool/UNIFLASH}} This component is less critical. I used it occasionally to inspect flash memory contents.
+
+\label[SysConfigChap]
+\secc System Configuration Tool (SysConfig)
+
+An application serving as a configurator for AM243x, similar to STM32CubeMX, providing a graphical interface for configuring hardware resources like peripherals and clocks. However, its workflow differs significantly. While STM32CubeMX is primarily used for initial C file generation and occasional reconfiguration, TI SysConfig is employed in every build. Unlike STM32CubeMX, which generates source code with commented sections, SysConfig produces source files not intended for developer modification, acting as an API between the TI SDK and my code.
+
+\medskip
+\clabel[SysConfgiScreenshot]{SysConfig Multi-core Configuration}
+\picw=14cm \cinspic img/06-sysconfgi-screenshot.png
+\caption/f The screenshot illustrates multi-ores project configuration in the SysConfig tool.
+\medskip
+
+The SysConfig environment significantly saves time by eliminating the need to study all registers in detail for testing, thereby greatly accelerating prototype development. However, I encountered two challenges that require attention.
+
+The AM2434 is a multi-core system, and ideally, we would want to configure all cores within a single project. This is beneficial for tasks such as memory allocation, inter-core communication via the IPC mechanism, and firewall configuration. Achieving this in SysConfig is not entirely straightforward. When opening the application, you can load a configuration from a pre-existing configuration file, each specific to a core and bearing the {\it .syscfg} extension. However, this approach will not work for multi-core projects, as SysConfig’s graphical interface does not support opening such projects. To address this, the application must be launched via the terminal with a special argument that links individual configuration files. In my project, this script is integrated into the Makefile located in the {\it system_nortos} directory.
+
+The second limitation of the application is its inability to run two instances simultaneously. Practically, if you need to open the configurator for the system (all cores) and the bootloader concurrently to verify configurations, this is not natively supported. The issue stems from the application running on Node-Webkit, which does not allow multiple instances. A workaround exists: launch one instance, then modify the unique name for a new instance in the temporary data.\fnote{For example, change the {\it name} variable in the {\it package.json} file, located in {\it \%LOCALAPPDATA\%} on Windows.} This enables running the application in multiple windows.
+
+\secc Build Process
+
+For building, I utilize pre-existing and modified Makefiles from the TI SDK, all orchestrated by a single overarching Makefile that enables the execution of the following targets:
+
+\begitems
+* {\sbf app}: Builds the system, generating images for each core.
+* {\sbf app-syscfg}: Launches the SysConfig application for the system, configuring each image.
+* {\sbf bootloader}: Builds the bootloader, specifically the {\it sbl_ospi_multi_partition} directory for the R5F0-0 core in my project.
+* {\sbf bootloader-syscfg}: Launches the SysConfig application for bootloader configuration.
+* {\sbf uniflash}: Builds the Uniflash component, i.e., the flash writer.
+* {\sbf uniflash-syscfg}: Launches the graphical SysConfig interface for Uniflash configuration.
+* {\sbf libs}: Builds the libraries included in the TI SDK.
+* {\sbf flash}: Executes a Python script to upload firmware to the board.
+* {\sbf sysfw}: Rebuilds the system firmware, required when enabling SoC Trace.
+* {\sbf sysfw-config}: Opens the graphical configuration interface for system firmware.
+* {\sbf sbl}: Rebuilds the Secondary Boot Loader (SBL), necessary when enabling SoC Trace.
+* {\sbf sysfw-trace-log}: Parses log files obtained during SoC~Trace.
+\enditems
+
+The main Makefile also includes composite targets that combine individual targets, such as {\sbf all}, which natively builds the entire system (excluding sysfw and sbl) and initiates the flashing process, or {\sbf build}, which performs the same tasks as {\sbf all} but omits the flashing step. The Makefile is designed to support parallel building for improved efficiency.
+
+The build process for each core’s image is defined by a Makefile specific to each subproject. It generally consists of three steps:
+\begitems
+* {\sbf Generation of Files}: Creating files defined in the {\it .syscfg} file using TI SysConfig.
+
+* {\sbf Compilation and Linking}: Producing a binary file for the respective core. This process also generates a {\it .map} file, which describes the device’s memory layout and is useful for debugging memory-related errors.
+
+* {\sbf Signing and Image Creation}: Signing the generated binary file and creating an image that includes an X.509 certificate and the binary code.
+
+\enditems
+
+\secc Build Workflow
+
+For development purposes, the following workflow is recommended for building, uploading, and monitoring the device. On the AM243x LaunchPad board, it is necessary to configure the {\it UART BOOT MODE} via hardware switches and power on the device. Next, I recommend opening the UART console, accessible through the integrated XDS110 debugger. In this mode, the ROM Code sends a “C” symbol every 2–3 seconds and, upon restart, a hash code indicating the ROM Code’s current version. The transmission of “C” symbols confirms the correct mode selection and functional power supply.
+
+\medskip
+\clabel[BootModeMutexUART]{UART Bootmode Configuration}
+\picw=6cm \cinspic img/06-boot-switch-mode-01.png
+\caption/f The image illustrates the {\it UART BOOTMODE} configuration.\fnote{Image source: \url{https://software-dl.ti.com/mcu-plus-sdk/esd/AM243X/latest/exports/docs/api_guide_am243x/GETTING_STARTED_FLASH.html}.}
+\medskip
+
+Subsequently, use the Makefile to compile all software and initiate the upload to the device. To upload software to flash memory, the UART console monitoring must be disabled. Then, switch the device to {\it QSPI BOOT MODE} and restart it. I recommend performing a full system reset using the {\it SOC_RESET_REOZ} button or resetting the M4 core, which also triggers a system-wide reset via {\it MCU_PORZ}.
+
+\medskip
+\clabel[BootModeMutexFLASH]{QSPI FLASH Bootmode Configuration}
+\picw=6cm \cinspic img/06-boot-switch-mode-02.png
+\caption/f The image illustrates the {\it QSPI FLASH BOOTMODE} configuration.\fnote{Image source: \url{https://software-dl.ti.com/mcu-plus-sdk/esd/AM243X/latest/exports/docs/api_guide_am243x/GETTING_STARTED_FLASH.html}.}
+\medskip
+
+During the reset, I advise reopening the terminal to display information sent by the software to the debug console, provided debugging via UART is enabled.
+
+\label[FlashWriterImplementation]
+\sec Flash Writer
+
+
+The Uniflash component is tasked with storing software images for individual cores in flash memory. Data is transferred via UART using the Xmodem protocol, which is detailed in Chapter \ref[FlashWriterDescription]. A Python script, included in the TI SDK, manages the upload process on the PC side. This script accepts arguments that define its behavior and influence the data layout in flash memory. For ease of configuration modification, these arguments are specified in a file named {\it sbl_ospi_partition.cfg}, which is passed as an argument within the Makefile. Let us examine its key components.
+
+The argument {\it --flash-writer=<image location>} must always be defined first, specifying the location of the generated software image for the Uniflash component. Next, the bootloader’s software image location is defined, which must be placed at an offset of {\it 0x000000}. Subsequent arguments specify the locations and offsets for each core’s generated software image, for example, {\it --file=<image location> --operation=flash --flash-offset=0x280000}.
+
+In this configuration, the flash memory is not erased; it is only overwritten. A complete erase is advisable when changing the offsets of individual software images. However, an advantage is that unchanged images do not need to be rewritten, thereby accelerating the flashing process.
+
+\medskip
+\clabel[FlashWriteFlow]{Software Flashwrite Diagram}
+\picw=2.2cm \cinspic img/06-flash-write-process.png
+\caption/f The diagram illustrates the implemented flash write process.
+\medskip
+
+The entire process is illustrated in detail in Figure \ref[FlashWriteFlow] and proceeds as follows: upon starting the device in UART BOOT MODE, the ROM Code loads the flash writer (including certificate authentication, as described in Chapter \ref[BootingDetailDescriptionChapt]) into the {\it R5F0-0} core and executes it. The software initializes the device, specifically configuring clocks, OSPI for flash communication, UART for data transfer, GPIO for onboard LED status indication, and memory regions.
+
+The OSPI interface uses the 4S-4D-4D protocol,\fnote{Four DQ signals are used during command transfer at Single Data Rate (SDR), and four DQ signals are used during address and data transfer at Double Data Rate (DDR). Further details are available at \url{https://www.infineon.com/cms/en/product/memories/nor-flash/semper-nor-flash-family/semper-nor-flash/s25hl512tfabhm010/}.} which is supported by the S25HL512T flash memory installed on the board, with a page size of 256 bytes. After initializing all necessary components, the Xmodem protocol is activated, utilizing functions defined in the TI SDK. If data is received successfully, a confirmation command is sent. If data reception fails, such as due to an overflow, an error code is transmitted to the PC.
+
+If an error occurs during uploading, it is displayed on the terminal via the Python script. The most common solution is to restart the device and reattempt the upload.
+
+
+\label[BootingImplementaion]
+\sec Device Booting
+
+\label[DebuggingChapter]
+\sec Debugging Probe
+
+\secc SoC Trace
+
+\label[ADCImplemChap]
+\sec ADC
+
+\sec Inter-Core Communication
 
 \sec Safe software
 
 \sec Realtime software
-
-\sec Component communication
