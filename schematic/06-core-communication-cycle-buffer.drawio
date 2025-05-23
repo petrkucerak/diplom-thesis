@@ -1,0 +1,28 @@
+<mxfile host="65bd71144e" scale="3" border="0">
+    <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
+        <mxGraphModel dx="2447" dy="2190" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="temperature&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;uint16_t&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#d6b656;fontSize=14;fillColor=#fff2cc;" vertex="1" parent="1">
+                    <mxGeometry x="-864" y="-816.5" width="129" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="channel 1-6" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#666666;fontSize=14;fillColor=#f5f5f5;fontColor=#333333;" vertex="1" parent="1">
+                    <mxGeometry x="-319" y="-816.5" width="187" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="channel 0 value&lt;div&gt;uint16_t&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#6c8ebf;fontSize=14;fillColor=#dae8fc;" vertex="1" parent="1">
+                    <mxGeometry x="-735" y="-816.5" width="128" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="channel 0 timestamp&lt;div&gt;unit64_t&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#6c8ebf;fontSize=14;fillColor=#dae8fc;" vertex="1" parent="1">
+                    <mxGeometry x="-607" y="-816.5" width="291" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="channel 7 value&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;uint16_t&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#82b366;fontSize=14;fillColor=#d5e8d4;" vertex="1" parent="1">
+                    <mxGeometry x="-132" y="-816.5" width="128" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="channel 7 timestamp&lt;div&gt;unit64_t&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#82b366;fontSize=14;fillColor=#d5e8d4;" vertex="1" parent="1">
+                    <mxGeometry x="-4" y="-816.5" width="291" height="45" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
