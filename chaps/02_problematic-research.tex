@@ -12,7 +12,7 @@
 In this chapter, I studied the standards for design and implementation of software for fail-safe platforms in railway infrastructure environments. I have tried to identify the differences between the different safety integration levels and discuss the specific mechanisms that lead to meeting the safety requirements given by the standards.
 
 \label[SafetySecurity]
-\sec The difference between security and safety
+\sec The Difference between Security and Safety
 
 Before studying the issue, it is necessary to get the terminology right. In the English language, there are two words: safety and security.
 
@@ -46,7 +46,7 @@ of measures & resilience testing & cybersecurity systems \cr
 
 Table \ref[SafetyvsSecurity] compares the different aspects of safety and security in order to highlight the different meanings. In this thesis, I will deal primarily with the second concept - safety.
 
-\sec Materials and standards
+\sec Materials and Standards
 
 The safety requirements for transport infrastructure in the European Union are defined in standards issued by CENELEC.\fnote{European Committee for Electrotechnical Standardization} These standards are {\it EN 50126}, {\it EN 50128}, {\it EN 50129}, and {\it EN 50159}.
 
@@ -56,7 +56,7 @@ The standard {\sbf EN 50129} describes the standard for the railway communicatio
 
 Standard {\sbf EN 50128} defines a standard on how to properly develop safety software for railway infrastructure.
 
-\secc New standard EN 50716
+\secc New Standard EN 50716
 In November 2023, CENELEC issued the new {\it EN 50716:2023}, titled Railway Applications - Requirements for software development, which replaces {\it EN 50128:2011} and {\it EN 50657:2017}~\cite[lWTEHHuBfppEZeJk]. This new standard unifies software development requirements for both signaling systems and vehicles, eliminating the need to separate specifications. It now applies to software with basic integrity (formerly {\it SIL0}), removing the restriction that excluded non-safety-related software. Key changes include:
 
 \begitems
@@ -90,7 +90,7 @@ If we go back to all four aspects, we find that some of the essences are mutuall
 
 I also see it important to answer the question - why is it necessary to pay attention to system availability or repairability? After all, it is only the safety itself that is important to us. If we think about it, as a result, all the aspects already mentioned are important because they complement each other. You cannot achieve safety without having a low failure rate system, or you cannot achieve safety without a possible system failure affecting the requirement that the component is supposed to fulfill.
 
-\sec Systematic and random failures
+\sec Systematic and Random Failures
 
 {\sbf Random failures} can be described by statistical distributions~\cite[GaaBVFT5zA4FlnK8]. We cannot control failures; we can only predict and model them mathematically. In most cases, the failure is due to a physical cause such as material fatigue, wear, corrosion, or random failures of electronic components.
 
@@ -120,7 +120,7 @@ Examples & rail breakage, & software error, \cr
 \endinsert
 
 \label[RAMSCycle]
-\secc RAMS development cycle
+\secc RAMS Development Cycle
 
 {\sbf The RAMS development cycle} is described by the V-model, which uses {\it top-down} and {\it bottom-up} approaches~\cite[SU4ccYhZgv796Fi2]. It is a graphical representation of the complete development lifecycle~\cite[L9XZRy6g04sicEwo]. The advantages of this model are a clear structure, easy traceability between the design, respective requirements, and testing results.
 
@@ -134,13 +134,13 @@ The model also has many disadvantages such as the lack of flexibility; the later
 \caption/f V-model illustration by {\it EN 50128} norm definition~\cite[vDBnVxdnHZs4vPl6].
 \medskip
 
-\seccc Verification and validation
+\seccc Verification and Validation
 
 The standard defines {\sbf verification} as the confirmation, through provided objective evidence, that defined requirements have been met, and {\sbf validation} as the confirmation, through provided objective evidence, that requirements for a specific purpose or application have been met~\cite[GaaBVFT5zA4FlnK8].
 
 Simply, verification answers the question {\it do we build things correctly}, validation answers the question {\it do we build the right thing}?
 
-\seccc System description
+\seccc System Description
 
 Defining system requirements is the first and very important step for a successful and safe system or component. In this phase, it is important to define the limits, interfaces, functions, and the environment of the system.
 
@@ -148,7 +148,7 @@ It is important to note that SIL levels,\fnote{Safety integrity level} which we 
 
 To illustrate, let's take a concrete example: automatic train control, specifically emergency braking in case of a dangerous situation, e.g. when a train runs a red light. In this case the {\sbf function} is: automatic braking when passing a dangerous signal. The driver's cab, the track equipment and the signal transmission path are the {\sbf system}. The {\sbf Interfaces} for us are the wheels, the dashboard which serves as an API for the driver to communicate with the system, and the warning light which signals the entry prohibition.
 
-\seccc Risk analysis
+\seccc Risk Analysis
 
 In the context of safety-critical systems, we define the hazards relevant to this study. The {\sbf hazard} is any condition that could precipitate an accident~\cite[GaaBVFT5zA4FlnK8].
 
@@ -160,7 +160,7 @@ To make a system safe, our goal is to minimize risk to the point that it is equa
 
 Risk analysis consists of some of the methods already mentioned: hazard identification, frequency minimization, and consequence classification.
 
-\seccc Acceptable risk
+\seccc Acceptable Risk
 
 The European Union specifies in the CSM regulation~\fnote{Common Safety Method for Risk Evaluation and Assessment} which methods can be used to calculate acceptable risk.
 
@@ -172,11 +172,11 @@ The European Union specifies in the CSM regulation~\fnote{Common Safety Method f
 * {\sbf Explicit risk estimation}: Direct and detailed quantitative or qualitative risk assessment using specific methods. This approach requires data collection and detailed modeling~\cite[ONTbnhbgf2hyhL9J].
 \enditems
 
-\seccc Hazard analysis (FTA, FMEA)
+\seccc Hazard Analysis (FTA, FMEA)
 
 The standard {\it EN 50126} recommends the use of top-down analysis for hazard analysis. Specifically, {\sbf Fault Tree Analysis (FTA)} which allows us to work with dependencies between individual hazards. The second method used is {\sbf Failure Modes and Effects Analysis (FMEA)}. The FTA is suitable for analyzing multiple system failures; FMEA is suitable for analyzing a single failure, including all its consequences.
 
-\seccc Tolerated risk ratios (THR, TFFR)
+\seccc Tolerated Risk Ratios (THR, TFFR)
 
 {\sbf Tolerable Hazard Rate (THR)}, which represents the maximum frequency of occurrence of a particular hazard. It therefore determines how many times a potentially hazardous event can occur in a defined period without affecting the overall safety of the system~\cite[vDBnVxdnHZs4vPl6].
 
@@ -206,7 +206,7 @@ $10^{-5} \leq TFFR$ & basic integrity \cr
 
 The norm describes 4 Safety Integrity Levels from 1 to 4 and Basic Integrity. The SIL 4 is the highest level and the Basic Integrity is the lowest, as described in the table~\ref[TFFRxSIL].\fnote{The norm {\it EN 50129} from year 2003 introduced term {\sbf SIL 0} to indicate non-safety-related functions. This terms in no longer used in the new norms version.}
 
-\secc The five base questions
+\secc The Five Base Questions
 
 I would like to mention that an excellent mechanism to verify that we haven't forgotten anything elementary is to answer these five basic questions that are based on {\it EN 50126}.
 
@@ -219,7 +219,7 @@ I would like to mention that an excellent mechanism to verify that we haven't fo
 \enditems
 
 
-\sec Mechanisms to achieve SIL level
+\sec Mechanisms to Achieve SIL Level
 
 I would like to discuss the mechanisms, architecture types, principles, and policies that ensure that a given platform contains SIL functionality. The thesis does not address the processes behind the development of safety software, which are an integral part of the overall development process.
 
@@ -238,7 +238,7 @@ In this chapter we will use terms defined by {\it EN 50128} and {\it EN 50129}, 
 * {\sbf `NR` - Not Recommended}: This technique or measure is not recommended for a given SIL. Implementation may be ineffective, inadequate, or even counterproductive.
 \enditems
 
-\secc The principles in developing high-integrity software
+\secc The Principles in Developing High-integrity Software
 
 The {\it EN 50128} standard defines ten basic principles, the application of which in the development of high integrity software is not mandatory. Let's highlight the six most important ones.
 
@@ -262,7 +262,7 @@ The {\it EN 50128} standard defines ten basic principles, the application of whi
 In designing SIL software, the standard defines 7 basic principles. However, in relevance to the use of a microprocessor, they can be generalized to 3 basic principles or approaches to ensure that the code is safe and meets all requirements.\fnote{The sub-parts of these mechanisms are described in {\it EN 50129}, Annex A, Table E.4.} Each of these approaches has its advantages and limitations depending on the SIL level required.
 
 \begitems
-* {\sbf Inherent fail-safety}: This approach ensures the safety of the system due to the intrinsic properties of the design. Functions are designed to be fault tolerant without the need for external intervention. It is therefore more a matter of hardware design. This method cannot be implemented in software. As an example, the signal remains in a safe state even after a power failure, without external intervention. This mechanism is recommended (R) for {\it SIL 1} and {\it SIL 2}, and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
+* {\sbf Inherent fail-safety}: This approach ensures the safety of the system due to the intrinsic properties of the design. Functions are designed to be fault-tolerant without the need for external intervention. It is therefore more a matter of hardware design. This method cannot be implemented in software. As an example, the signal remains in a safe state even after a power failure, without external intervention. This mechanism is recommended (R) for {\it SIL 1} and {\it SIL 2}, and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
 
 * {\sbf Reactive fail-safety}: The approach focuses on responding to faults typically through fault detection and subsequent activation of protection mechanisms. The system is therefore able to react on its own without external intervention to ensure a safe state. Examples include the activation of emergency braking or safety shutdown when a failure of the main system is detected. The mechanism is recommended (R) for {\it SIL 1} and {\it SIL 2} and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
 
@@ -351,7 +351,6 @@ Modeling supported by CAD and specification tools & R & R & HR & HR \cr
 \caption/t Software Architecture mechanism for different SIL levels according to {\it EN 50128}, Annex A Table A.3~\cite[vDBnVxdnHZs4vPl6].
 \endinsert
 
-% TODO: discuess specific mechanism and describe it
 \seccc Defensive Programming 
 The {\sbf Defensive Programming} is one of the most important techniques in safety programming. The aim is to produce programs that detect anomalous control flow, data flow, or data values during their execution and react to these in a predetermined and acceptable manner~\cite[vDBnVxdnHZs4vPl6].
 
@@ -496,7 +495,7 @@ The technique {\sbf Fully Defined Interface} leads to modularization. A {\sbf Mo
 * A suitable restriction of parameter number shall be specified.\fnote{The norms {\it EN 50128} defines that suitable number is typically 5.}
 \enditems
 
-\seccc Formal methods
+\seccc Formal Methods
 
 The {\sbf Formal Methods} refer to mathematically rigorous techniques and tools for the specification, design, and verification of software and hardware systems. The application of formal methods in software and hardware design is driven by the idea that, similar to other engineering fields, conducting rigorous mathematical analysis enhances the reliability and robustness of a design~\cite[vDBnVxdnHZs4vPl6, j9q6czqZVYZTTIDS].
 
@@ -526,7 +525,7 @@ While all three methods share a foundation in formal logic and model-based speci
 
 The last formal method mentioned in the norm {\it EN 50128} is the {\sbf Model Checking}. It aims to, given a model of a system, test automatically whether this model meets a given specification~\cite[vDBnVxdnHZs4vPl6]. Model checking verifies whether a given structure satisfies a specified logical formula. It applies across various logic and structures, with a common example being the evaluation of propositional logic formulas. Primarily used in hardware design, model checking algorithmically ensures that a system model meets a formal specification, often expressed in temporal logic. For software, full automation is limited due to undecidability. The system is typically represented as a finite-state machine, where nodes correspond to system states, edges define transitions, and atomic propositions describe key properties. When the model is finite, verification reduces to a graph search.
 
-\seccc Data modeling 
+\seccc Data Modeling 
 
 The technique {\sbf Data modelling} is the process of creating a data model by applying formal data model descriptions using data modelling techniques.
 
@@ -551,7 +550,7 @@ The interesting fact is that the UK Ministry of Defense has been the primary use
 By providing a clear, logical framework, structured methodologies help developers systematically analyze, specify, and verify system designs, making them particularly valuable in complex or safety-critical applications.
 
 \label[ToolsClassification]
-\secc Tools classification
+\secc Tools Classification
 
 The norm {\it EN 50128}\fnote{Specifically, clauses 3.1.42-44 in the aforementioned EN 50128.} defines three basic categories of tools used for safety software development.
 
@@ -564,7 +563,7 @@ The norm {\it EN 50128}\fnote{Specifically, clauses 3.1.42-44 in the aforementio
 It is important to note that depending on the class of a given tool, requirements are made on them, which are checked during validation and verification. Therefore, it is important to keep them in mind when designing a system. Often it may be more appropriate for a project to use an older but validated tool for which its behavior has already been proven and de-validated.
 
 
-\secc Programming technique
+\secc Programming Technique
 
 The standards also define the programming standards for the individual SIL levels. The individual techniques are shown in table \ref[TechniquesCoding].
 
@@ -618,7 +617,7 @@ It may also be interesting to note that the standard defines {\sbf recommended p
 
 
 \label[LevelCrossingSingalization]
-\sec Level crossing system in CENELEC countries
+\sec Level Crossing System in CENELEC Countries
 
 According to research,\fnote{Eurostat, 2023 - \url{https://ec.europa.eu/eurostat/statistics-explained/images/6/65/F6_Level_rail_track_crossings\%2C_2013_and_2023.png}
 } the average number of level crossings per 100 km in the European Union in 2023 is over 50. The record holder is Norway, which has more than 90 level crossings, while the Czech Republic, along with Austria, Hungary, and the Netherlands, has more than 80.

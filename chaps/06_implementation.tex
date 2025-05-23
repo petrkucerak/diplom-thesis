@@ -354,7 +354,7 @@ I chose this approach to reduce the load on the main core, as the process is ful
 \medskip
 \clabel[PRUICSSG]{PRU-ICSSG System Decomposition Diagram}
 \picw=9cm \cinspic img/06-PRU-ICSSG.png
-\caption/f The diagram illustrates PRU-ICSSG System Decomposition.
+\caption/f The diagram illustrates PRU-ICSSG System Decomposition~\cite[cYcPO0Z0JHlvoQkv].
 \medskip
 
 The structure of the {\it ICSS_DUAL_EMAC} is illustrated in Figure \ref[PRUICSSG]. The implemented application communicates with the subsystem via an API that writes data to shared memory, specifically EMAC registers and queues. The PRU-0 and PRU-1 units read from these data structures to perform tasks such as receiving data on a port, transmitting on a port, collecting statistics, handling errors, and updating error counters.
@@ -408,6 +408,11 @@ The application supports communication with the M4 core via shared memory or IPC
 
 For monitoring purposes, I developed a Python script that operates in multiple modes. The first mode enables storing data on the device in JSON format. In this mode, the script acts as a client to the device’s TCP server. Initially, it sends a packet to the IP address 192.168.1.200, requesting the transmission of additional data. The request can be in any format, as the device only verifies the client’s connection without checking the request’s content. The server then transmits data in the same format as stored in the frame illustrated in Figure \ref[CyclicBuffer]. Individual data entries are separated by commas, and the end of the data is marked by a semicolon. Upon receipt, the script parses the data and saves it in JSON format.
 
+\clabel[MonitoringExample]{Monitorign Example}
+\picw=15cm \cinspic img/06-monitoring-charts.png
+\caption/f The figure displays a screenshot of the monitoring script’s output, which enables real-time tracking of values on individual channels and the ability to enable or disable channels. It also shows temperature data in the lower graph. Time is represented by the number of processor ticks.
+\medskip
+
 The second mode visualizes incoming data as a real-time animation while also storing it in the same JSON format. To enable this, the communication speed must be significantly reduced, or the script must be modified to ignore some received values and render only every nth frame.
 
 The third mode loads previously stored data and generates a graph. Both the animation and graph are rendered using the Python library Matplotlib,\fnote{\url{https://matplotlib.org/}} which must be installed as a dependency. The generated graph operates in an interactive mode, allowing users to select specific channels to display.
@@ -420,5 +425,5 @@ The first issue occurred initially during X.509 certificate authentication and s
 
 The second issue I frequently faced was combining C and C++ code. This was partly necessitated by the SDK and lwIP being implemented in C, while the specified requirements mandated C++ usage. Although mechanisms exist to address compatibility issues, this approach caused significant complications. Ultimately, I had to rewrite most of the code in C++, as C++ is not fully compatible with C.
 
-During implementation, I often struggled with the compiler’s optimization behavior, which sometimes reordered instructions in ways that were nonsensical or, to save space, transformed them into loops that introduced delays. This issue was most pronounced during software-based SPI emulation and when controlling the CNV pin via GPIO registers in normal operation. Several solutions were considered. The first was to disable compiler optimizations for specific code sections using pragmas defined by the ARM-based TI Clang compiler.\fnote{TODO: Specify pragma details.} The second was to write the sequence directly in assembly, but this was not used, as it violates {\it coding standards} and would be impractical for the final system. The third and preferred solution was to leverage hardware peripherals, such as PWM or timers combined with interrupts, to avoid reliance on compiler optimizations. Compiler instruction reordering can also complicate debugging, so it is important to account for this issue.
+During implementation, I often struggled with the compiler’s optimization behavior, which sometimes reordered instructions in ways that were nonsensical or, to save space, transformed them into loops that introduced delays. This issue was most pronounced during software-based SPI emulation and when controlling the CNV pin via GPIO registers in normal operation. Several solutions were considered. The first was to disable compiler optimizations for specific code sections using pragmas defined by the ARM-based TI Clang compiler.\fnote{By official TI Compiler description with {\tt\dprime pragma FUNCTION_OPTIONS ( func, "additional options" )\dprime}~\cite[qecwtTWr9igUbYQF].} The second was to write the sequence directly in assembly, but this was not used, as it violates {\it coding standards} and would be impractical for the final system. The third and preferred solution was to leverage hardware peripherals, such as PWM or timers combined with interrupts, to avoid reliance on compiler optimizations. Compiler instruction reordering can also complicate debugging, so it is important to account for this issue.
 

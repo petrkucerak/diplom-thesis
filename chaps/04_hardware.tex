@@ -7,7 +7,7 @@
 
 In this chapter, I would like to specify the hardware requirements, design, and describe the selected microcontroller development kit.
 
-\sec Hardware requirement
+\sec Hardware Requirement
 
 
 The proposed device must support communication through the following interfaces:\fnote{By requirements from the Chap \ref[SystemSpecification].}
@@ -21,7 +21,7 @@ The proposed device must support communication through the following interfaces:
 
 The device shall also comply with the SIL2 standard.
 
-\sec Microcontroller options
+\sec Microcontroller Options
 
 Based on these options, I looked for different microcontrollers on which to build the device. I shortlisted 5 devices that could be used. I compare four of them in Table \ref[MicrocontrollerComparison].
 
@@ -58,13 +58,13 @@ Two of them meet the requirement for an internal ADC converter, which in the end
 
 As a result, I was deciding between devices from Texas Instrument's Sitara series, specifically the {\it AM335x} and {\it AM243x}. However, the devices from the {\it AM335x} series are built on the Arm Cortex-A8 core, which is unnecessarily powerful for my purposes and is more suited for handling 3D graphics, graphics accelerators, running higher-end operating systems like Android or Linux, etc~\cite[ow6UXp80FhDCOefy]. That's why in the end I opted for the AM243x processor from Texas Instruments. For development, I will use the {\sbf Evaluation Board LaunchPad™ AM-243}.
 
-\sec Microcontroller description
+\sec Microcontroller Description
 
 The {\sbf Evaluation Board LaunchPad AM-243x} (LP-AM243x)\fnote{This processor series shares a similar architecture, registers, and most features with the AM64x series. Consequently, the majority of documentation for these two processor series is identical. This can occasionally be confusing, primarily because the documentation and manuals focus on the AM64x version, which offers a broader range of resources, internal modules, and peripherals.} is equipped with the AM2434 ALX MCU, which is composed of 4x Arm Cortex-R5 and 1x Arm Cortex-M4 cores. The Evaluation Board has a large number of interfaces including Industrial Ethernet, Fast Serial Interface, CAN transceiver, and 512MB QSPI flash memory. For debugging, the Evaluation Board is equipped with the On-Board debugger XDS110~\cite[gCEW8O4yxLcIgH5I].
 
 The device is organized into two domains: MAIN and MCU.
 
-\secc The MAIN domain
+\secc The MAIN Domain
 
 The {\sbf MAIN domain} is made up of Arm Cortex-R5, which are 4 on the development kit. Actually, it is 2x two real-time cores because it is a Dual-Core Cortex-R5F subsystem. The architecture is based on the ARMv7-R instruction set and supports two configurations at boot time:
 
@@ -87,7 +87,7 @@ The MAIN domain also integrates several subsystems that serve to operate real-ti
 \enditems
 
 \label[MCUDomainTitle]
-\secc The MCU domain
+\secc The MCU Domain
 
 
 The {\sbf MCU domain} is based on the Arm Cortex-M4F, which is seeded once on the development kit. In its documentation, TI refers to the MCU domain as {\it M4FSS Island}, {\it MCU Island}, {\it MCU Channel}, or {\it MCU Subsystem}. I will stick to these terms.
@@ -125,7 +125,7 @@ For reading data from the LED modules, I selected an Analog Devices ADC module, 
 \caption/f Photo illustrates the ADC Evaluation Board connected with a few modifications. 1) On-board SPI pins, 2) 6 V power supply, 3) ADC inputs.
 \medskip
 
-The device requires a 6 V power supply and can measure input voltages from 6 to 24 V. To utilize the CN0254 evaluation board, two points on the printed circuit board need to be connected.\fnote{Specifically, two modifications were required to enable the use of the onboard SPI and power the ADC evaluation board from a 6 V supply. These involved adjusting the amplifier’s resistance and grounding. I consulted with experts on this matter and will not discuss these changes further, as I am not an expert in this field, and this thesis does not focus on the hardware aspects of the project.} Further details on ADC communication via SPI are provided in Chapter \ref[ADCImplemChap].
+The device requires a 6 V power supply and can measure input voltages in the range of 0 to 10 V.\fnote{Operation of the final system requires hardware modifications, as the input signal must be in the range of 6 to 24 V.} To utilize the CN0254 evaluation board, two points on the printed circuit board need to be connected.\fnote{Specifically, two modifications were required to enable the use of the onboard SPI and power the ADC evaluation board from a 6 V supply. These involved adjusting the resistance and grounding. I consulted with experts on this matter and will not discuss these changes further, as I am not an expert in this field, and this thesis does not focus on the hardware aspects of the project.} Further details on ADC communication via SPI are provided in Chapter \ref[ADCImplemChap].
 
 \sec Hardware design
 

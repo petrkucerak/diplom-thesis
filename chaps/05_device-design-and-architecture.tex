@@ -18,13 +18,13 @@ The system is designed to meet both Safety Integrity Level (SIL) requirements an
 
 The SIL component, operating on the isolated M4 core, monitors the functionality of LED modules, communicates their status to the Simatic PLC, and shares this data with the non-SIL software. Due to the M4 core’s isolation requirements, shared memory is not feasible; instead, communication is facilitated by hardware mechanisms provided by the AM243x system, such as inter-core messaging or dedicated registers.
 
-The non-SIL component retrieves status data from the SIL component regarding the LED modules, ensuring reliable data access through AM243x inter-core communication mechanisms. It manages the bootloader and initialization of the SIL component and hosts a REST API server to enable data monitoring and software updates. Additionally, it supports auxiliary non-SIL monitoring functions.
-
 \medskip
 \clabel[SWArchitecture]{Software Architecture}
 \picw=14cm \cinspic img/05-sw-architecture.png
 \caption/f Diagram illustrating the software architecture overview.
 \medskip
+
+The non-SIL component retrieves status data from the SIL component regarding the LED modules, ensuring reliable data access through AM243x inter-core communication mechanisms. It manages the bootloader and initialization of the SIL component and hosts a REST API server to enable data monitoring and software updates. Additionally, it supports auxiliary non-SIL monitoring functions.
 
 
 Figure \ref[SWArchitecture] provides an overview of the software architecture, illustrating the relationships between the SIL and non-SIL components and specifying the interfaces used for communication with external systems. This diagram is relevant to the prototype's architecture.
@@ -66,8 +66,8 @@ In a general-purpose device, DMSC ROM (Device Management System Controller ROM) 
 \begitems
 * Device management
 * Configures the boot vectors and controls reset release of R5 core. That is, DMSC is the boot controller of the R5 core.
-* IPC configuration via Main DMSS rings and Secure Proxy
-* PLL configuration (R5 and SA2UL)
+* IPC\fnote{Inter-Processor Communication} configuration via Main DMSS rings and Secure Proxy
+* PLL configuration (R5 and SA2UL\fnote{The SA2UL subsystem is designed to provide a generic cryptographic acceleration for different use cases such as secure boot, secure content, key exchange etc.~\cite[DZ8tdRiC6JEGqkLs].})
 * X509 certificate parsing
 * SA2UL configuration to SHA512 for image integrity checks
 * DMSC firmware loading~\cite[fcLWZx8KgBoQyWDm]
@@ -77,7 +77,7 @@ In a general-purpose device, DMSC ROM (Device Management System Controller ROM) 
 
 The {\sbf SBL boot} (Secondary Bootloader) typically does a bunch of SoC-specific initializations and proceeds to the application loading. Depending on the type of SBL loaded, the SBL looks for the multicore app image of the application binary at a specified location in a boot media.
 
-\secc Boot modes
+\secc Boot Modes
 
 Device allows several boot modes divided into two classes:
 \begitems
@@ -139,12 +139,6 @@ The DMSC-Lite, an ARM Cortex-M3-based subsystem, is the first subsystem activate
 
 Each block consists of a certificate and the software itself and is loaded into flash memory at a specific address (illustrated in the Figure \ref[BootImageFormat]). The device uses X.509 certificates described in the norm RFC 5280\fnote{\url{https://datatracker.ietf.org/doc/html/rfc5280}}.
 
-\medskip
-\clabel[BootImageFormat]{Boot Image Format}
-\picw=10cm \cinspic img/05-sw-boot-image-format.png
-\caption/f The Boot Image format.
-\medskip
-
 In general, an X.509 certificate contains a public key which has been signed by a private key. The public ROM code does not directly use the keys. In non-secure devices (GP), the public key value is in general a don't care condition. The exception is certificates containing a degenerate RSA public key. GP devices with a degenerate RSA key allow for integrity checking of most (but not all) of the certificate. As I mentioned below, we are using the device in the GP mode. It means that our device integrity in the prototype is validated by the degenerate RSA public key~\cite[fcLWZx8KgBoQyWDm].
 
 The ROM code is getting two additional pieces of information from the X.509 certificate:
@@ -155,6 +149,12 @@ The ROM code is getting two additional pieces of information from the X.509 cert
 \enditems
 
 The ROM defines several extensions that are used only by TI for boot. These are placed in the extensions field of the TBS\fnote{to be signed} certificate.
+
+\medskip
+\clabel[BootImageFormat]{Boot Image Format}
+\picw=12cm \cinspic img/05-sw-boot-image-format.png
+\caption/f The Boot Image format.
+\medskip
 
 \label[BootingDetailDescriptionChapt]
 \secc Detailed System Initialization Description
@@ -251,7 +251,7 @@ The Public ROM code provides the {\sbf BOOTP/TFTP protocol} for Ethernet-based b
 
 After device configuration, the bootloader performs a standard BOOTP/TFTP boot. The device sends a BOOTP request with its MAC address to a host TFTP server to be assigned an IP from a pool of addresses. The timeout for each BOOTP packet is 4 seconds, and the ROM will attempt 10 BOOTP retries, after which the boot mode will fail. If the connection is established, the device initiates a TFTP download and is able to receive image data encapsulated in Ethernet packets.\fnote{Device supporting only IPv4 packets.} There is a timeout of 1 second to receive a response for the READ request, and the ROM will retry the READ request 10 times, after which the boot mode will fail. If the TFTP download is successful, data received is stripped of its network headers and the boot data is stored in internal RAM. When the transfer completes and the image is found to have good integrity, the ROM Code will branch to the address defined in the Boot Info field of the boot header~\cite[fcLWZx8KgBoQyWDm].
 
-There are a few limitations as received packets cannot be IP fragmented or only DIX Ethernet headers are supported.\fnote{Device not supports 802.3 with SNAP/LLC, DIX Ethernet with VLAN, and 802.3 with VLAN and SNAP/LLC.} But they don't limit my project in any way.
+There are a few limitations as received packets cannot be IP fragmented or only DIX Ethernet headers are supported.\fnote{Device does not support 802.3 with SNAP/LLC, DIX Ethernet with VLAN, and 802.3 with VLAN and SNAP/LLC.} But they don't limit my project in any way.
 
 \seccc The UART Booting Process Description
 
@@ -348,9 +348,6 @@ After storing the data, the device restarts, and the bootloader detects the non-
 0x05 & Software running check failed, the Inter-core communication\cr
 & doesn't operate correctly. \cr
 \cr
-0x05 & Software running check failed, the Inter-core communication\cr
-& doesn't operate correctly. \cr
-\cr
 0x06 & Software initialization check failed, CPU resources\cr
 \cr
 0x07 & Testing Initial Sequence Timeout\cr
@@ -438,7 +435,7 @@ The safety shutdown function can be triggered by errors detected during the init
 \caption/f Diagram illustrating the ESM module overview connection. The {\it MCU_ESM0} is placed in the MCU domain, the {\it EMS0} is placed in the MAIN domain.
 \medskip
 
-In general, a failure to start the device correctly does not constitute a safety hazard. The critical issue arises when the device starts, operates correctly for a period, and then fails. To mitigate this, initialization errors trigger a reboot, prompting the device to attempt a full restart. Conversely, runtime errors result in termination, as they represent a safety hazard.
+A failure to initialize the device correctly typically poses no safety hazard, as it prevents operation from commencing. The critical risk emerges when the device starts, functions normally for a period, and subsequently fails. To address this, initialization errors trigger an automatic reboot, prompting the device to attempt a full restart. In contrast, runtime errors lead to immediate termination, as they represent a significant safety hazard.
 
 
 
@@ -508,7 +505,7 @@ To summarize, SIL software is considered {\sbf successfully} launched if:
 \enditems
 
 \label[SafeSoftwareChap]
-\sec Safe software
+\sec Safe Software
 
 The SIL component, operating on the isolated M4 core, is tasked with fulfilling safety functions that are relatively straightforward. Its primary role is to read data from ADC modules, evaluate the data, and send a corresponding binary signal to the Simatic PLC via a binary output. This constitutes its core safety function. Its secondary function is to provide the collected data to the R5 core, which uses the information for monitoring purposes.
 
@@ -539,7 +536,7 @@ In the final step of the loop, a signal is sent to the Simatic PLC as a binary o
 
 
 \label[StandardOperationChap]
-\sec Non-SIL software
+\sec Non-SIL Software
 
 In contrast to the SIL software, which focuses on safety-critical functions, the non-SIL software encompasses a broader range of functionalities and operates primarily on a single R5 core within the MAIN domain. Its responsibilities include:
 
@@ -550,16 +547,16 @@ In contrast to the SIL software, which focuses on safety-critical functions, the
 * Performing additional measurements to better understand the device’s state, though these do not fulfill SIL-relevant functions.
 \enditems
 
+
 The core runs on a real-time operating system, specifically FreeRTOS. An alternative, Zephyr, is better suited for larger-scale projects that function as platforms,\fnote{It is the result of discussion with Texas Instrument engineers on the workshop.} but its use is not justified in the context of this project. The primary motivation for using a real-time operating system is to optimize the operation of the web server and enable task prioritization. Since the system runs on FreeRTOS, a decision must be made regarding the structure of the non-SIL software.
 
+Two general approaches exist. The first involves parallelizing all subtasks, as illustrated in Figure \ref[SWFlowRunningNonSILParallel]. In this scenario, each task is handled by a separate FreeRTOS task. The advantage of this approach is the ability to prioritize certain tasks, such as those responsible for measurements, over the web server’s operation. However, a disadvantage is the need to manage access to shared data.
 
 \medskip
 \clabel[SWFlowRunningNonSILParallel]{Software Flow non-SIL Parallel Version}
 \picw=14cm \cinspic img/05-sw-flow-running-non-SIL-parallel.png
 \caption/f The diagram illustrates the parallel version of non-SIL software
 \medskip
-
-Two general approaches exist. The first involves parallelizing all subtasks, as illustrated in Figure \ref[SWFlowRunningNonSILParallel]. In this scenario, each task is handled by a separate FreeRTOS task. The advantage of this approach is the ability to prioritize certain tasks, such as those responsible for measurements, over the web server’s operation. However, a disadvantage is the need to manage access to shared data.
 
 The second approach adopts a more sequential structure, as depicted in Figure \ref[SWFlowRunningNonSILSequential]. Here, only two main tasks are used (though more may exist, as one way to implement the web server is to spawn a new task for each client request). One task handles the web server, while the other manages cyclic measurement tasks. The advantage of this approach is the minimization of shared data access, as the measurement task primarily writes to memory, and the web server task only reads from it. A potential drawback could be limited task prioritization. However, this is not an issue in this project, as measurement components are prioritized over the web server. Additionally, the measurement components are relatively simple and do not involve complex operations in terms of code scope. For these reasons, I opted for the second approach, the more sequential structure.
 
@@ -614,8 +611,10 @@ As noted in the introductory discussion, the sequential approach minimizes confl
 
 The device requires the capability to communicate between cores, specifically between the isolated MCU domain and the MAIN domain, where the non-SIL software operates. This necessitates the configuration of an inter-core communication mechanism. The objectives of this layer are:
 
-To enable the transmission of measured data from the isolated M4 core to the non-SIL R5 core for display purposes.
-To facilitate the reporting of error codes and their logging in flash memory, particularly during the Initialization Test Sequence (described in Chapter \ref[InitialChecks]).
+\begitems
+* To enable the transmission of measured data from the isolated M4 core to the non-SIL R5 core for display purposes.
+* To facilitate the reporting of error codes and their logging in flash memory, particularly during the Initialization Test Sequence (described in Chapter \ref[InitialChecks]).
+\enditems
 
 Two primary approaches are available. The AM243x device provides an IPC mechanism that utilizes a {\sbf mailbox system} to send notifications and messages. Alternatively, a {\sbf shared memory region} can be defined and used as a communication medium between cores.
 
@@ -883,3 +882,7 @@ The modules, along with their dependencies, are illustrated in Figure \ref[SWRep
 * {\sbf TI SDK}: This refers to the Texas Instruments MCU PLUS SDK for the AM243x Sitara series. All components, except the M4 core, rely on this SDK. The M4 core uses a custom implementation, with register configuration performed via direct register writes, bypassing the TI SDK's HAL layer.
 
 \enditems
+
+\sec Architecture Notes
+
+The selected AM243x device does not utilize the described architecture to its full potential. The software primarily runs on two cores: one isolated and one real-time. To reduce costs, it could be advantageous to equip the final system with the AM2432 variant, which includes only a single pair of real-time R5 cores.
