@@ -6,7 +6,7 @@
 \def\ctustyle{{\ssr CTUstyle}}
 \def\ttb{\tt\char`\\} % pro tisk kontrolních sekvencí v tabulkách
 
-
+\label[Implementation]
 \chap Prototype Implementation
 
 In this chapter, I describe the implementation and development of the prototype device, analyzing in detail the specific challenges encountered and the solutions devised to address them.
@@ -83,7 +83,7 @@ The SysConfig environment significantly saves time by eliminating the need to st
 
 The AM2434 is a multi-core system, and ideally, we would want to configure all cores within a single project. This is beneficial for tasks such as memory allocation, inter-core communication via the IPC mechanism, and firewall configuration. Achieving this in SysConfig is not entirely straightforward. When opening the application, you can load a configuration from a pre-existing configuration file, each specific to a core and bearing the {\it .syscfg} extension. However, this approach will not work for multi-core projects, as SysConfig’s graphical interface does not support opening such projects. To address this, the application must be launched via the terminal with a special argument that links individual configuration files. In my project, this script is integrated into the Makefile located in the {\it system_nortos} directory.
 
-The second limitation of the application is its inability to run two instances simultaneously. Practically, if you need to open the configurator for the system (all cores) and the bootloader concurrently to verify configurations, this is not natively supported. The issue stems from the application running on Node-Webkit, which does not allow multiple instances. A workaround exists: launch one instance, then modify the unique name for a new instance in the temporary data.\fnote{For example, change the {\it name} variable in the {\it package.json} file, located in {\it \%LOCALAPPDATA\%} on Windows.} This enables running the application in multiple windows.
+The second limitation of the application is its inability to run two instances simultaneously. Practically, if you need to open the configurator for the system (all cores) and the bootloader concurrently to verify configurations, this is not natively supported. The issue stems from the application running on Node-Webkit, which does not allow multiple instances. A workaround exists: launch one instance, then modify the unique name for a new instance in the temporary data.\fnote{For example, change the {\it name} variable in the {\it package.json} file, located in the SysConfig installation folder on Windows.} This enables running the application in multiple windows.
 
 \secc Build Process
 
@@ -147,8 +147,8 @@ The argument {\it --flash-writer=<image location>} must always be defined first,
 In this configuration, the flash memory is not erased; it is only overwritten. A complete erase is advisable when changing the offsets of individual software images. However, an advantage is that unchanged images do not need to be rewritten, thereby accelerating the flashing process.
 
 \medskip
-\clabel[FlashWriteFlow]{Software Flashwrite Diagram}
-\picw=2.2cm \cinspic img/06-flash-write-process.png
+\clabel[FlashWriteFlow]{Software Flashwrite Implementation Diagram}
+\picw=6.5cm \cinspic img/06-flash-write-process.png
 \caption/f The diagram illustrates the implemented flash write process.
 \medskip
 
@@ -162,16 +162,263 @@ If an error occurs during uploading, it is displayed on the terminal via the Pyt
 \label[BootingImplementaion]
 \sec Device Booting
 
+The bootloader, referred to in the implementation as {\it sbl_ospi_multi_partition}, is always executed first. In the prototype, its role is to initialize the system, authenticate the X.509 certificate for each core’s software image, and load these images into the CPU RAM for each core.
+
+\medskip
+\clabel[BootingFlowImplem]{Software Bootloader Implementation Diagram}
+\picw=7cm \cinspic img/06-bootloader-process.png
+\caption/f The diagram illustrates the implemented bootloader process.
+\medskip
+
+The bootloader software is stored in flash memory at address {\it 0x000000}. When configured in OSPI FLASH BOOT MODE, the ROM Code loads this memory into the R5F0-0 CPU from this address, verifies the code’s integrity, and executes it. Further details on this phase are provided in Chapter \ref[BootingDetailDescriptionChapt].
+
+In the second step, the program configures the device, specifically setting clocks and PLLs, boot addresses for individual CPUs, and OSPI communication with the flash memory, consistent with the Flash Writer implementation described in Chapter \ref[FlashWriterImplementation]. It also configures onboard LEDs to indicate device status and sets up UART for both debugging via SDK logs and outputting SoC Trace.
+
+The device then enters a loop to load software for each CPU into its RAM. Initially, each image is parsed, and its X.509 certificate is authenticated. If the software image passes this verification, it is loaded. If loading fails for any CPU, the process is immediately halted, and the program does not proceed further.
+
+Authentication and loading of software utilize functions implemented within the TI SDK.
+
 \label[DebuggingChapter]
-\sec Debugging Probe
+\sec Debugging Device
+
+Initially, I intended to use JTAG for debugging, which the device supports in combination with a Segger J-Link. However, I abandoned this approach because I could not find a J-Link configuration for the AM243x, and hardware modifications to the development board would have been necessary. While the related AM64x-LP development board supports two JTAG connections (one via the built-in XDS110 and one unconnected), the AM243x supports only one, which is occupied by the internal TI XDS110 debugger. In addition to standard JTAG pins (TDO, TDI, TMS, TCK, TRSTn), the device uses EMU0 and EMU1 pins, which are supported only by the XDS110, not the J-Link. Consequently, I opted to use the XDS110 instead of the J-Link.
+
+The XDS110 is a cost-effective, entry-level debug probe designed by Texas Instruments for debugging microcontrollers, processors, and SimpleLink devices. It supports a wide range of TI devices through JTAG, cJTAG, and SWD/SWO interfaces. The probe includes features like Core Processor and System Trace via ETB, EnergyTrace for power measurement, and support for UART and GPIO control. It connects via a standard TI 20-pin JTAG connector and is compatible with Code Composer Studio~\cite[qxZSbkpkSN1h0Vcg].
+
+\medskip
+\clabel[XDS110Photo]{XDS110 Built-in Debug Probe}
+\picw=10cm \cinspic img/06-XDS110.jpg
+\caption/f The image illustrates the XDS110 Built-in Debug Probe.
+\medskip
+
+For operating this debugger, I utilize Code Composer Studio (CCS). Two configuration files with the {\it .ccxml} extension are defined in the project directory, specifying the hardware resources monitored by the debugger. One configuration file enables debugging, including the DMSC on the M3 core, which executes the ROM Code. The other supports debugging without the DMSC. To initiate debugging, the specific software image must be loaded into the target core. The device’s BOOT MODE is irrelevant for this process, though I tested only OSPI FLASH BOOT MODE and UART BOOT MODE in this project. The debugger supports stepping through code, accessing all device registers, and displaying debug logs within the IDE. Additionally, the CCS debugger offers advanced multi-CPU debugging techniques, such as CPU grouping, which allows simultaneous operations across multiple CPUs, for example, during testing of multi-core communication.
+
+However, the debugger operates on CMSIS-DAP, which is compatible with OpenOCD. In the future, it would be valuable to develop a configuration file to enable debugging directly in Visual Studio Code, the primary development environment. A challenge is that the AM243x is a multi-core device, which most debugging environments are not designed to handle.
+
 
 \secc SoC Trace
+
+The AM243x is a multi-core processor, and thus I often refer to it as a system rather than an MCU. To debug errors at the system level, a mechanism known as SoC Trace, also referred to as SYSFW Trace or TI Trace, is available. This method enables tracing through messages that can be converted into human-readable text. The Trace Layer provides logs from system firmware (SYSFW) components, such as firewalls and clocks.
+
+SoC Trace data can be output via the UART interface. Each Texas Instruments (TI) device uses a specific UART port. Although the AM243x is not listed in the relevant documentation,\fnote{\url{https://software-dl.ti.com/tisci/esd/latest/4_trace/trace.html\#trace-uart-allocation}} the AM64x, which uses the same UART interface (specifically UART1), is referenced.
+
+\medskip
+\clabel[SoCTraceExample]{SoC Trace Example}
+\picw=14cm \cinspic img/06-SoC-trace.png
+\caption/f The image illustrates the received log and the parsed log from SoC Trace.
+\medskip
+
+To utilize this trace layer, the UART1 interface must be enabled, along with DMSC logs in the SDK, followed by recompilation of all SYSFW files. Predefined commands in the main Makefile can be used for this purpose.
+
+Captured log files should be saved in the format {\it trace-log_<number>.log} in the project’s root directory. The main Makefile includes a sysfw-trace-log target that executes a script to translate machine-generated data into human-readable code. The data is parsed based on specifications in the TISCI documentation,\fnote{\url{https://software-dl.ti.com/tisci/esd/latest/4_trace/trace.html\#trace-debug-data-format}} which describes the entire SoC Trace Layer.
 
 \label[ADCImplemChap]
 \sec ADC
 
+The CN0254 evaluation board with the AD7682 ADC, manufactured by Analog Devices, was selected as the ADC module. In the final application, this module enables the measurement of voltages from LED modules. The ADC offers 16-bit resolution and 8 channels. For communication, the SPI interface is used, specifically the MCSPI on the AM243x.
+
+\secc Configuration Register
+
+The ADC supports multiple configuration and operation modes, configured via a 14-bit register. Below, we describe the significance of each bit and the corresponding operating modes.
+
+\begitems
+* {\sbf [13] CFG}: Determines configuration updates. A value of 0 indicates no change to the configuration, while 1 triggers an update of the configuration register.
+
+* {\sbf [12:10] Input Channel}: Select the input channel mode, with five available options:
+    \begitems
+    * {0b00X\fnote{{\it Note}: X denotes “don’t care.”}}: Bipolar differential pairs, inputs referenced to $V_{REF}/2 \pm 0.1 {V}$.
+    * 0x2: Bipolar, inputs referenced to $COM = V_{REF}/2 \pm 0.1 {V}$.
+    * 0x3: Temperature sensor.
+    * {0b10X}: Unipolar differential pairs, inputs referenced to $GND \pm 0.1 {V}$.
+    * 0x6: Unipolar, inputs referenced to $COM = GND \pm 0.1 {V}$.
+    * 0x7: Unipolar, inputs referenced to $GND$.
+    \enditems
+* {\sbf [9:7] Channel Count}: Specify the number of channels.
+
+* {\sbf [6] Bandwidth}: Configures the low-pass filter bandwidth. A value of 0 sets the bandwidth to one-quarter, while 1 enables full bandwidth.
+
+* {\sbf [5:3] Reference}: Define the reference voltage source, with the following options:
+    \begitems
+    * 0x0: Internal reference and temperature sensor enabled, using $REF = 2.5 {V}$ buffered output.
+    * 0x1: Internal reference and temperature sensor enabled, using $REF = 4.096 {V}$ buffered output.
+    * 0x2: External reference used, temperature sensor enabled, internal buffer disabled.
+    * 0x3: External reference used, internal buffer and temperature sensor enabled.
+    * 0x4, 0x5: Unused and undefined.
+    * 0x6: External reference used, internal reference, internal buffer, and temperature sensor disabled.
+    * 0x7: External reference used, internal buffer enabled, internal reference and temperature sensor disabled.
+    \enditems
+
+* {\sbf [2:1] Channel Sequencer}: Configure the channel sequencer, which enables cyclic transmission of data from enabled channels. Four states are available:
+    \begitems
+    * 0x0: Sequencer disabled.
+    * 0x1: Configuration updates enabled during sequencing.
+    * 0x2: Sequencer scans values from channels $IN_0$ to $IN_7$, followed by the temperature sensor.
+    * 0x3: Sequencer scans values from channels $IN_0$ to $IN_7$, excluding the temperature sensor.
+    \enditems
+
+* {\sbf [0] Read Back}: Determines whether read-back is enabled. A value of 1 sends the register value after data transmission, while 0 disables read-back.
+\enditems
+
+\secc Operation Modes
+
+The ADC module supports SPI communication in two configurations: with and without a busy indicator. In my project, I utilize the configuration without a busy indicator to achieve cyclic communication at a constant rate, which is illustrated in Figure \ref[SPIModeConnection0]. The alternative configuration, which includes a busy indicator, is illustrated in Figure \ref[SPIModeConnection3].
+
+\midinsert
+\line{\hsize=.5\hsize \vtop{%
+      \clabel[SPIModeConnection0]{SPI Without A Busy Indicator}
+        \picw=5cm \cinspic img/06-SPI-mode-connection-0.png
+        \caption/f The image illustrates the SPI connection without a busy indicator.
+   \par}\vtop{%
+      \clabel[SPIModeConnection3]{SPI With A Busy Indicator}
+        \picw=5cm \cinspic img/06-SPI-mode-connection-3.png
+        \caption/f The image illustrates the SPI connection with a busy indicator.
+   \par}}
+\endinsert
+
+
+The first configuration operates in SPI Mode 0, where both CPHA and CPOL are set to 0. This means data is sampled on the rising edge, shifted out on the falling edge, and the clock polarity in the idle state is logic low~\cite[Dhaker2018]. The second configuration uses SPI Mode 3, where CPHA and CPOL are both set to 1, indicating that data is sampled on the rising edge, shifted out on the falling edge, and the clock polarity in the idle state is logic high~\cite[Dhaker2018].
+
+\medskip
+\clabel[SPIMode0]{SPI Mode 0 Diagram}
+\picw=14cm \cinspic img/06-SPI-mode-1.png
+\caption/f The image illustrates the SPI Mode 0, CPOL = 0, CPHA = 0, CLK idle state = low, data sampled on the rising edge and shifted on the falling edge.\fnote{Image source: \url{https://www.analog.com/en/resources/analog-dialogue/articles/introduction-to-spi-interface.html}}
+\medskip
+
+The operation of the ADC module can be divided into two continuously alternating periodic phases: acquisition and conversion. During the acquisition phase, the input signal is sampled and stored in internal memory. In the conversion phase, the input voltage is disconnected, and the converter transforms the measured analog value into a digital value.
+
+The ADC supports three operating modes: read/write during conversion (RDC), read/write after conversion (RAC), and read/write spanning conversion (RSC). In my implementation, I utilize the RAC mode, which is illustrated in the timing diagram in Figure \ref[SPIRACMode].
+
+\medskip
+\clabel[SPIRACMode]{ADC SPI RAC Mode}
+\picw=14cm \cinspic img/06-spi-rac.png
+\caption/f The timeline illustrates ADC SPI communication with timing in RAC operation mode without a busy indicator.\fnote{Illustration is edited Figure from AD7682 Data Sheet.} Consonants $t_{CYC}$, $t_{CONV}$, $t_{DATA}$ are defined in the Data Sheet.
+\medskip
+
+In RAC mode, the device operates with the CNV (conversion) signal in a logic 1 state when no data is being written. To initiate a write operation, the CNV signal is set to logic 0, followed by the exchange of 16 or 32 bits, depending on whether the write-back feature is enabled in the configuration register. Afterward, the CNV signal returns to logic 1. A two-cycle delay is required before the written configuration takes effect. This is accounted for in the implementation, where two {\it dummy cycles} are observed at startup to ensure proper device configuration.
+
+\secc AD7682 Driver Implementation
+
+A dedicated driver was developed for communication with the ADC module, enabling operation in RAC mode. The driver supports two modes. The first mode utilizes the AM243x’s MCSPI hardware peripheral, controlled via the TI SDK. The second mode, designed for the isolated core lacking an SPI peripheral, emulates SPI functionality through bit-banging.
+
+For reading values, the ADC’s sequencer is always employed. The driver can return either raw values or values processed with a mathematical operation, providing flexibility for future prototype testing. The ADC also supports temperature readings, which are not interpreted by the driver. Interpreting temperature data requires testing on a physical prototype and analyzing the measured values.
+
+Data is stored in a structure that associates each value with a timestamp, represented in my implementation as microseconds since the device started. Overflow is not a concern, as the timestamp uses a {\it uint64_t} type, which would require over 584,000 years of continuous operation to overflow.
+
+During initialization, the driver performs a test to calculate the average data transfer duration, which is subsequently used for precise timing. If the transfer speed changes during operation, the implementation must be updated accordingly.
+
+The driver also implements a self-test method to verify correct communication with the ADC module. This test leverages the write-back feature by performing a test configuration write, waiting for two dummy cycles, and reading the data back. If the retrieved configuration matches the written one, the test is successful. If it fails, I recommend repeating the test multiple times, as the test may be sent before the ADC module is ready to respond.
+
+\label[ADCUSagePha]
+\secc ADC Device Usage
+
+The objective of the implementation phase is to develop software for a hardware prototype to be used during testing. For software development, only the AM243x, equipped with the AM2434-ALX package, is available. Unlike the AM2434-ALV package, which will be used in the hardware prototype, the ALX package lacks SPI hardware peripherals in the MCU domain. Consequently, this work required addressing this limitation. The challenge was to enable SPI functionality in the MCU domain while minimizing the effort required for future adaptations.
+
+After studying the issue and evaluating options, I identified several potential approaches. The first was to utilize registers available in the AM2434 to create an internal interrupt that would set a specified value on a peripheral output upon writing to the register. This approach would allow future implementations to eliminate interrupts and directly use the peripheral. However, this solution was infeasible, as the AM243x manual revealed that the ALX package lacks SPI signals on the board. I consulted Texas Instruments (TI) support,\fnote{\url{https://e2e.ti.com/support/microcontrollers/arm-based-microcontrollers-group/arm-based-microcontrollers/f/arm-based-microcontrollers-forum/1510685/mcu-plus-sdk-am243x-am243x-m4-core-spi-configuration-with-limited-uart-pins-and-internal-interrupt-routing/5825341}} which confirmed that this approach was not viable.
+
+\medskip
+\clabel[SPILogicAnalyzator]{SPI Timeline in Logic Analyzer}
+\picw=14cm \cinspic img/06-spi-logic-analyzator.png
+\caption/f The image illustrates SPI communication analyzed with the logic analyzer.
+\medskip
+
+In the MCU domain of the AM243x development board, only five ports are accessible. Four can be used for UART, and the fifth is reserved for an error code that can connect to an external watchdog device. The fifth pin is unavailable, leaving only three usable pins. Another option was to modify the UART protocol to emulate SPI behavior. However, SPI is a synchronous bus, whereas UART is asynchronous unless implemented as USART, which is not available on this board.
+
+A third option was to simulate SPI behavior in software. This approach requires significantly reduced speed, which is not a concern in this case. However, maintaining synchronicity posed a challenge. This could potentially be addressed by configuring PWM, but none of the four available peripherals support this functionality. I implemented this software-based SPI simulation, which can be enabled via a macro acting as a switch. However, I do not recommend its use, as it is unreliable and frequently causes data corruption.
+
+For the prototype with the ADC module, communication is handled through the R5 core.
+
+\sec Memory Layout
+
+Proper operation of the prototype requires careful allocation of memory space. Although the application primarily uses the M4 and R5 cores, initializing the other cores is necessary to ensure future scalability. Let us examine the memory space allocation for the entire application in detail.
+
+The memory for the R5FSS0-0 core is divided into nine regions. Region 0 is Tightly-Coupled Memory (TCM),\fnote{Tightly-Coupled Memory (TCM) provides low-latency, deterministic access for critical operations.~\cite[OPN7bnVxtFrSggUB].} allocated to the vector table. Regions 1 and 2, also TCM, serve as fast-access memory, allowing the CPU to access them in every cycle. Region 4 defines the MSRAM, used as RAM for CPU operation, with a size of {\it 0xD0000}. Region 5 corresponds to flash memory. Region 6 defines shared memory accessible by all cores. Region 7, another shared memory region, is used to distribute log messages from other CPUs to the R5FSS0-0 core. Region 8 defines shared memory for inter-core communication among all cores.
+
+Other R5 cores differ from R5FSS0-0 in that they lack defined structures for shared memory and have a smaller MSRAM, specifically {\it 0x10000}.
+
+The M4FSS0-0 core has only three defined regions. As it is not a real-time core, it does not support TCM. Region 0 defines the vector table, Region 2 handles interrupts, and Region 3 uses DRAM for memory allocation.
+
+A detailed memory map for each core can be viewed using the compiler, which generates it in a readable text format after linking.
+
+\sec Monitoring Output
+
+\secc Ethernet Configuration
+
+To transmit data measured by the ADC module, I utilize the Ethernet port. The AM243x board is equipped with an Ethernet switch designated as CPSW (Common Platform Switch). One method to communicate with the Ethernet peripheral is to use the CPSW, accessible from the MAIN domain. This subsystem supports IEEE 802.3 standard Gigabit Ethernet packet communication and can be configured as an Ethernet switch. The CPSW interface supports both RGMII and RMII interfaces.
+
+The second interface, which I employed in my implementation, is the Programmable Real-Time Unit and Industrial Communication Subsystem – Gigabit (PRU-ICSSG). This programmable firmware can emulate various peripherals, including industrial protocols such as EtherCAT, Profinet, and EtherNet/IP, as well as Ethernet Switch or Ethernet MAC. PRU-ICSSG supports both RGMII and MII modes.
+
+The PRU-ICSSG runs the Industrial Communications Subsystem Ethernet Media Access Controller (ICSS-EMAC), which acts as a driver and provides an API for managing transmitted and received packets. The driver implements two Ethernet ports as a switch, supporting the 802.1D standard at 100 Mbps~\cite[fcLWZx8KgBoQyWDm].
+
+I chose this approach to reduce the load on the main core, as the process is fully dedicated to the PRU-ICSSG core. This choice was also driven by my personal interest in exploring the real-time subsystem’s capabilities.
+
+\medskip
+\clabel[PRUICSSG]{PRU-ICSSG System Decomposition Diagram}
+\picw=9cm \cinspic img/06-PRU-ICSSG.png
+\caption/f The diagram illustrates PRU-ICSSG System Decomposition.
+\medskip
+
+The structure of the {\it ICSS_DUAL_EMAC} is illustrated in Figure \ref[PRUICSSG]. The implemented application communicates with the subsystem via an API that writes data to shared memory, specifically EMAC registers and queues. The PRU-0 and PRU-1 units read from these data structures to perform tasks such as receiving data on a port, transmitting on a port, collecting statistics, handling errors, and updating error counters.
+
+For proper configuration, I recommend thoroughly studying the manual, which provides a detailed description of the subsystem’s behavior. In my implementation, the device is configured in DUAL MAC mode rather than as a switch. This mode allows each port to have its own IP address, MAC address, and operate on a separate network, achieved through software-defined network masks. I used the MII interface, which is sufficient for my needs. For efficient data transmission and reception, I employed DMA, supporting up to 16 messages for transmission and 32 for reception. The MDIO module operates at a frequency of 2.2 MHz with a poll interval of 100. The transmission speed and duplex capability are set to auto-negotiate, and the same configuration is applied to the second interface.
+
+To communicate with the subsystem, I2C instance 0 must also be initialized to enable access to the EEPROM used by the subsystem.
+
+\secc TCP Server
+
+For the server implementation, I utilized the widely adopted open-source library lwIP, which provides a TCP/IP stack optimized for embedded systems. The device communicates using TCP packets. The implementation is based on an open-source example and supports both static IP address configuration and dynamic configuration via a DHCP server. The server operates on two interfaces: NetifIdx 0 with IP address 192.168.1.200, subnet mask 255.255.255.0, and gateway 192.168.1.1; and NetifIdx 1 with IP address 10.64.1.200, subnet mask 255.255.252.0, and gateway 10.64.1.1.
+
+The server functions straightforwardly, transmitting data stored in a shared structure via TCP packets. I chose the TCP protocol for its reliability. Leveraging lwIP ensures that the implementation complexity remains manageable.
+
+
+\clabel[EthernetCommiunication]{TCP Server Communication Flow}
+\picw=6cm \cinspic img/06-etherent-communication.png
+\caption/f The diagram illustrates TCP Server Communication Flow.
+\medskip
+
+Data transmission proceeds as follows: the server waits for a client to establish a connection. Once the client requests data, the server initiates a transmission loop, which continues until the client stops sending acknowledgments for the received data. As the Ethernet interface does not currently support switch functionality, I do not expect multiple devices to be connected to the network. Consequently, the server is not optimized for multiple concurrent connections. Due to performance requirements, the current implementation operates at approximately 70\% of its capacity.\fnote{This value is measured using FreeRTOS.}
+
+
 \sec Inter-Core Communication
 
-\sec Safe software
+In this prototype implementation, inter-core communication serves a testing purpose to verify that all cores are correctly initialized. The structure is, however, designed to support future implementations on a prototype where the M4 core can utilize an SPI peripheral, as detailed in Chapter \ref[ADCUSagePha].
 
-\sec Realtime software
+Inter-core communication occurs via shared memory, structured according to the final implementation described in Chapter \ref[InteCoreCommunicationChap]. Additionally, I specify the precise implementation of a cyclic buffer, illustrated in Figure \ref[CyclicBuffer]. The buffer begins with a temperature value, followed by entries for the channel and timestamp indicating when the value was measured. The circular buffer consists of this structure.
+
+\clabel[CyclicBuffer]{Cyclic Buffer Structure}
+\picw=14cm \cinspic img/06-core-communication-cycle-buffer.png
+\caption/f The frame illustrates one element of the cycle buffer described in Chapter~\ref[InteCoreCommunicationChap].
+\medskip
+
+Communication is unidirectional, eliminating the need to manage memory access conflicts. Furthermore, no other core can write to this memory, as it is locked to all accesses except from the R5 core, as outlined in the architecture design.
+
+\sec Application
+
+The implemented application differs from the introductory illustration in Chapter \ref[Prototype] in that data is read through the R5 core instead of the M4 core. However, all necessary provisions are in place for future implementations. The application is built on FreeRTOS, which enables the execution of multiple tasks with prioritized scheduling. Unlike the architecture design, its primary goal is not to respond to HTTP server queries but to transmit collected data as quickly as possible for testing and analysis. During experiments, I also implemented a web server capable of operating without FreeRTOS, returning current data with a short history (10 samples per channel) in JSON format. Due to the differing purpose, I utilized different data structures.
+
+In the web server approach, communication involves a client sending an HTTP GET request and receiving an HTTP GET response containing JSON-formatted data. This approach benefits from shared memory, which the device can access at any time. For my implemented purpose, however, the communication follows a “open the floodgate and stream data” model—formally, the client sends a request and then waits for incoming data. Accordingly, I employed a suitable structure, specifically an {\it xQueue} in FreeRTOS, which facilitates data transfer between multiple tasks.
+
+The application operates by launching a main task that configures the peripherals. Execution then splits into two tasks. The first task reads data from the ADC converters and is designed for future use to read from cyclic shared memory and forward data to a web server for client transmission. I deliberately separate the web server and shared data reading, creating an API to enhance modularity and simplify changes if multiple CPUs need to access the data. If the ADC fails to initialize correctly, the second task, which manages the web server, is terminated. The web server’s operation is described in detail and best illustrated in Figure \ref[EthernetCommiunication].
+
+The application provides monitoring logs output to a virtual UART0 console, which indicate whether the ADC initialized successfully or if server-side errors occurred. The server also logs its CPU load, currently at 70\% during operation.\fnote{This value is measured using FreeRTOS.} The goal is to transmit data as quickly as possible to monitor subtle changes. In the final system, however, communication will likely be significantly slower due to the physical isolation of two independent channels, as defined by the safety architecture.
+
+The application supports communication with the M4 core via shared memory or IPC notifications. However, this feature is disabled in the current implementation, as it is not relevant to the present objectives.
+
+
+\sec Monitoring Utility
+
+For monitoring purposes, I developed a Python script that operates in multiple modes. The first mode enables storing data on the device in JSON format. In this mode, the script acts as a client to the device’s TCP server. Initially, it sends a packet to the IP address 192.168.1.200, requesting the transmission of additional data. The request can be in any format, as the device only verifies the client’s connection without checking the request’s content. The server then transmits data in the same format as stored in the frame illustrated in Figure \ref[CyclicBuffer]. Individual data entries are separated by commas, and the end of the data is marked by a semicolon. Upon receipt, the script parses the data and saves it in JSON format.
+
+The second mode visualizes incoming data as a real-time animation while also storing it in the same JSON format. To enable this, the communication speed must be significantly reduced, or the script must be modified to ignore some received values and render only every nth frame.
+
+The third mode loads previously stored data and generates a graph. Both the animation and graph are rendered using the Python library Matplotlib,\fnote{\url{https://matplotlib.org/}} which must be installed as a dependency. The generated graph operates in an interactive mode, allowing users to select specific channels to display.
+
+\sec Implementation Challenges
+
+During the implementation, beyond the challenge of the missing SPI module on the M4 core, I encountered several more complex issues. I aim to demonstrate and briefly describe them to provide inspiration for solutions in case similar problems arise.
+
+The first issue occurred initially during X.509 certificate authentication and subsequently at every device startup. Specifically, if the device ran for more than three minutes, I was unable to successfully restart it for approximately 10–15 minutes after a reset, even after disconnecting the power supply. After considering possible causes, residual induced energy in the system seemed the likely culprit. While debugging, I also discovered a flaw in the SYSFW authentication process, which I reported to Texas Instruments. This was fixed in SDK version 11, but it did not resolve my issue. After extensive investigation, I identified the root cause: incorrect timing configuration for communication with the flash memory, likely exacerbated by component overheating. This would explain the need to wait before the system could be used again.
+
+The second issue I frequently faced was combining C and C++ code. This was partly necessitated by the SDK and lwIP being implemented in C, while the specified requirements mandated C++ usage. Although mechanisms exist to address compatibility issues, this approach caused significant complications. Ultimately, I had to rewrite most of the code in C++, as C++ is not fully compatible with C.
+
+During implementation, I often struggled with the compiler’s optimization behavior, which sometimes reordered instructions in ways that were nonsensical or, to save space, transformed them into loops that introduced delays. This issue was most pronounced during software-based SPI emulation and when controlling the CNV pin via GPIO registers in normal operation. Several solutions were considered. The first was to disable compiler optimizations for specific code sections using pragmas defined by the ARM-based TI Clang compiler.\fnote{TODO: Specify pragma details.} The second was to write the sequence directly in assembly, but this was not used, as it violates {\it coding standards} and would be impractical for the final system. The third and preferred solution was to leverage hardware peripherals, such as PWM or timers combined with interrupts, to avoid reliance on compiler optimizations. Compiler instruction reordering can also complicate debugging, so it is important to account for this issue.
+

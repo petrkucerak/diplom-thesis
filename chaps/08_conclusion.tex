@@ -9,3 +9,16 @@
 
 \chap Conclusion
 
+The objective of this diploma thesis was to study fail-safe mechanisms defined in the standard for achieving SIL 2 and SIL 4 levels, select suitable hardware, design a device architecture that meets the specified requirements, implement a prototype for testing purposes, and discuss the steps needed to achieve higher SIL levels. I described the individual mechanisms in Chapter \ref[ProblematicResearch], addressed the device requirements, hardware selection, and software architecture design in Chapters~\ref[SystemRequirements], \ref[Hardware], \ref[Architecture], detailed the implementation in Chapter \ref[Implementation], and discussed mechanisms for verifying the implementation’s correctness and strategies for achieving higher SIL levels in Chapter~\ref[Testing].
+
+The practical outcome of my work, beyond a deeper understanding of the subject matter and comprehensive familiarity with the AM2434 processor, is a prototype implementation that can be used to control a prototype device and verify its properties.
+
+The practical outcomes of my work include not only a deeper understanding of the subject matter and comprehensive familiarity with the AM2434 processor but also a prototype implementation that can be used to control a prototype device, verify its properties, and establish build, booting, and flash-write processes for firmware deployment to the device.
+
+A limitation of my work was the inability to reliably establish SPI communication on the isolated core of the development kit. Personally, I found little value in pursuing a more robust implementation using timers and interrupts, which could have been more reliable than pure emulation, as the prototype hardware intended for the software is expected to include this peripheral.
+
+Throughout the project, I collaborated with Siemens Mobility, for whom I developed the prototype. I greatly value this collaboration, which was both educational and rewarding. A significant but less visible aspect of my work was studying the architecture, behavior, and operation of the AM243x, specifically the AM2434, whose multi-core structure is non-trivial. The collaboration provided substantial benefits, including excellent facilities, technical support, and consultation opportunities. However, it also introduced process-related challenges, primarily due to the project’s early stage, where colleagues were simultaneously designing the hardware and defining the architecture of the final device. My work prompted several insights that necessitated adjustments, requiring me to adapt throughout the thesis.
+
+This project marked my first practical encounter with safety-critical development, which involves studying numerous manuals and standards, frequent discussions on the validity of design choices, and rigorous formal verification of details. While this approach can slow progress, it offers the benefit of enabling a deep and comprehensive understanding of the subject matter. It was also my first experience with the Texas Instruments ecosystem and a processor with such an extensive set of peripherals that it requires dedicated firmware to manage them.
+
+I consider the project successful. I met all specifications and delivered software that is not merely theoretical but has practical applications in a project that may one day control railway crossings across Europe.
