@@ -9,26 +9,26 @@
 
 \chap Introduction
 
-This chapter introduces the motivation for this thesis and outlines its objectives.
+This chapter introduces the~motivation for this thesis and outlines its objectives.
 
 \sec Motivation
 
-Rail transport is one of the most energy-efficient and high-capacity modes of transportation, enabling the movement of large volumes of freight and passengers with relatively low energy consumption. It forms a critical component of global infrastructure, with approximately 8\% of goods and passengers worldwide transported by rail~\cite[M2s1A9T1R76bao5g].
+Rail transport is one of the~most energy-efficient and high-capacity modes of transportation, enabling the~movement of large volumes of freight and passengers with relatively low energy consumption. It forms a~critical component of global infrastructure, with approximately 8\% of goods and passengers worldwide transported by rail~\cite[M2s1A9T1R76bao5g].
 
-Given these benefits, ensuring safety and minimizing risks are critical priorities. This section justifies the importance of railway safety before exploring specific safety mechanisms.
+Given these benefits, ensuring safety and minimizing risks are critical priorities. This section justifies the~importance of railway safety before exploring specific safety mechanisms.
 
 \secc High Impact
 
 The low rolling resistance of steel wheels on rails, combined with efficient electric propulsion, makes rail transport ideal for transporting large volumes of passengers and freight. As illustrated in Figure~\ref[PassengerCapacity], rail systems offer superior passenger capacity relative to time and space in urban environments.
 
-Moreover, rail transport is highly energy-efficient, consuming approximately seven times less energy per passenger than car travel in urban settings~\cite[UZ7ymPeJEhdPijFh]. However, the large scale of rail operations means that accidents can have severe consequences, underscoring the need for robust safety measures.
+Moreover, rail transport is highly energy-efficient, consuming approximately seven times less energy per passenger than car travel in urban settings~\cite[UZ7ymPeJEhdPijFh]. However, the~large scale of rail operations means that accidents can have severe consequences, underscoring the~need for robust safety measures.
 
 \secc Strategic Importance
 
 
-Railways are vital for industrial supply chains, transporting critical materials such as coal and chemical components due to their high capacity and ability to handle heavy loads. They also play a key role in strategic logistics, enabling the efficient transport of military equipment and supplies in various global and regional contexts~\cite[Gavenda2022]. Moreover, rail transport is essential for delivering humanitarian aid during natural disasters, provided the infrastructure is designed to withstand environmental challenges such as floods, earthquakes, or extreme weather.
+Railways are vital for industrial supply chains, transporting critical materials such as coal and chemical components due to their high capacity and ability to handle heavy loads. They also play a~key role in strategic logistics, enabling efficient transport of military equipment and supplies in various global and regional contexts~\cite[Gavenda2022]. Moreover, rail transport is essential for delivering humanitarian aid during natural disasters, provided the~infrastructure is designed to withstand environmental challenges such as floods, earthquakes, or extreme weather.
 
-Beyond these roles, railways are strategically critical for global and regional connectivity. They facilitate trade by linking urban centers, ports, and industrial hubs, as seen in initiatives like China’s Belt and Road, which enhances cross-border commerce~\cite[9t3dP2NN3aZotHn9]. Railways also support the energy transition by enabling low-carbon transport and the movement of renewable energy components, aligning with sustainability goals like the EU’s Green Deal~\cite[trENjjVLswsvCW6M]. Additionally, rail networks drive urban and regional development by connecting cities and rural areas, fostering economic equity and mobility~\cite[LUNARDON2023100047]. Finally, transcontinental rail corridors strengthen international trade resilience, offering alternatives to maritime routes and mitigating geopolitical risks~\cite[yOH4aOSP0y9CyD3N].  
+Beyond these roles, railways are strategically critical for global and regional connectivity. They facilitate trade by linking urban centers, ports, and industrial hubs, as seen in initiatives like China’s Belt and Road, which enhances cross-border commerce~\cite[9t3dP2NN3aZotHn9]. Railways also support the~energy transition by enabling low-carbon transport and the~movement of renewable energy components, aligning with sustainability goals like the~EU’s Green Deal~\cite[trENjjVLswsvCW6M]. Additionally, rail networks drive urban and regional development by connecting cities and rural areas, fostering economic equity and mobility~\cite[LUNARDON2023100047]. Finally, transcontinental rail corridors strengthen international trade resilience, offering alternatives to maritime routes and mitigating geopolitical risks~\cite[yOH4aOSP0y9CyD3N].  
 
 Consequently, railway infrastructure must be engineered for reliability across diverse conditions. Robust design and operational measures should address human error, environmental risks, and capacity demands, with requirements varying by geography. For example, northern railways must endure extreme cold and heavy snowfall, while southern systems need resilience against high temperatures and coastal rainfall.
 
@@ -41,21 +41,21 @@ My primary interest is in embedded systems, focusing on direct hardware control,
 \medskip
 \clabel[PassengerCapacity]{Passenger Capacity of Different Transport Modes}
 \picw=12cm \cinspic img/01-passenger-capacity.png
-\caption/f Passenger capacity of various transport modes, showing the number of passengers per hour on 3.5 m wide lanes in urban environments~\cite[tbBVVJc0f9An81Y4].
+\caption/f Passenger capacity of various transport modes, showing the~number of passengers per hour on 3.5 m wide lanes in urban environments~\cite[tbBVVJc0f9An81Y4].
 \medskip
 
 \sec The Aim of This Thesis
 
-This thesis aims to design and implement a fail-safe system for railway applications, specifically a component for a railroad crossing system that controls LED lights. The system must comply with CENELEC\fnote{European Committee for Electrotechnical Standardization} standards. Detailed system and functional requirements are provided in Chapter~\ref[SystemRequirements].  
+This thesis aims to design and implement a~fail-safe system for railway applications, specifically a~component for a~railroad crossing system that controls LED lights. The system must comply with CENELEC\fnote{European Committee for Electrotechnical Standardization} standards. Detailed system and functional requirements are provided in Chapter~\ref[SystemRequirements].  
 
-To achieve this objective, the following steps are proposed:
+To achieve this objective, the~following steps are proposed:
 
 \begitems  
-* Analyze fail-safe software standards for railway systems. Identify the differences between SIL2 and SIL4 platforms and examine specific mechanisms that ensure compliance with safety requirements.
+* Analyze fail-safe software standards for railway systems. Identify the~differences between SIL2 and SIL4 platforms and examine specific mechanisms that ensure compliance with safety requirements.
 
-* Choose suitable hardware and design a CENELEC-compliant SIL2+ architecture. The design should include a boot sequence and mechanisms for detecting and mitigating random errors and software faults. The proposed device will consist of a safety part responsible for critical computations and a non-safety part responsible for monitoring and data transmission over Ethernet.
+* Choose suitable hardware and design a~CENELEC-compliant SIL2+ architecture. The design should include a~boot sequence and mechanisms for detecting and mitigating random errors and software faults. The proposed device will consist of a~safety part responsible for critical computations and a~non-safety part responsible for monitoring and data transmission over Ethernet.
 
-* Implement the designed software prototype architecture on the selected hardware.
+* Implement the~designed software prototype architecture on the~selected hardware.
 
-* Justify the implementation for SIL2 and evaluate potential steps required to achieve higher SIL levels.
+* Justify the~implementation for SIL2 and evaluate potential steps required to achieve higher SIL levels.
 \enditems

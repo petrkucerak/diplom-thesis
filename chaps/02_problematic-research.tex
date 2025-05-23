@@ -18,15 +18,15 @@ Before studying the issue, it is necessary to get the terminology right. In the 
 
 The term {\sbf security} refers to the discipline that aims to protect against harmful attacks or actions such as vandalism, cyber-attack, or terrorism. Physical barriers, authentication, encryption, or monitoring systems are used to protect~\cite[6i2KXzgcdbBD85cySecurity].
 
-The term {\sbf safety} refers to the discipline aimed at preventing unintentional incidents, such as accidents, errors, or technical failures, which may result in injury, loss of life, or property damage. Typical threats include natural hazards, equipment malfunctions, or human error. Safety measures encompass robust design standards, regular maintenance, and human factors engineering to minimize risks~\cite[6i2KXzgcdbBD85cySafety].
+The term {\sbf safety} refers to the discipline aimed at preventing unintentional incidents, such as accidents, errors, or technical failures, which may result in injury, loss of life, or property damage. Typical threats include natural hazards, equipment malfunctions, or human error. Safety measures encompass robust design standards, regular maintenance, and human factor engineering to minimize risks~\cite[6i2KXzgcdbBD85cySafety].
 
-The importance of safety in railway infrastructure and rolling stock cannot be overstated, as the potential consequences of technical failure or human error can be catastrophic. A stark reminder is the derailment of the ICE 884 near Eschede, Germany in 1998, which resulted in the deaths of 101 people and injuries to over 80. The accident was caused by a fatigue crack in a wheel tire, which had not been properly detected during maintenance inspections~\cite[r3G8WxKwroaiUzIo]. This tragic event exposed the vulnerabilities in safety assurance processes and highlighted the necessity for rigorous inspection protocols, fail-safe design principles, and continuous monitoring. Since then, significant advances have been made in railway safety, including the adoption of condition-based maintenance, advanced track monitoring systems, and automated train control technologies~\cite[DP4D1HY2HX5kCBWv]. These improvements illustrate how safety in railways depends not only on robust engineering but also on a systemic approach integrating human factors, operations, and organizational learning from past incidents.
-
-
-The emphasis on safety over security in car transportation is driven by statistical evidence: road traffic accidents remain a leading cause of death globally, with approximately 1.19 million fatalities annually \cite[lFy5gqN2wnr2H6PZ]. In contrast, security-related incidents, such as cyberattacks on vehicles, while emerging as a concern, are less frequent and typically have less immediate impact on human lives. For example, a malfunctioning braking system poses a direct and immediate risk to occupants, whereas a security breach, such as unauthorized access to a vehicle's infotainment system, may compromise privacy but is less likely to cause physical harm. Therefore, prioritizing safety through robust engineering, driver training, and regulatory frameworks is critical to enhancing the reliability and trustworthiness of car transportation systems.
+The importance of safety in railway infrastructure and rolling stock cannot be overstated, as the potential consequences of technical failure or human error can be catastrophic. A stark reminder is the derailment of the ICE 884 near Eschede, Germany in 1998, which resulted in the deaths of 101 people and injuries to over 80. The accident was caused by a~fatigue crack in a~wheel tire, which had not been properly detected during maintenance inspections~\cite[r3G8WxKwroaiUzIo]. This tragic event exposed the vulnerabilities in safety assurance processes and highlighted the necessity for rigorous inspection protocols, fail-safe design principles, and continuous monitoring. Since then, significant advances have been made in railway safety, including the adoption of condition-based maintenance, advanced track monitoring systems, and automated train control technologies~\cite[DP4D1HY2HX5kCBWv]. These improvements illustrate how safety in railways depends not only on robust engineering but also on a~systemic approach integrating human factors, operations, and organizational learning from past incidents.
 
 
-\midinsert \clabel[SafetyvsSecurity]{Main differences between safety and security}
+To illustrate the critical role of safety in a more familiar context, the importance of safety in railway systems can be compared to the automotive industry, which we encounter more frequently. The emphasis on safety over security in car transportation is driven by statistical evidence: road traffic accidents remain a~leading cause of death globally, with approximately 1.19 million fatalities annually \cite[lFy5gqN2wnr2H6PZ]. In contrast, security-related incidents, such as cyberattacks on vehicles, while emerging as a~concern, are less frequent and typically have less immediate impact on human lives. For example, a~malfunctioning braking system poses a~direct and immediate risk to occupants, whereas a~security breach, such as unauthorized access to a~vehicle's infotainment system, may compromise privacy but is less likely to cause physical harm. Therefore, prioritizing safety through robust engineering, driver training, and regulatory frameworks is critical to enhancing the reliability and trustworthiness of car transportation systems.
+
+
+\midinsert \clabel[SafetyvsSecurity]{Main Differences Between Safety and Security}
 \ctable{lll}{
 \hfil {\sbf Aspect} & {\sbf Safety} & {\sbf Security} \crl
 Focus & accident prevention & prevention of deliberate attacks \cr
@@ -44,7 +44,7 @@ of measures & resilience testing & cybersecurity systems \cr
 \caption/t Main differences between the terms safety and security
 \endinsert
 
-Table \ref[SafetyvsSecurity] compares the different aspects of safety and security in order to highlight the different meanings. In this thesis, I will deal primarily with the second concept - safety.
+Table \ref[SafetyvsSecurity] compares the different aspects of safety and security in order to highlight the different meanings. In this thesis, I will deal primarily with the second term - safety.
 
 \sec Materials and Standards
 
@@ -52,15 +52,15 @@ The safety requirements for transport infrastructure in the European Union are d
 
 The standard {\sbf EN 50126} relates to railway equipment in general and specifies and defines how to demonstrate reliability, availability, maintainability, and safety (RAMS). For more information see chapter \ref[RAMS].
 
-The standard {\sbf EN 50129} describes the standard for the railway communication and signaling system and the data processing system (software). The annexes provide detailed instructions on how to test hardware components including microcontroller components. The standard {\sbf EN 50159} complements the standard for safety communications.
+The norm {\sbf EN 50129} describes the standard for the railway communication and signaling system and the data processing system (software). The annexes provide detailed instructions on how to test hardware components including microcontroller components. The standard {\sbf EN 50159} complements the standard for safety communications.
 
-Standard {\sbf EN 50128} defines a standard on how to properly develop safety software for railway infrastructure.
+The norm {\sbf EN 50128} defines a~standard on how to properly develop safety software for railway infrastructure.
 
 \secc New Standard EN 50716
-In November 2023, CENELEC issued the new {\it EN 50716:2023}, titled Railway Applications - Requirements for software development, which replaces {\it EN 50128:2011} and {\it EN 50657:2017}~\cite[lWTEHHuBfppEZeJk]. This new standard unifies software development requirements for both signaling systems and vehicles, eliminating the need to separate specifications. It now applies to software with basic integrity (formerly {\it SIL0}), removing the restriction that excluded non-safety-related software. Key changes include:
+In November 2023, CENELEC issued the new standard {\it EN 50716:2023}, titled Railway Applications - Requirements for software development, which replaces {\it EN 50128:2011} and {\it EN 50657:2017}~\cite[lWTEHHuBfppEZeJk]. This new standard unifies software development requirements for both signaling systems and vehicles, eliminating the need to separate specifications. It now applies to software with basic integrity (formerly {\it SIL0}), removing the restriction that excluded non-safety-related software. Key changes include:
 
 \begitems
-* {\sbf Scope and Normative References}: The standard no longer lists normative references, and the requirement for separate safety and non-safety specifications is clarified, with all system requirements now covered under a single {\it System Requirements Specification}.
+* {\sbf Scope and Normative References}: The standard no longer lists normative references, and the requirement for separate safety and non-safety specifications is clarified, with all system requirements now covered under a~single {\it System Requirements Specification}.
 
 * {\sbf Terms and Definitions}: Terms are aligned with ISO\fnote{International Organization for Standardization} and IEC\fnote{International Standards} standards, and the {\it Integrator} role abbreviation is removed.
 
@@ -70,7 +70,7 @@ In November 2023, CENELEC issued the new {\it EN 50716:2023}, titled Railway App
 
 * {\sbf Software Assurance}: Validators can now perform additional audits, and documentation requirements for basic integrity are relaxed (e.g., software architecture and design specifications are now recommended rather than highly recommended).
 
-* {\sbf Software Development}: The integrator role is replaced by a tester, and programming language criteria are updated to focus on features like modular programming and strict typing, enabling the use of modern languages like Rust.
+* {\sbf Software Development}: The integrator role is replaced by a~tester, and programming language criteria are updated to focus on features like modular programming and strict typing, enabling the use of modern languages like Rust.
 
 * {\sbf Application Data and Maintenance}: Chapters 8 and 9, covering application data/algorithms and software deployment/maintenance, are critical for system configuration and safety, but require separate detailed analysis due to their complexity.
 \enditems
@@ -84,23 +84,23 @@ The acronym RAMS is composed of the initial letters of the words {\sbf Reliabili
 
 No approach can achieve 100\% success in any RAMS aspect; it can only be approximated. The desired level of achievement must be clearly defined.
 
-It is necessary to remember the economic side of the issue. The ratio of the investment in making the platform safe and how much it will cost to develop and produce is growing exponentially, in general. Thus, going from 20\% to 60\% safety will be much less economically challenging than going from 99.99\% to 99.999999\%. If we develop this theory into implications, we necessarily arrive at the question - how expensive is human life? Theoretically, this cost could be quantified according to standards, state-specific requirements, and crash statistics.
+It is necessary to remember the economic side of the issue. The ratio of the investment in making the platform safer and how much it will cost to develop and produce is growing exponentially, in general. Thus, going from 20\% to 60\% safety will be much less economically challenging than going from 99.99\% to 99.999999\%. If we develop this theory into implications, we necessarily arrive at the question - how expensive is human life? Theoretically, this cost could be quantified according to standards, state-specific requirements, and crash statistics.
 
-If we go back to all four aspects, we find that some of the essences are mutually defining. For example, we're going to make the equipment safer and more robust; it's going to reduce availability and reliability.
+If we go back to all four aspects, we find that some of the essences are contradicting. For example, we're going to make the equipment safer and more robust; it's going to reduce availability and reliability.
 
-I also see it important to answer the question - why is it necessary to pay attention to system availability or repairability? After all, it is only the safety itself that is important to us. If we think about it, as a result, all the aspects already mentioned are important because they complement each other. You cannot achieve safety without having a low failure rate system, or you cannot achieve safety without a possible system failure affecting the requirement that the component is supposed to fulfill.
+I also find it important to answer the question - why is it necessary to pay attention to system availability or repairability? After all, it is only the safety itself that is important to us. If we think about it, as a~result, all the aspects already mentioned are important because they complement each other. You cannot achieve safety without having a~low failure rate system, or you cannot achieve safety with a~possible system failure without affecting the requirement that the component is supposed to fulfill.
 
 \sec Systematic and Random Failures
 
-{\sbf Random failures} can be described by statistical distributions~\cite[GaaBVFT5zA4FlnK8]. We cannot control failures; we can only predict and model them mathematically. In most cases, the failure is due to a physical cause such as material fatigue, wear, corrosion, or random failures of electronic components.
+{\sbf Random failures} can be described by statistical distributions~\cite[GaaBVFT5zA4FlnK8]. We cannot control failures; we can only predict and model them mathematically. In most cases, the failure is due to a~physical cause such as material fatigue, wear, corrosion, or random failures of electronic components.
 
-The {\it EN 50126} standard defines {\sbf systematic failures} as failures caused by errors in system life cycle activities that lead to deterministic failure of a product, system, or process under certain combinations of inputs or conditions~\cite[GaaBVFT5zA4FlnK8]. Unlike random failures, systematic failures are usually caused by human errors at various stages of the system life cycle, namely specification, system design, development, manufacture, or operation and maintenance. These failures, on the other hand, are preventable from accidental failures by process, testing, and validation phases.
+The {\it EN 50126} standard defines {\sbf systematic failures} as failures caused by errors in system life cycle activities that lead to deterministic failure of a~product, system, or process under certain combinations of inputs or conditions~\cite[GaaBVFT5zA4FlnK8]. Unlike random failures, systematic failures are usually caused by human errors at various stages of the system life cycle, namely incorrect specification, system design, development, manufacture, or operation and maintenance. These failures, on the other hand, are preventable from accidental failures by process, testing, and validation phases.
 
 By the norm {\it EN 50129}, these errors are, for example: specification errors, design errors, manufacturing errors, installation errors, operation errors, maintenance errors, or modification errors.
 
-\midinsert \clabel[RandomVsSystematic]{Main differences between random and systematic failure}
+\midinsert \clabel[RandomVsSystematic]{Main Differences Between Random and Systematic Failure}
 \ctable{lll}{
-\hfil {\sbf Aspect} & {\sbf Random failure} & {\sbf Systematic failure}\crl
+\hfil {\sbf Aspect} & {\sbf Random Failure} & {\sbf Systematic Failure}\crl
 Cause & physical processes & human error during design, \cr
  & (fatigue, wear, environment) & implementation or maintenance \cr
 \cr
@@ -122,41 +122,39 @@ Examples & rail breakage, & software error, \cr
 \label[RAMSCycle]
 \secc RAMS Development Cycle
 
-{\sbf The RAMS development cycle} is described by the V-model, which uses {\it top-down} and {\it bottom-up} approaches~\cite[SU4ccYhZgv796Fi2]. It is a graphical representation of the complete development lifecycle~\cite[L9XZRy6g04sicEwo]. The advantages of this model are a clear structure, easy traceability between the design, respective requirements, and testing results.
+{\sbf The RAMS development cycle} is described by the V-model, which uses {\it top-down} and {\it bottom-up} approaches~\cite[SU4ccYhZgv796Fi2]. It is a~graphical representation of the complete development lifecycle~\cite[L9XZRy6g04sicEwo]. The advantages of this model are clear structure, easy traceability between the design, respective requirements, and testing results.
 
-The model also has many disadvantages such as the lack of flexibility; the later a bug is discovered, the more expensive it is to fix~\cite[1fwla6zm8H5QiWZn]. However, in the context of rail transport, these weaknesses are a necessity to ensure our safety.
+The model also has many disadvantages such as the lack of flexibility; the later a~bug is discovered, the more expensive it is to fix~\cite[1fwla6zm8H5QiWZn]. However, in the context of rail transport, these weaknesses are a~necessity to ensure safety.
 
 {\it EN 50128} describes in more detail the different phases and roles that are responsible for each phase. The V-model is specific to two activities - validation and verification.
 
 \medskip
-\clabel[VModel]{V-model illustration}
+\clabel[VModel]{V-model Illustration}
 \picw=14cm \cinspic img/02-v-model.png
 \caption/f V-model illustration by {\it EN 50128} norm definition~\cite[vDBnVxdnHZs4vPl6].
 \medskip
 
 \seccc Verification and Validation
 
-The standard defines {\sbf verification} as the confirmation, through provided objective evidence, that defined requirements have been met, and {\sbf validation} as the confirmation, through provided objective evidence, that requirements for a specific purpose or application have been met~\cite[GaaBVFT5zA4FlnK8].
+The standard defines {\sbf verification} as the confirmation, through provided objective evidence, that defined requirements have been met, and {\sbf validation} as the confirmation, through provided objective evidence, that requirements for a~specific purpose or application have been met~\cite[GaaBVFT5zA4FlnK8].
 
-Simply, verification answers the question {\it do we build things correctly}, validation answers the question {\it do we build the right thing}?
+Simply, verification answers the question {\it are we building things correctly}, validation answers the question {\it are we building the right thing}?
 
 \seccc System Description
 
-Defining system requirements is the first and very important step for a successful and safe system or component. In this phase, it is important to define the limits, interfaces, functions, and the environment of the system.
+Defining system requirements is the first and very important step for a~successful and safe system or component. In this phase, it is important to define the limits, interfaces, functions, and the environment of the system.
 
-It is important to note that SIL levels,\fnote{Safety integrity level} which we will discuss later, are always related to a component - e.g. a function. So we cannot say that the whole platform is a SIL, but only that the platform provides a function that has that SIL.
+It is important to note that SIL levels,\fnote{Safety integrity level} which we will discuss later, are always related to a~component - e.g. a~function. So we cannot say that the whole platform is a~SIL, but only that the platform provides a~function that has that SIL.
 
-To illustrate, let's take a concrete example: automatic train control, specifically emergency braking in case of a dangerous situation, e.g. when a train runs a red light. In this case the {\sbf function} is: automatic braking when passing a dangerous signal. The driver's cab, the track equipment and the signal transmission path are the {\sbf system}. The {\sbf Interfaces} for us are the wheels, the dashboard which serves as an API for the driver to communicate with the system, and the warning light which signals the entry prohibition.
+To illustrate, let's take a~specific example: automatic train control, specifically emergency braking in case of a~dangerous situation, e.g. when a~train runs a~red light. In this case the {\sbf function} is: automatic braking when passing a~dangerous signal. The driver's cab, the track equipment and the signal transmission path are the {\sbf system}. The {\sbf Interfaces} for us are the wheels, the dashboard which serves as an~API for the driver to communicate with the system, and the warning light which signals the entry prohibition.
 
 \seccc Risk Analysis
 
-In the context of safety-critical systems, we define the hazards relevant to this study. The {\sbf hazard} is any condition that could precipitate an accident~\cite[GaaBVFT5zA4FlnK8].
+In the context of safety-critical systems, we define the hazards relevant to this study. The {\sbf hazard} standard defines a~hazard as any condition that could precipitate an~accident~\cite[GaaBVFT5zA4FlnK8].
 
-In the context of safety-critical systems, we define the hazards relevant to this study. The {\sbf hazard} standard defines a hazard as any condition that could precipitate an accident~\cite[GaaBVFT5zA4FlnK8].
+In the context of a railway monitoring system, a hazard can be exemplified by the failure to initiate emergency braking or the inability to receive a stop command. In safety-critical systems, the presence of a hazard inherently introduces risk. According to relevant standards, risk is defined as the combination of the anticipated frequency of a hazard’s occurrence and the severity of its potential consequences.
 
-In our example, we can consider a gamble as the system not initiating emergency braking or not receiving information to stop. In safety, if there is a gamble, there is always a risk. The standard defines {\sbf risk} as the combination of the expected frequency of occurrence of the hazard and the expected severity of the hazard.
-
-To make a system safe, our goal is to minimize risk to the point that it is equal to or less than the acceptable risk. We achieve this by adding just safe features to our system such as the redundancy principle, the watchdog principle, or the error detection principle.
+To make a~system safe, our goal is to minimize risk to the point that it is equal to or less than the acceptable risk. We achieve this by adding just safe features to our system such as the redundancy principle, the watchdog principle, or the error detection principle.
 
 Risk analysis consists of some of the methods already mentioned: hazard identification, frequency minimization, and consequence classification.
 
@@ -167,28 +165,28 @@ The European Union specifies in the CSM regulation~\fnote{Common Safety Method f
 \begitems
 * {\sbf Application of codes of practice}: The use of established norms, standards, and best practice methodologies for risk assessment and management that have been validated in practice.
 
-* {\sbf Comparison with similar system}: Risk assessment based on analysis and comparison with other systems that have similar functionality, architecture, or operating conditions. This approach is particularly useful when assessing a new context.
+* {\sbf Comparison with similar system}: Risk assessment based on analysis and comparison with other systems that have similar functionality, architecture, or operating conditions. This approach is particularly useful when assessing a~new context.
 
 * {\sbf Explicit risk estimation}: Direct and detailed quantitative or qualitative risk assessment using specific methods. This approach requires data collection and detailed modeling~\cite[ONTbnhbgf2hyhL9J].
 \enditems
 
 \seccc Hazard Analysis (FTA, FMEA)
 
-The standard {\it EN 50126} recommends the use of top-down analysis for hazard analysis. Specifically, {\sbf Fault Tree Analysis (FTA)} which allows us to work with dependencies between individual hazards. The second method used is {\sbf Failure Modes and Effects Analysis (FMEA)}. The FTA is suitable for analyzing multiple system failures; FMEA is suitable for analyzing a single failure, including all its consequences.
+The standard {\it EN 50126} recommends the use of top-down analysis for hazard analysis. Specifically, {\sbf Fault Tree Analysis (FTA)} which allows us to work with dependencies between individual hazards. The second method used is {\sbf Failure Modes and Effects Analysis (FMEA)}. The FTA is suitable for analyzing multiple system failures; FMEA is suitable for analyzing a~single failure, including all its consequences.
 
 \seccc Tolerated Risk Ratios (THR, TFFR)
 
-{\sbf Tolerable Hazard Rate (THR)}, which represents the maximum frequency of occurrence of a particular hazard. It therefore determines how many times a potentially hazardous event can occur in a defined period without affecting the overall safety of the system~\cite[vDBnVxdnHZs4vPl6].
+{\sbf Tolerable Hazard Rate (THR)}, which represents the maximum frequency of occurrence of a~particular hazard. It therefore determines how many times a~potentially hazardous event can occur in a~defined period without affecting the overall safety of the system~\cite[vDBnVxdnHZs4vPl6].
 
-{\sbf Tolerable Functional Failure Rate (TFFR)}, which represents the maximum frequency of failure of a specific system function, focuses on the system's functional aspects and considers how often a function can fail without leading to unacceptable risk~\cite[vDBnVxdnHZs4vPl6].
+{\sbf Tolerable Functional Failure Rate (TFFR)}, which represents the maximum frequency of failure of a~specific system function, focuses on the system's functional aspects and considers how often a~function can fail without leading to unacceptable risk~\cite[vDBnVxdnHZs4vPl6].
 
 THR will be sufficient if our system consists of only one safe function. However, if there is more than one, we need to use TFFR to combine them.
 
 \seccc Safety Integrity Level (SIL)
 
-The term SIL is a method used to evaluate and classify the level of integrity of the safety functions of a system. Previous methods have described to us how to deal primarily with random error. SIL tells us what type of architecture, validation, testing, etc. to choose depending on the level of system error.
+The term SIL is a~method used to evaluate and classify the level of integrity of the safety functions of a~system. Previous methods have described to us how to deal primarily with random error. SIL tells us what type of architecture, validation, testing, etc. to choose depending on the level of system error.
 
-\midinsert \clabel[TFFRxSIL]{Table describes TFFR and SIL relation}
+\midinsert \clabel[TFFRxSIL]{Table Describes TFFR and SIL Relation}
 \ctable{ll}{
 \hfil {\sbf TFFR [$h^{-1}$] } & {\sbf SIL level} \crl
 $10^{-9} \leq TFFR < 10^{-8}$ & 4 \cr
@@ -208,34 +206,34 @@ The norm describes 4 Safety Integrity Levels from 1 to 4 and Basic Integrity. Th
 
 \secc The Five Base Questions
 
-I would like to mention that an excellent mechanism to verify that we haven't forgotten anything elementary is to answer these five basic questions that are based on {\it EN 50126}.
+I would like to mention that an~excellent mechanism to verify that we haven't forgotten anything elementary is to answer these five basic questions that are based on {\it EN 50126}.
 
 \begitems
 * {\sbf What} - What features must be implemented?
 * {\sbf How} - What steps must be followed during implementation?
 * {\sbf With what} - What tools must be used for implementation?\fnote{The tool problematic is detailed discussed int the Chapter \ref[ToolsClassification].}
 * {\sbf Assurance} - How can I ensure that the first three questions are answered correctly?
-* {\sbf Traceability} - Have I recorded everything in a way that allows for audit and verification?
+* {\sbf Traceability} - Have I recorded everything in a~way that allows for audit and verification?
 \enditems
 
 
 \sec Mechanisms to Achieve SIL Level
 
-I would like to discuss the mechanisms, architecture types, principles, and policies that ensure that a given platform contains SIL functionality. The thesis does not address the processes behind the development of safety software, which are an integral part of the overall development process.
+I would like to discuss the mechanisms, architecture types, principles, and policies that ensure that a~given platform contains SIL functionality. The thesis does not address the processes behind the development of safety software, which are an~integral part of the overall development process.
 
  
 In this chapter we will use terms defined by {\it EN 50128} and {\it EN 50129}, which are widely used in their annexes and can be found in this thesis in tables or figures. In order to understand them, let's clarify them.
 
 \begitems
-* {\sbf `M` - Mandatory}: This symbol means that the use of a technique is mandatory~\cite[vDBnVxdnHZs4vPl6].
+* {\sbf `M` - Mandatory}: This symbol means that the use of a~technique is mandatory~\cite[vDBnVxdnHZs4vPl6].
 
-* {\sbf `HR` - Highly Recommended}: This technique or measure is highly recommended for the SIL. It is considered a key measure, and implementation is mandatory. In case of absence, clear reasoning is required.
+* {\sbf `HR` - Highly Recommended}: This technique or measure is highly recommended for the SIL. It is considered a~key measure, and implementation is mandatory. In case of absence, clear reasoning is required.
 
-* {\sbf `R` - Recommended}: This technique or measure is recommended but not required or necessary to meet the safety requirement for a given SIL. Implementation of this technique can improve safety and reliability.
+* {\sbf `R` - Recommended}: This technique or measure is recommended but not required or necessary to meet the safety requirement for a~given SIL. Implementation of this technique can improve safety and reliability.
 
 * {\sbf `-` No Recommendation}: There is no recommendation or non-recommendation for this technique or measure. Use is discretionary and should be decided based on the requirement specification.
 
-* {\sbf `NR` - Not Recommended}: This technique or measure is not recommended for a given SIL. Implementation may be ineffective, inadequate, or even counterproductive.
+* {\sbf `NR` - Not Recommended}: This technique or measure is not recommended for a~given SIL. Implementation may be ineffective, inadequate, or even counterproductive.
 \enditems
 
 \secc The Principles in Developing High-integrity Software
@@ -245,13 +243,13 @@ The {\it EN 50128} standard defines ten basic principles, the application of whi
 \begitems
 * {\sbf Top-down design method}: This method divides the system into smaller parts and gradually works its way from generalities to specific issues.
 
-* {\sbf Modularity}: The modularity aims to divide software into smaller independent blocks that can be maintained and tested independently. This division often makes it possible to work on as many components in parallel as possible at the same time. In addition, it allows for easier testing or making changes. The disadvantage can be a certain necessary level of abstraction, which in the case of embedded systems can be undesirable.
+* {\sbf Modularity}: The modularity aims to divide software into smaller independent blocks that can be maintained and tested independently. This division often makes it possible to work on as many components in parallel as possible at the same time. In addition, it allows for easier testing or making changes. The disadvantage can be a~certain necessary level of abstraction, which in the case of embedded systems can be undesirable.
 
 * {\sbf Verification of each phase of the development life-cycle}: This method aims to minimize the risk of errors during development by thoroughly verifying each stage. This leads to the early identification of problems and therefore saves time and money.
 
 * {\sbf Verified components and component libraries}: The goal is to reduce the risk of bugs in systems by reusing verified components. In addition to preventing errors, this measure also saves money. Since the validation process of developing new software is very demanding, it is therefore preferable to use components that are already validated.
 
-* {\sbf Clear documentation and traceability}: The aim is to provide a clearly interpretable, understandable, and quickly comprehensible description of the component.
+* {\sbf Clear documentation and traceability}: The aim is to provide a~clearly interpretable, understandable, and quickly comprehensible description of the component.
 
 * {\sbf Auditable documents}: The aim is to provide evidence that the system is developed and tested in accordance with the requirements.
 \enditems
@@ -259,19 +257,19 @@ The {\it EN 50128} standard defines ten basic principles, the application of whi
 \label[SILArchitectureBaseMechanisms]
 \secc Architecture
 
-In designing SIL software, the standard defines 7 basic principles. However, in relevance to the use of a microprocessor, they can be generalized to 3 basic principles or approaches to ensure that the code is safe and meets all requirements.\fnote{The sub-parts of these mechanisms are described in {\it EN 50129}, Annex A, Table E.4.} Each of these approaches has its advantages and limitations depending on the SIL level required.
+In designing SIL software, the standard defines 7 basic principles. However, in relevance to the use of a~microprocessor, they can be generalized to 3 basic principles or approaches to ensure that the code is safe and meets all requirements.\fnote{The sub-parts of these mechanisms are described in {\it EN 50129}, Annex A, Table E.4.} Each of these approaches has its advantages and limitations depending on the SIL level required.
 
 \begitems
-* {\sbf Inherent fail-safety}: This approach ensures the safety of the system due to the intrinsic properties of the design. Functions are designed to be fault-tolerant without the need for external intervention. It is therefore more a matter of hardware design. This method cannot be implemented in software. As an example, the signal remains in a safe state even after a power failure, without external intervention. This mechanism is recommended (R) for {\it SIL 1} and {\it SIL 2}, and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
+* {\sbf Inherent fail-safety}: This approach ensures the safety of the system due to the intrinsic properties of the design. Functions are designed to be fault-tolerant without the need for external intervention. It is therefore more a~matter of hardware design. This method cannot be implemented in software. As an~example, the signal remains in a~safe state even after a~power failure, without external intervention. This mechanism is recommended (R) for {\it SIL 1} and {\it SIL 2}, and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
 
-* {\sbf Reactive fail-safety}: The approach focuses on responding to faults typically through fault detection and subsequent activation of protection mechanisms. The system is therefore able to react on its own without external intervention to ensure a safe state. Examples include the activation of emergency braking or safety shutdown when a failure of the main system is detected. The mechanism is recommended (R) for {\it SIL 1} and {\it SIL 2} and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
+* {\sbf Reactive fail-safety}: The approach focuses on responding to faults typically through fault detection and subsequent activation of protection mechanisms. The system is therefore able to react on its own without external intervention to ensure a~safe state. Examples include the activation of emergency braking or safety shutdown when a~failure of the main system is detected. The mechanism is recommended (R) for {\it SIL 1} and {\it SIL 2} and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
 
-* {\sbf Composite fail-safety}: The approach combines multiple channels with fail-safe mechanisms for peer-to-peer comparison. This provides greater resilience to failure through redundancy and independence. An example would be the need to obtain a positive signal from at least two of the three independent units to activate an action element. This mechanism, like the inherent and reactive mechanisms, is recommended (R) for {\it SIL 1} and {\it SIL 2} and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
+* {\sbf Composite fail-safety}: The approach combines multiple channels with fail-safe mechanisms for peer-to-peer comparison. This provides greater resilience to failure through redundancy and independence. An example would be the need to obtain a~positive signal from at least two of the three independent units to activate an~action element. This mechanism, like the inherent and reactive mechanisms, is recommended (R) for {\it SIL 1} and {\it SIL 2} and highly recommended (HR) for {\it SIL 3} and {\it SIL 4}.
 \enditems
 
-The standard also defines other architectural approaches that are less suitable for higher levels of safety integrity ({\it SIL 3} and {\it SIL 4}). These approaches can only be used in less critical applications such as {\it SIL 1} and {\it SIL 2}. These include, for example, a duplicated electronic structure, but where the channels may not be completely independent and the comparison of results may not be fail-safe. Another test is, for example, a simple electronic structure with self-tests, thus supervising its own functions. However, this approach again lacks independence between the function and its supervision. This limits this method, like the previous one, for higher SIL levels.
+The standard also defines other architectural approaches that are less suitable for higher levels of safety integrity ({\it SIL 3} and {\it SIL 4}). These approaches can only be used in less critical applications such as {\it SIL 1} and {\it SIL 2}. These include, for example, a~duplicated electronic structure, but where the channels may not be completely independent and the comparison of results may not be fail-safe. Another test is, for example, a~simple electronic structure with self-tests, thus supervising its own functions. However, this approach again lacks independence between the function and its supervision. This limits this method, like the previous one, for higher SIL levels.
 
-\midinsert \clabel[TechniquesSIL]{Table showing techniques and measures for different SIL levels}
+\midinsert \clabel[TechniquesSIL]{Table Showing Techniques and Measures for Different SIL}
 \ctable{lllll}{
 \hfil {\sbf Technique/Measure} & {\sbf SIL 1} & {\sbf SIL 2} & {\sbf SIL 3} & {\sbf SIL 4} \crl
 Separation of safety-related functions from \cr
@@ -299,7 +297,7 @@ comparison \cr
 \caption/t Table showing techniques and measures for different SIL levels according to {\it EN 50129}, Annex A, Table E.4~\cite[SU4ccYhZgv796Fi2].
 \endinsert
 
-Table \ref[TechniquesSIL] clearly shows the different mechanisms depending on the SIL level as defined by the standard. It is also not a bad idea to combine different mechanisms together. By definition, however, this cannot be implemented for all techniques.
+Table \ref[TechniquesSIL] clearly shows the different mechanisms depending on the SIL level as defined by the standard. It is also not a~bad idea to combine different mechanisms together. By definition, however, this cannot be implemented for all techniques.
 
 \label[SoftwareArchitectureTechnique]
 \secc Software Architecture Technique
@@ -307,7 +305,7 @@ Table \ref[TechniquesSIL] clearly shows the different mechanisms depending on th
 {\it EN 50128} in Annex A defines specific mechanisms to be used in the design of the software architecture and its implementation for different SIL levels. We have listed some of them in Table \ref[TechniquesMeasures].
 
 
-\midinsert \clabel[TechniquesMeasures]{Software Architecture mechanism for different SIL levels}
+\midinsert \clabel[TechniquesMeasures]{Software Architecture Mechanism for Different SIL}
 \ctable{lllll}{
 \hfil {\sbf Technique/Measure} & {\sbf SIL 1} & {\sbf SIL 2} & {\sbf SIL 3} & {\sbf SIL 4} \crl
 Defensive Programming & HR & HR & HR & HR \cr
@@ -352,7 +350,7 @@ Modeling supported by CAD and specification tools & R & R & HR & HR \cr
 \endinsert
 
 \seccc Defensive Programming 
-The {\sbf Defensive Programming} is one of the most important techniques in safety programming. The aim is to produce programs that detect anomalous control flow, data flow, or data values during their execution and react to these in a predetermined and acceptable manner~\cite[vDBnVxdnHZs4vPl6].
+The {\sbf Defensive Programming} is one of the most important techniques in safety programming. The aim is to produce programs that detect anomalous control flow, data flow, or data values during their execution and react to these in a~predetermined and acceptable manner~\cite[vDBnVxdnHZs4vPl6].
 
 There are three basic techniques of defensive programming:
 
@@ -382,11 +380,11 @@ There are more techniques like reusing quality code, handling I/O, testing, low 
 
 \seccc Fault Detection and Diagnosis
 
-The goal of {\sbf Fault Detection and Diagnosis} is to detect faults in a system, which might lead to a failure, thus providing the basis for countermeasures in order to minimize the consequences of failure~\cite[vDBnVxdnHZs4vPl6].
+The goal of {\sbf Fault Detection and Diagnosis} is to detect faults in a~system, which might lead to a~failure, thus providing the basis for countermeasures in order to minimize the consequences of failure~\cite[vDBnVxdnHZs4vPl6].
 
-Fault detection is based on the principles of {\sbf redundancy} and {\sbf diversity}. The redundancy can detect hardware faults, and diversity can detect software faults. For correct results interpretation, it is necessary to use some voting system.
+Fault detection is based on the principles of {\sbf redundancy} and {\sbf diversity}. The redundancy can detect hardware faults, and diversity can detect software faults. For correct results interpretation, it is necessary to use a voting system.
 
-Special applicable methods for software level are {\sbf assertion programming}, {\sbf N-version programming},\fnote{The {\sbf N-version programming}, also known as a multiple-version dissimilar software, is the method where multiple functionally equivalent programs are independently generated from the same initial specifications~\cite[532621].} or {\sbf safety bag technique}. For hardware level control loops, error checking codes, etc.
+Special applicable methods for software level are {\sbf assertion programming}, {\sbf N-version programming},\fnote{The {\sbf N-version programming}, also known as a~multiple-version dissimilar software, is the method where multiple functionally equivalent programs are independently generated from the same initial specifications~\cite[532621].} or {\sbf safety bag technique}. For hardware level control loops, error checking codes, etc.
 
 
 \seccc Error Detecting and Correcting Codes
@@ -397,36 +395,36 @@ To safety $n$ bits information is necessary to generate $k$ bits of block code. 
 
 \seccc Failure Assertion Programming
 
-The goal of {\sbf Failure Assertion Programming} is to detect residual faults during the execution of a software program~\cite[vDBnVxdnHZs4vPl6].
+The goal of {\sbf Failure Assertion Programming} is to detect residual faults during the execution of a~software program~\cite[vDBnVxdnHZs4vPl6].
 
 \medskip
-\clabel[FailureAssertionProgramming]{Failure Assertion Programming illustration}
+\clabel[FailureAssertionProgramming]{Failure Assertion Programming Illustration}
 \picw=14cm \cinspic img/02-failure-assertion-programming.png
-\caption/f Failure Assertion Programming illustration.
+\caption/f The diagram illustrates the failure assertion programming mechanism.
 \medskip
 
-The assertion programming method in safety software development follows the idea of checking a {\sbf pre-condition}\fnote{The initial conditions are checked for validity before a sequence of statements is executed.} and a {\sbf post-condition}\fnote{Results are checked after t he execution of a sequence of statements.} as illustrated in Figure \ref[FailureAssertionProgramming]. If either the pre-condition or the post-condition is not met, the processing terminates with an error.
+The assertion programming method in safety software development follows the idea of checking a~{\sbf pre-condition}\fnote{The initial conditions are checked for validity before a~sequence of statements is executed.} and a~{\sbf post-condition}\fnote{Results are checked after t he execution of a~sequence of statements.} as illustrated in Figure \ref[FailureAssertionProgramming]. If either the pre-condition or the post-condition is not met, the processing terminates with an~error.
 
 \seccc Safety Bag Techniques
 
 The {\sbf Safety Bag} technique is aimed at protecting against residual specification and implementation faults in software that adversely affect safety~\cite[vDBnVxdnHZs4vPl6].
 
-Practically, it is an external monitoring system implemented on an independent computer with a separate specification. Its primary role is to ensure that the main computer performs safe actions, though not necessarily correct ones. The safety bag continuously monitors the main computer and prevents the system from entering an unsafe state. Additionally, if it detects that the main computer is approaching a potentially hazardous state, it must restore the system to a safe condition, either on its own or in coordination with the main computer.
+Practically, it is an~external monitoring system implemented on an~independent computer with a~separate specification. Its primary role is to ensure that the main computer performs safe actions, though not necessarily correct ones. The safety bag continuously monitors the main computer and prevents the system from entering an~unsafe state. Additionally, if it detects that the main computer is approaching a~potentially hazardous state, it must restore the system to a~safe condition, either on its own or in coordination with the main computer.
 
 
 \seccc Diverse Programming
 
-The goal of {\sbf Diverse Programming} technique is to detect and mask residual software design faults during the execution of a program, in order to prevent safety-critical failures of the system, and to continue operation for high reliability~\cite[vDBnVxdnHZs4vPl6].
-
-The technique is based on relying on multiple implementations of the same specification. Consequently, we expect that if the inputs are the same for all implementations, the outputs will be the same. If this is not the case, we need to have a voting strategy that tells us whether we accept a given outcome and possibly which one~\cite[inbookNVS].
+The goal of {\sbf Diverse Programming} technique is to detect and mask residual software design faults during the execution of a~program, in order to prevent safety-critical failures of the system, and to continue operation for high reliability~\cite[vDBnVxdnHZs4vPl6].
 
 \medskip
-\clabel[DiverseProgramming]{Diverse Programming illustration}
+\clabel[DiverseProgramming]{Diverse Programming Illustration}
 \picw=14cm \cinspic img/02-NVS.png
-\caption/f Diverse Programming illustration.
+\caption/f The diagram illustrates the diverse programming mechanism.
 \medskip
 
-This technique does not eliminate residual software design faults but provides a mechanism to detect and mitigate them before they impact safety.
+The technique is based on relying on multiple implementations of the same specification. Consequently, we expect that if the inputs are the same for all implementations, the outputs will be the same as well. If this is not the case, we need to have a~voting strategy that tells us whether we accept a~given outcome and possibly which one~\cite[inbookNVS].
+
+This technique does not eliminate residual software design faults but provides a~mechanism to detect and mitigate them before they impact safety.
 
 Studies and experiments\fnote{Source is the norm {\it EN 50128}, Annex D, Chap D.16.} indicate that N-version programming does not always achieve the expected effectiveness. Despite using different algorithms, diverse software versions frequently fail on the same inputs.
 
@@ -434,14 +432,14 @@ Studies and experiments\fnote{Source is the norm {\it EN 50128}, Annex D, Chap D
 
 The {\sbf Recovery Block} is the technique to increase the likelihood of the program performing its intended function~\cite[vDBnVxdnHZs4vPl6].
 
-This technique may appear similar to Diverse Programming (N-version programming), but there are key differences between them. In the {\sbf N-version programming} technique, N independent groups or individual developers, who do not share the programming process, each develop a separate version of a software module. The underlying idea is that different developers will make different mistakes, thereby covering all possible faults. In the {\sbf Recovery Block technique}, different algorithms are assigned to distinct try blocks, which serve as redundant components. Unlike N-version programming, the redundant copies do not execute simultaneously. Instead, the result of each try block is evaluated using an acceptance test to determine its validity~\cite[nBWFyWQg5kF6u8OP].
+This technique may appear similar to Diverse Programming (N-version programming), but there are key differences between them. In the {\sbf N-version programming} technique, N independent groups or individual developers, who do not share the programming process, each develop a~separate version of a~software module. The underlying idea is that different developers will make different mistakes, thereby covering all possible faults. In the {\sbf Recovery Block technique}, different algorithms are assigned to distinct try blocks, which serve as redundant components. Unlike N-version programming, the redundant copies do not execute simultaneously. Instead, the result of each try block is evaluated using an~acceptance test to determine its validity~\cite[nBWFyWQg5kF6u8OP].
 
  
 \seccc Retry Fault Recovery Mechanism
 
-The goal of the {\sbf Re-Try Fault Recovery Mechanism} is to attempt functional recovery from a detected fault condition by re-try mechanism~\cite[vDBnVxdnHZs4vPl6].
+The goal of the {\sbf Retry Fault Recovery Mechanism} is to attempt functional recovery from a~detected fault condition by re-try mechanism~\cite[vDBnVxdnHZs4vPl6].
 
-If an error is detected in a condition or procedure, re-execution of the same code can be started. In case of failure of a major part, a re-boot or re-start can be performed. In the case of using tasks and re-scheduling or re-starting the task.
+If an~error is detected in a~condition or procedure, re-execution of the same code can be started. In case of failure of a~major part, a~re-boot or re-start can be performed. In the case of using tasks and re-scheduling or re-starting the task.
 
 
 \seccc Software Error Effect Analysis
@@ -449,7 +447,7 @@ If an error is detected in a condition or procedure, re-execution of the same co
 The goal of the {\sbf SEEA (Software Error Effect Analysis)} is to identify software components and their criticality to propose means for detecting software errors and enhancing software robustness, and to evaluate the amount of validation needed on the various software components~\cite[vDBnVxdnHZs4vPl6].
 
 
-The norm {\it EN 50128} describes three phases of the SEEA, that is a powerful bug-finding method if it is carried out by an independent team:
+The norm {\it EN 50128} describes three phases of the SEEA, that is a~powerful bug-finding method if it is carried out by an~independent team:
 
 \begitems
 * {\sbf Vital software components identification} - This phase aims to determine the depth of the analysis needed for each software component, from its specification.
@@ -472,23 +470,23 @@ The norm {\it EN 50128} describes three phases of the SEEA, that is a powerful b
 
 The technique {\sbf Graceful Degradation} aims to maintain the more critical system functions available despite failures by dropping the less critical functions~\cite[vDBnVxdnHZs4vPl6].
 
-The graceful degradation refers to the ability of a system to maintain a partial level of functionality when some components fail or are otherwise damaged. Instead of failing completely, a system designed with graceful degradation can reduce its quality of service while still providing essential functionality. This contrasts with "fail-stop" behavior, where the system completely ceases to function upon failure. The goal of graceful degradation is to ensure that users benefit from a reduced but functional level of service, thus minimizing the impact of failure. A system that is designed in this way is sometimes called fail-soft or fail-safe~\cite[stallings2014, jNF0rhyXUI1gPjtr].
+The graceful degradation refers to the ability of a~system to maintain a~partial level of functionality when some components fail or are otherwise damaged. Instead of failing completely, a~system designed with graceful degradation can reduce its quality of service while still providing essential functionality. This contrasts with "fail-stop" behavior, where the system completely ceases to function upon failure. The goal of graceful degradation is to ensure that users benefit from a~reduced but functional level of service, thus minimizing the impact of failure. A system that is designed in this way is sometimes called fail-soft or fail-safe~\cite[stallings2014, jNF0rhyXUI1gPjtr].
 
 \seccc Information Encapsulation
 
-The goal {\sbf Information Encapsulation} technique is to increase the robustness and maintainability of software~\cite[vDBnVxdnHZs4vPl6].
+The goal of the {\sbf Information Encapsulation} technique is to increase the robustness and maintainability of software~\cite[vDBnVxdnHZs4vPl6].
 
-Globally accessible data can be unintentionally or incorrectly modified by any software component, potentially requiring thorough code reviews and extensive changes. To mitigate these issues, information hiding is a widely used approach. It involves restricting direct access to key data structures, allowing them to be modified only through a predefined set of access procedures. This ensures that internal changes—such as altering data structures or adding new procedures—do not impact the overall functionality of the software. For instance, a directory system might include access procedures like $Insert$, $Delete$, and $Find$. These procedures, along with the underlying data structures, could be re-implemented (e.g., by adopting a different lookup method or storing data on a hard disk) without changing the logical behavior of the software that relies on them.
+Globally accessible data can be unintentionally or incorrectly modified by any software component, potentially requiring thorough code reviews and extensive changes. To mitigate these issues, information hiding is a~widely used approach. It involves restricting direct access to key data structures, allowing them to be modified only through a~predefined set of access procedures. This ensures that internal changes—such as altering data structures or adding new procedures—do not impact the overall functionality of the software. For instance, a~directory system might include access procedures like $Insert$, $Delete$, and $Find$. These procedures, along with the underlying data structures, could be re-implemented (e.g., by adopting a~different lookup method or storing data on a~hard disk) without changing the logical behavior of the software that relies on them.
 
 \seccc Fully Defined Interface
 
-The technique {\sbf Fully Defined Interface} leads to modularization. A {\sbf Modular Approach} contains several rules for coding, maintenance phases, and design of the software project. The norm {\it EN 50128} defines a list of these rules to reach the modular methods for interfaces.
+The technique {\sbf Fully Defined Interface} leads to modularization. A {\sbf Modular Approach} contains several rules for coding, maintenance phases, and design of the software project. The norm {\it EN 50128} defines a~list of these rules to reach the modular methods for interfaces.
 
 \begitems
-* A component or module shall have a single well-defined task or function to fulfill.
+* A component or module shall have a~single well-defined task or function to fulfill.
 * Connections between components or modules shall be limited and strictly defined; coherence in one component or module shall be strong.
 * Collections of subprograms shall be built providing several levels of components or modules.
-* Subprograms shall have a single entry and a single exit only.
+* Subprograms shall have a~single entry and a~single exit only.
 * Components or modules shall communicate with other components or modules via their interfaces. Where global or common variables are used, they shall be well structured, access shall be controlled, and their use shall be justified in each instance.
 * All components or module's interfaces shall be fully documented.
 * Any component or module's interface shall contain the minimum number of parameters necessary for the component or module's function.
@@ -497,57 +495,57 @@ The technique {\sbf Fully Defined Interface} leads to modularization. A {\sbf Mo
 
 \seccc Formal Methods
 
-The {\sbf Formal Methods} refer to mathematically rigorous techniques and tools for the specification, design, and verification of software and hardware systems. The application of formal methods in software and hardware design is driven by the idea that, similar to other engineering fields, conducting rigorous mathematical analysis enhances the reliability and robustness of a design~\cite[vDBnVxdnHZs4vPl6, j9q6czqZVYZTTIDS].
+The {\sbf Formal Methods} refer to mathematically rigorous techniques and tools for the specification, design, and verification of software and hardware systems. The application of formal methods in software and hardware design is driven by the idea that, similar to other engineering fields, conducting rigorous mathematical analysis enhances the reliability and robustness of a~design~\cite[vDBnVxdnHZs4vPl6, j9q6czqZVYZTTIDS].
 
-There is no universal formal method that is suitable for all scenarios. Rather, an appropriate mathematical model must be chosen for each situation. Therefore, we have several models. The standard {\it EN 50128} describes CSP, CCS, HOL, LOTOS, OBJ, Temporal Logic, VDM, Z Method, B Method, and Model Checking. Let's at least take a closer look at the most important ones.
+There is no universal formal method that is suitable for all scenarios. Rather, an~appropriate mathematical model must be chosen for each situation. Therefore, we have several models. The standard {\it EN 50128} describes CSP, CCS, HOL, LOTOS, OBJ, Temporal Logic, VDM, Z Method, B Method, and Model Checking. Let's at least take a~closer look at the most important ones.
 
-The {\sbf Communicating Sequential Processes (CSP)} is a technique for the specification of concurrent software systems. CSP defines a language for specifying process systems and verifying their implementations via traces. A system is modeled as independent processes composed sequentially or in parallel. Processes communicate through channels, synchronizing only when both are ready, with optional event timing modeling.  As an example of a suitable application, this method is systems of communicating processes operating concurrently.
+The {\sbf Communicating Sequential Processes (CSP)} is a~technique for the specification of concurrent software systems. CSP defines a~language for specifying process systems and verifying their implementations via traces. A system is modeled as independent processes composed sequentially or in parallel. Processes communicate through channels, synchronizing only when both are ready, with optional event timing modeling.  As an~example of a~suitable application, this method is systems of communicating processes operating concurrently.
 
-The {\sbf Calculus of Communicating Systems (CCS)} is a means for describing and reasoning about the behavior of systems of concurrent, communicating processes. Like CSP, CCS is a mathematical calculus for modeling system behavior as independent processes running sequentially or in parallel. Processes communicate via ports, synchronizing only when both are ready. Non-determinism is supported, and systems can be refined top-down from traces or built bottom-up using composition rules.
+The {\sbf Calculus of Communicating Systems (CCS)} is a~means for describing and reasoning about the behavior of systems of concurrent, communicating processes. Like CSP, CCS is a~mathematical calculus for modeling system behavior as independent processes running sequentially or in parallel. Processes communicate via ports, synchronizing only when both are ready. Non-determinism is supported, and systems can be refined top-down from traces or built bottom-up using composition rules.
 
-The {\sbf Higher Order Logic (HOL)} is a formal language intended as a basis for hardware specification and verification. It was developed at the University of Cambridge Computer Laboratory. The notation is largely derived from Church's Simple Theory of Types, while the support system is based on the LCF (Logic of Computable Functions) framework.
+The {\sbf Higher Order Logic (HOL)} is a~formal language intended as a~basis for hardware specification and verification. It was developed at the University of Cambridge Computer Laboratory. The notation is largely derived from Church's Simple Theory of Types, while the support system is based on the LCF (Logic of Computable Functions) framework.
 
-The {\sbf Language for Temporal Ordering Specification (LOTOS)} is a means for describing and reasoning about the behavior of systems of concurrent, communicating processes.
+The {\sbf Language for Temporal Ordering Specification (LOTOS)} is a~means for describing and reasoning about the behavior of systems of concurrent, communicating processes.
 
-The {\sbf OBJ} is an algebraic specification language. Users specify requirements in terms of algebraic equations. The goal of this technique is to provide a precise system specification with user feedback and system validation prior to implementation.
+The {\sbf OBJ} is an~algebraic specification language. Users specify requirements in terms of algebraic equations. The goal of this technique is to provide a~precise system specification with user feedback and system validation prior to implementation.
 
-The {\sbf Temporal logic} aims to direct the expression of safety and operational requirements and formal demonstration that these properties are preserved in the subsequent development steps. Standard First-Order Predicate Logic does not account for time. Temporal logic extends it by introducing modal operators like "henceforth" (for ongoing conditions) and "eventually" (for future conditions). These help define system behaviors—e.g., safety properties must always hold, while certain states must be reached eventually. Temporal formulas describe sequences of system states, which can represent the entire system, a component, or a program. However, temporal logic does not handle precise time intervals directly; instead, additional time states must be defined within the system.
+The {\sbf Temporal logic} aims to direct the expression of safety and operational requirements and formal demonstration that these properties are preserved in the subsequent development steps. Standard First-Order Predicate Logic does not account for time. Temporal logic extends it by introducing modal operators like "henceforth" (for ongoing conditions) and "eventually" (for future conditions). These help define system behaviors—e.g., safety properties must always hold, while certain states must be reached eventually. Temporal formulas describe sequences of system states, which can represent the entire system, a~component, or a~program. However, temporal logic does not handle precise time intervals directly; instead, additional time states must be defined within the system.
 
 The {\sbf Vienna Development Method (VDM)}, {\sbf Z notation}, and {\sbf B method} are all formal methods used for specifying and verifying software systems, but they differ in their approaches and areas of application.
 
-{\sbf VDM} is a mathematically based, model-driven specification technique developed at the IBM Laboratory Vienna in the 1970s~\cite[Bekić1984]. It enables high-level abstraction in system modeling, facilitating early detection of design flaws and key system features. By providing a structured refinement process, validated models can be systematically transformed into detailed implementations while ensuring correctness through proof obligations. With its formal semantics, VDM allows for rigorous verification of model properties, offering a high level of assurance. Additionally, an executable subset supports testing and validation, making it accessible even to non-experts through graphical user interfaces.\fnote{Recommending for simple human understanding description on Wikipedia for detail understanding of this method: \url{https://en.wikipedia.org/wiki/Vienna_Development_Method}.}
+{\sbf VDM} is a~mathematically based, model-driven specification technique developed at the IBM Laboratory Vienna in the 1970s~\cite[Bekić1984]. It enables high-level abstraction in system modeling, facilitating early detection of design flaws and key system features. By providing a~structured refinement process, validated models can be systematically transformed into detailed implementations while ensuring correctness through proof obligations. With its formal semantics, VDM allows for rigorous verification of model properties, offering a~high level of assurance. Additionally, an~executable subset supports testing and validation, making it accessible even to non-experts through graphical user interfaces.\fnote{Recommending for simple human understanding description on Wikipedia for detail understanding of this method: \url{https://en.wikipedia.org/wiki/Vienna_Development_Method}.}
 
-The {\sbf Z method}, like VDM, employs a model-based approach with set-theoretic structures to define system states and their transitions. However, Z focuses on structuring specifications through schemas, making it well-suited for data-oriented, sequential systems. Unlike VDM, Z is more of a notation rather than a complete development method, relying on additional methodologies to transition from specification to implementation.
+The {\sbf Z method}, like VDM, employs a~model-based approach with set-theoretic structures to define system states and their transitions. However, Z focuses on structuring specifications through schemas, making it well-suited for data-oriented, sequential systems. Unlike VDM, Z is more of a~notation rather than a~complete development method, relying on additional methodologies to transition from specification to implementation.
 
-The {\sbf B method} extends the principles of Z by incorporating rigorous proof obligations and refinement steps that ensure the correctness of both system models and their implementations. It provides a structured approach to software development through abstract machines and step-by-step refinements, leading to deterministic implementations. Unlike VDM and Z, B emphasizes automatic proof generation and verification, making it particularly useful for safety-critical applications.
+The {\sbf B method} extends the principles of Z by incorporating rigorous proof obligations and refinement steps that ensure the correctness of both system models and their implementations. It provides a~structured approach to software development through abstract machines and step-by-step refinements, leading to deterministic implementations. Unlike VDM and Z, B emphasizes automatic proof generation and verification, making it particularly useful for safety-critical applications.
 
-While all three methods share a foundation in formal logic and model-based specification, their primary distinctions lie in their scope and intended use cases. VDM is best suited for early-stage design validation and refinement into sequential programs. Z excels in formalizing complex data structures and relationships, whereas B extends these capabilities with rigorous proof obligations and structured refinements, ensuring the correctness of both design and implementation.
+While all three methods share a~foundation in formal logic and model-based specification, their primary distinctions lie in their scope and intended use cases. VDM is best suited for early-stage design validation and refinement into sequential programs. Z excels in formalizing complex data structures and relationships, whereas B extends these capabilities with rigorous proof obligations and structured refinements, ensuring the correctness of both design and implementation.
 
-The last formal method mentioned in the norm {\it EN 50128} is the {\sbf Model Checking}. It aims to, given a model of a system, test automatically whether this model meets a given specification~\cite[vDBnVxdnHZs4vPl6]. Model checking verifies whether a given structure satisfies a specified logical formula. It applies across various logic and structures, with a common example being the evaluation of propositional logic formulas. Primarily used in hardware design, model checking algorithmically ensures that a system model meets a formal specification, often expressed in temporal logic. For software, full automation is limited due to undecidability. The system is typically represented as a finite-state machine, where nodes correspond to system states, edges define transitions, and atomic propositions describe key properties. When the model is finite, verification reduces to a graph search.
+The last formal method mentioned in the norm {\it EN 50128} is the {\sbf Model Checking}. It aims to, given a~model of a~system, test automatically whether this model meets a~given specification~\cite[vDBnVxdnHZs4vPl6]. Model checking verifies whether a~given structure satisfies a~specified logical formula. It applies across various logic and structures, with a~common example being the evaluation of propositional logic formulas. Primarily used in hardware design, model checking algorithmically ensures that a~system model meets a~formal specification, often expressed in temporal logic. For software, full automation is limited due to undecidability. The system is typically represented as a~finite-state machine, where nodes correspond to system states, edges define transitions, and atomic propositions describe key properties. When the model is finite, verification reduces to a~graph search.
 
 \seccc Data Modeling 
 
-The technique {\sbf Data modelling} is the process of creating a data model by applying formal data model descriptions using data modelling techniques.
+The technique {\sbf Data modelling} is the process of creating a~data model by applying formal data model descriptions using data modelling techniques.
 
-In software engineering, a data model is an abstract representation of how data is structured, stored, and accessed within a system. It defines data objects, their relationships, and the rules governing their interactions within a specific domain. Data modeling is essential for designing databases, ensuring data consistency, and facilitating seamless data exchange across systems.
+In software engineering, a~data model is an~abstract representation of how data is structured, stored, and accessed within a~system. It defines data objects, their relationships, and the rules governing their interactions within a~specific domain. Data modeling is essential for designing databases, ensuring data consistency, and facilitating seamless data exchange across systems.
 
 \seccc Structured Methodology  
 
 The approach {\sbf Structured Methodology} aims to improve software quality by emphasizing the early stages of the development life cycle. This method is related to the V-model and one of its goals is to.
 
-Structured methodologies provide systematic procedures and notations to define requirements and implementation features in a logical and structured manner. These methodologies break down complex problems into manageable stages, ensuring a clear understanding of the system and its environment. They facilitate the decomposition of data and functions, use checklists for completeness, and maintain a balance between precision and intuitive understanding.  
+Structured methodologies provide systematic procedures and notations to define requirements and implementation features in a~logical and structured manner. These methodologies break down complex problems into manageable stages, ensuring a~clear understanding of the system and its environment. They facilitate the decomposition of data and functions, use checklists for completeness, and maintain a~balance between precision and intuitive understanding.  
 
 Different structured methods are suited for various domains: traditional data-processing methodologies such as SSADM\fnote{
 {\sbf Structured systems analysis and design method (SSADM)} - waterfall method for the analysis and design of information systems.
 } and LBMS\fnote{
 {\sbf Location-based method (LBMS)} - A scheduling approach that optimizes construction workflow by tracking work crews' movement across locations, ensuring continuity and efficient resource allocation. It extends traditional project management by structuring work packages into interconnected entities, improving scheduling flexibility and project efficiency~\cite[ZhcmUNG84nGygVtL].
 } focus on transaction-based systems, whereas process-control and real-time applications benefit from methods like MASCOT,\fnote{
-{\sbf Modular Approach to Software Construction Operation and Test (MASCOT)} is a methodology for designing, constructing, and testing software with a strong emphasis on modularity, concurrency, and data flow representation. It ensures component decoupling, facilitating reusability and simplifying testing, making it particularly suitable for complex real-time embedded systems~\cite[mE8IgWkQmSnQncJX].
+{\sbf Modular Approach to Software Construction Operation and Test (MASCOT)} is a~methodology for designing, constructing, and testing software with a~strong emphasis on modularity, concurrency, and data flow representation. It ensures component decoupling, facilitating reusability and simplifying testing, making it particularly suitable for complex real-time embedded systems~\cite[mE8IgWkQmSnQncJX].
 
 The interesting fact is that the UK Ministry of Defense has been the primary user of the MASCOT method through its application in significant military systems, and at one stage mandated its use for new operational systems. Examples include the Rapier missile system, and various Royal Navy Command \& Control Systems.
-} JSD,\fnote{{\sbf Jackson System Development (JSD)} is a linear software development methodology developed by Michael A. Jackson and John Cameron in the 1980s~\cite[1uF1MOuWQwGw9due].} and real-time Yourdon. Many structured methodologies incorporate graphical or semi-formal notations, improving visibility and reducing the likelihood of misinterpretation. Some, like JSD and SDL, partially integrate mathematical formalism, enhancing their reliability and enabling automated processing.  
+} JSD,\fnote{{\sbf Jackson System Development (JSD)} is a~linear software development methodology developed by Michael A. Jackson and John Cameron in the 1980s~\cite[1uF1MOuWQwGw9due].} and real-time Yourdon. Many structured methodologies incorporate graphical or semi-formal notations, improving visibility and reducing the likelihood of misinterpretation. Some, like JSD and SDL, partially integrate mathematical formalism, enhancing their reliability and enabling automated processing.  
 
-By providing a clear, logical framework, structured methodologies help developers systematically analyze, specify, and verify system designs, making them particularly valuable in complex or safety-critical applications.
+By providing a~clear, logical framework, structured methodologies help developers systematically analyze, specify, and verify system designs, making them particularly valuable in complex or safety-critical applications.
 
 \label[ToolsClassification]
 \secc Tools Classification
@@ -555,19 +553,19 @@ By providing a clear, logical framework, structured methodologies help developer
 The norm {\it EN 50128}\fnote{Specifically, clauses 3.1.42-44 in the aforementioned EN 50128.} defines three basic categories of tools used for safety software development.
 
 \begitems
-* {\sbf T1}: This class includes tools that do not produce any output that could directly or indirectly contribute to the resulting executable software code. An example of a tool is a text editor that has no ability to generate code.
-* {\sbf T2}: This class includes tools that support testing or verification of the design or executable code. Errors in a tool may occur in certain situations, but cannot directly cause errors in the resulting executable software. Examples of such tools include static analysis tools or tools for measuring test coverage.
+* {\sbf T1}: This class includes tools that do not produce any output that could directly or indirectly contribute to the resulting executable software code. An example of a~tool is a~text editor that has no ability to generate code.
+* {\sbf T2}: This class includes tools that support testing or verification of the design or executable code. Errors in a~tool may occur in certain situations, but cannot directly cause errors in the resulting executable software. Examples of such tools include static analysis tools or tools for measuring test coverage.
 * {\sbf T3}: This class includes tools that generate outputs that directly or indirectly contribute to the final executable code of the resulting system. These include, for example, compilers.
 \enditems
 
-It is important to note that depending on the class of a given tool, requirements are made on them, which are checked during validation and verification. Therefore, it is important to keep them in mind when designing a system. Often it may be more appropriate for a project to use an older but validated tool for which its behavior has already been proven and de-validated.
+It is important to note that depending on the class of a~given tool, requirements are made on them, which are checked during validation and verification. Therefore, it is important to keep them in mind when designing a~system. Often it may be more appropriate for a~project to use an~older but validated tool for which its behavior has already been proven and de-validated.
 
 
 \secc Programming Technique
 
 The standards also define the programming standards for the individual SIL levels. The individual techniques are shown in table \ref[TechniquesCoding].
 
-\midinsert \clabel[TechniquesCoding]{Coding standards for different SIL levels}
+\midinsert \clabel[TechniquesCoding]{Coding Standards for Different SIL}
 \ctable{lllll}{
 \hfil {\sbf Technique/Measure} & {\sbf SIL 1} & {\sbf SIL 2} & {\sbf SIL 3} & {\sbf SIL 4} \crl
 Coding Standard & HR & HR & M & M \cr
@@ -604,7 +602,7 @@ Specific techniques for safe development are also {\sbf limited size and complex
 
 The other techniques are not, in my view, specific to safety development, but are principles that are appropriate for any software development, such as following the {\sbf coding standard}, the {\sbf coding style guide} that leads to improved readability, or the {\sbf limited use of global variables}.
 
-The norm {\it EN 50128} defines a set of essential rules that coding standards should include. The most important ones are:
+The norm {\it EN 50128} defines a~set of essential rules that coding standards should include. The most important ones are:
 
 \begitems
 * {\sbf Language specification} defines the programming language and its allowed features, ensuring {\sbf portability} across different platforms.  
@@ -613,7 +611,7 @@ The norm {\it EN 50128} defines a set of essential rules that coding standards s
 \enditems
 
 
-It may also be interesting to note that the standard defines {\sbf recommended programming languages} for different SIL levels.\fnote{The EN 50128 standard describes the different programming languages in Table A.15 in Annex A} It will come as no surprise that C, C++ or Assembler are among the recommended languages. However, the presence of languages such as C\# or Java may also come as a surprise. The standard also mentions more historical languages such as Pascal.
+It may also be interesting to note that the standard defines {\sbf recommended programming languages} for different SIL levels.\fnote{The EN 50128 standard describes the different programming languages in Table A.15 in Annex A} It will come as no surprise that C, C++ or Assembler are among the recommended languages. However, the presence of languages such as C\# or Java may also come as a~surprise. The standard also mentions more historical languages such as Pascal.
 
 
 \label[LevelCrossingSingalization]
@@ -623,18 +621,18 @@ According to research,\fnote{Eurostat, 2023 - \url{https://ec.europa.eu/eurostat
 } the average number of level crossings per 100 km in the European Union in 2023 is over 50. The record holder is Norway, which has more than 90 level crossings, while the Czech Republic, along with Austria, Hungary, and the Netherlands, has more than 80.
 
 \medskip
-\clabel[LevelCrossingGraphStates]{Level rail track crossings numbers by countries}
+\clabel[LevelCrossingGraphStates]{Level Rail Track Crossings Numbers by Countries}
 \picw=14cm \cinspic img/02-level-crossing-graph-states.png
 \caption/f Level rail track crossings per 100 km by countries.
 \medskip
 
-Each country uses a different signaling standard, mainly due to historical development. I am describing a few country systems with potential deployment of the developing device.
+Each country uses a~different signaling standard, mainly due to historical development. I am describing a~few country systems with potential deployment of the developing device.
 
-In Figures \ref[LevelCrossingSwitzerland], \ref[LevelCrossingGermany], \ref[LevelCrossingNorway], and \ref[LevelCrossingCzechia], the {\sbf passive status} indicates that no train is approaching or present on the crossing, meaning there are no immediate restrictions or hazards. The {\sbf active status} occurs when a train is in the immediate vicinity or on the crossing, signaling that entry is prohibited due to an ongoing or imminent train passage. Lastly, the {\sbf warning status}, used in Germany and some other countries, serves as a cautionary signal, indicating that the active status will soon follow.
+In Figures \ref[LevelCrossingSwitzerland], \ref[LevelCrossingGermany], \ref[LevelCrossingNorway], and \ref[LevelCrossingCzechia], the {\sbf passive status} indicates that no train is approaching or present on the crossing, meaning there are no immediate restrictions or hazards. The {\sbf active status} occurs when a~train is in the immediate vicinity or on the crossing, signaling that entry is prohibited due to an~ongoing or imminent train passage. Lastly, the {\sbf warning status}, used in Germany and some other countries, serves as a~cautionary signal, indicating that the active status will soon follow.
 
 
 \medskip
-\clabel[LevelCrossingSwitzerland]{Level crossing signalization in Switzerland}
+\clabel[LevelCrossingSwitzerland]{Level Crossing Signalization in Switzerland}
 \picw=14cm \cinspic img/02-level-crossing-switzerland.png
 \caption/f Level crossing signalization in Switzerland.
 \medskip
@@ -642,30 +640,30 @@ In Figures \ref[LevelCrossingSwitzerland], \ref[LevelCrossingGermany], \ref[Leve
 In {\sbf Switzerland}, the crossing lights remain completely off in the passive state. In the active state, the red lights flash alternately, as illustrated in Figure \ref[LevelCrossingSwitzerland].  
 
 \medskip
-\clabel[LevelCrossingGermany]{Level crossing signalization in Germany}
+\clabel[LevelCrossingGermany]{Level Crossing Signalization in Germany}
 \picw=14cm \cinspic img/02-level-crossing-germany.png
 \caption/f Level crossing signalization in Germany.
 \medskip
 
-In {\sbf Germany}, multiple signaling types are used. The first type consists of a red and an orange light. In the passive state, both are off. When transitioning to the warning state, the orange light turns on while the red remains off. In the active state, the red light is on, and the orange light is off. The second type features only a single red light, which is off in the passive state and flashes at regular intervals in the active state. Both options are illustrated in Figure \ref[LevelCrossingGermany].
+In {\sbf Germany}, multiple signaling types are used. The first type consists of a~red and an~orange light. In the passive state, both are off. When transitioning to the warning state, the orange light turns on while the red remains off. In the active state, the red light is on, and the orange light is off. The second type features only a~single red light, which is off in the passive state and flashes at regular intervals in the active state. Both options are illustrated in Figure \ref[LevelCrossingGermany].
 
 
 \medskip
-\clabel[LevelCrossingNorway]{Level crossing signalization in Norway}
+\clabel[LevelCrossingNorway]{Level Crossing Signalization in Norway}
 \picw=14cm \cinspic img/02-level-crossing-norway.png
 \caption/f Level crossing signalization in Norway.
 \medskip
 
-{\sbf Norway} employs a two-color signaling system similar to Germany’s. The upper light is red, and the lower light is white. In the passive state, the red light is off, while the white light flashes at regular intervals. In the active state, the white light turns off, and the red light flashes at a slightly faster, consistent interval, as illustrated in Figure \ref[LevelCrossingNorway].
+{\sbf Norway} employs a~two-color signaling system similar to Germany’s. The upper light is red, and the lower light is white. In the passive state, the red light is off, while the white light flashes at regular intervals. In the active state, the white light turns off, and the red light flashes at a~slightly faster, consistent interval, as illustrated in Figure \ref[LevelCrossingNorway].
 
 
 \medskip
-\clabel[LevelCrossingCzechia]{Level crossing signalization in Czech Republic}
+\clabel[LevelCrossingCzechia]{Level Crossing Signalization in Czech Republic}
 \picw=14cm \cinspic img/02-level-crossing-czechia.png
 \caption/f Level crossing signalization in Czech Republic.
 \medskip
 
-In the {\sbf Czech Republic}, three lights are arranged in an inverted equilateral triangle, as shown in Figure \ref[LevelCrossingCzechia]. The upper two lights are red, and the lower one is white. In the passive state, the white light flashes at regular intervals while the red lights remain off. In the active state, the two red lights flash alternately, and the white light turns off.
+In the {\sbf Czech Republic}, three lights are arranged in an~inverted equilateral triangle, as shown in Figure \ref[LevelCrossingCzechia]. The upper two lights are red, and the lower one is white. In the passive state, the white light flashes at regular intervals while the red lights remain off. In the active state, the two red lights flash alternately, and the white light turns off.
 
 Some countries not mentioned here use the same signaling systems. For example, Austria follows the same signaling as Germany, while Slovakia uses the same system as the Czech Republic.  
 
