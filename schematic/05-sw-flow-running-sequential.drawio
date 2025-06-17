@@ -1,0 +1,224 @@
+<mxfile host="65bd71144e" scale="3" border="0">
+    <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
+        <mxGraphModel dx="3525" dy="2719" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="261" value="&amp;nbsp; Real-Time core (non-SIL)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;fontColor=#333333;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;" parent="1" vertex="1">
+                    <mxGeometry x="-1316" y="-1003" width="1272" height="1580" as="geometry"/>
+                </mxCell>
+                <mxCell id="284" value="&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;&amp;nbsp; t_measuring&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="-1279" y="-572" width="651" height="1114" as="geometry"/>
+                </mxCell>
+                <mxCell id="283" value="&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;&amp;nbsp; LED information&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="-1232.5" y="266" width="520" height="239" as="geometry"/>
+                </mxCell>
+                <mxCell id="282" value="&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;&amp;nbsp; additional measure&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="-1232.5" y="-63" width="520" height="319" as="geometry"/>
+                </mxCell>
+                <mxCell id="281" value="&amp;nbsp; read data from isolated core" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="-1232.5" y="-436" width="520" height="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="262" value="&amp;nbsp; t_web_server" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="-592" y="-832" width="520" height="587" as="geometry"/>
+                </mxCell>
+                <mxCell id="241" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="224" target="239" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="224" value="start web server" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="-290" y="-796" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="238" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="234" target="235" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="234" value="prepare frame&lt;div&gt;parse data, ...&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="-290" y="-509" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="235" value="return GET response" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="-290" y="-366" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="240" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="239" target="234" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="242" value="GET request&lt;div&gt;/data&lt;/div&gt;" style="edgeLabel;html=1;align=left;verticalAlign=middle;resizable=0;points=[];" parent="240" vertex="1" connectable="0">
+                    <mxGeometry x="-0.4079" relative="1" as="geometry">
+                        <mxPoint x="8" y="-5" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="245" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="239" target="244" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="246" value="POST request&lt;div&gt;/firmware&lt;/div&gt;" style="edgeLabel;html=1;align=left;verticalAlign=middle;resizable=0;points=[];" parent="245" vertex="1" connectable="0">
+                    <mxGeometry x="-0.4953" y="-2" relative="1" as="geometry">
+                        <mxPoint x="14" y="25" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="239" value="Wait for request&lt;div&gt;&lt;i&gt;(wait forever)&lt;/i&gt;&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-295" y="-674" width="164" height="102" as="geometry"/>
+                </mxCell>
+                <mxCell id="244" value="start firmware&lt;br&gt;update process" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-568" y="-509" width="151" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="254" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="250" target="251" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="250" value="start R0 core" style="rounded=1;whiteSpace=wrap;html=1;flipV=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1187.5" y="-957" width="151" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="255" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="251" target="253" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="251" value="Config freeRTOS" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1189" y="-873" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="290" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="252" target="273">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="291" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="252" target="224">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="-972" y="-671"/>
+                            <mxPoint x="-972" y="-869"/>
+                            <mxPoint x="-213" y="-869"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="252" value="Run freeRTOS tasks" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1189" y="-701" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="256" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="253" target="252" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="253" value="Prepare common structures&lt;div&gt;like buffers, ...&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1189" y="-787" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="181" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="174" target="175" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="174" value="Read data from&lt;br&gt;isolated core" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1049.5" y="-418" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="179" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="175" target="176" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="185" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="179" vertex="1" connectable="0">
+                    <mxGeometry x="-0.5042" y="-3" relative="1" as="geometry">
+                        <mxPoint x="17" y="-8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="180" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="175" target="177" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="186" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="180" vertex="1" connectable="0">
+                    <mxGeometry x="-0.855" relative="1" as="geometry">
+                        <mxPoint x="6" y="-11" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="175" value="Data integrity OK?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1054.5" y="-314" width="164" height="102" as="geometry"/>
+                </mxCell>
+                <mxCell id="274" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="176" target="189" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="176" value="Save data to the buffer" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1220" y="-195" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="275" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="177" target="189" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="177" value="Discard data" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-879" y="-195" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="202" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="189" target="201" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="189" value="Read data from ADC" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1049.5" y="-36" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="276" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="196" target="212" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="196" value="Save data to the buffer" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1049.5" y="175" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="203" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="201" target="196" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="201" value="Decode data &amp;amp; Evaluate state" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1049.5" y="70" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="215" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="212" target="213" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="212" value="Read state from buffer" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1049.5" y="281" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="279" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="213" target="174" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="-973" y="477"/>
+                            <mxPoint x="-645" y="477"/>
+                            <mxPoint x="-645" y="-462"/>
+                            <mxPoint x="-973" y="-462"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="213" value="Light up LEDs&lt;div&gt;by device state&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1049.5" y="386" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="280" style="edgeStyle=none;html=1;" parent="1" source="273" target="174" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="273" value="Config GPIO &amp;amp; LED Default Status" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1049.5" y="-541" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="172" value="&amp;nbsp; Isolated core (SIL2)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="1" vertex="1">
+                    <mxGeometry x="-577" y="-172" width="533" height="749" as="geometry"/>
+                </mxCell>
+                <mxCell id="288" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="163" target="269">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="163" value="Read data from ADC" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;" parent="1" vertex="1">
+                    <mxGeometry x="-440" y="63" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="167" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="164" target="165" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="164" value="Decode data &amp;amp; Evaluate state" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;" parent="1" vertex="1">
+                    <mxGeometry x="-440" y="261" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="170" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="165" target="169" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="165" value="Write data to the communication buffer" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;" parent="1" vertex="1">
+                    <mxGeometry x="-440" y="360" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="171" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="169" target="163" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="-363" y="546"/>
+                            <mxPoint x="-212" y="546"/>
+                            <mxPoint x="-212" y="6"/>
+                            <mxPoint x="-363" y="6"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="169" value="Write data to&lt;br&gt;the PLC output" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;" parent="1" vertex="1">
+                    <mxGeometry x="-440" y="459" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="226" style="edgeStyle=none;html=1;" parent="1" source="225" target="163" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="225" value="Config GPIO, SPI,&lt;br&gt;and ADC" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-440" y="-93" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="289" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="269" target="164">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="269" value="Read data from&lt;br&gt;daisy-chain inputs" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;" parent="1" vertex="1">
+                    <mxGeometry x="-440" y="162" width="154" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

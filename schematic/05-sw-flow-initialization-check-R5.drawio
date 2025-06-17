@@ -1,0 +1,55 @@
+<mxfile host="65bd71144e" scale="3" border="0">
+    <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
+        <mxGraphModel dx="2193" dy="2339" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="397" style="edgeStyle=none;html=1;fontSize=13;" edge="1" parent="1" source="352" target="379">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="352" value="Start Initialization Test Sequence on R5 core" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="-497" y="-1170" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="399" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=13;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="379" target="393">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-446" y="-931" as="sourcePoint"/>
+                        <mxPoint x="-446" y="-880" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="402" value="Success" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="399">
+                    <mxGeometry x="-0.4196" y="3" relative="1" as="geometry">
+                        <mxPoint x="23" y="-8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="400" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=13;" edge="1" parent="1" source="379" target="395">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="403" value="Fail with code" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="400">
+                    <mxGeometry x="-0.6718" y="1" relative="1" as="geometry">
+                        <mxPoint x="21" y="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="401" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontSize=13;" edge="1" parent="1" source="379" target="396">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="404" value="Timeout" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="401">
+                    <mxGeometry x="0.159" y="-1" relative="1" as="geometry">
+                        <mxPoint x="25" y="-9" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="379" value="Wait for message from M4" style="rhombus;whiteSpace=wrap;html=1;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="-536" y="-1053" width="198" height="121" as="geometry"/>
+                </mxCell>
+                <mxCell id="393" value="Run non-SIL software" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;" vertex="1" parent="1">
+                    <mxGeometry x="-497" y="-876" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="395" value="Run safety shutdown&lt;div&gt;Defined error code&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;" vertex="1" parent="1">
+                    <mxGeometry x="-227" y="-1021.5" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="396" value="Run safety shutdown&lt;div&gt;Timeout&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;" vertex="1" parent="1">
+                    <mxGeometry x="-768" y="-1021.5" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

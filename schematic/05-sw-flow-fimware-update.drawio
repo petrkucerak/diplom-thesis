@@ -1,0 +1,103 @@
+<mxfile host="65bd71144e" scale="3" border="0">
+    <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
+        <mxGraphModel dx="1296" dy="1912" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="328" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="316" target="318" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="316" value="&lt;font&gt;POST request&lt;/font&gt;&lt;div&gt;&lt;font&gt;/software&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="-29.5" y="-928" width="166" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="317" value="&lt;font&gt;save software&lt;br&gt;to flash memory&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="-29.5" y="-729" width="169" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="331" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="317" target="319" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="340" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="318" target="317" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="318" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;update info block&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;set&amp;nbsp;&lt;/span&gt;&lt;i style=&quot;background-color: transparent;&quot;&gt;new software&lt;/i&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&amp;nbsp;address and set&amp;nbsp;&lt;/span&gt;&lt;i style=&quot;background-color: transparent;&quot;&gt;failure_count&amp;nbsp;&lt;/i&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;to 1&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="-31" y="-830" width="169" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="332" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="319" target="320" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="319" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;reset device and&lt;br&gt;run bootloader&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="-31" y="-608" width="169" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="333" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="320" target="321" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="341" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="333">
+                    <mxGeometry x="-0.3458" relative="1" as="geometry">
+                        <mxPoint x="-10" y="-9" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="334" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="320" target="322" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="342" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="334">
+                    <mxGeometry x="-0.2869" y="-2" relative="1" as="geometry">
+                        <mxPoint x="12" y="-7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="320" value="&lt;font&gt;Is software update success?&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;flipV=0;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="-68" y="-500" width="243" height="133" as="geometry"/>
+                </mxCell>
+                <mxCell id="337" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="321" target="323" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="321" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;update info block&lt;/span&gt;&lt;div&gt;change new software&lt;br&gt;as a origin and set&amp;nbsp;&lt;i style=&quot;color: rgb(63, 63, 63);&quot;&gt;failure_count&amp;nbsp;&amp;nbsp;&lt;/i&gt;to 0&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="235" y="-471" width="169" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="335" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="322" target="324" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="322" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;update info block&lt;/span&gt;&lt;div&gt;set&amp;nbsp;&lt;i style=&quot;color: rgb(63, 63, 63);&quot;&gt;failure_count +&lt;/i&gt;=1&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="-298" y="-471" width="169" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="323" value="&lt;span style=&quot;color: rgb(63, 63, 63); text-align: left; text-wrap-mode: nowrap;&quot;&gt;success update&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="236.5" y="-349" width="166" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="336" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="324" target="325" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="343" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="336">
+                    <mxGeometry x="-0.5786" y="-1" relative="1" as="geometry">
+                        <mxPoint x="15" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="338" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="324" target="319" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-343.76191638764885" y="-687.4761672247025" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="-360" y="-304"/>
+                            <mxPoint x="-360" y="-629"/>
+                            <mxPoint x="53" y="-629"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="344" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="338">
+                    <mxGeometry x="-0.8026" y="2" relative="1" as="geometry">
+                        <mxPoint x="21" y="38" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="324" value="Is&amp;nbsp;&lt;i style=&quot;color: rgb(63, 63, 63);&quot;&gt;failure_count &amp;lt;=&lt;/i&gt;&amp;nbsp;4?" style="rhombus;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="-335" y="-370.99999999999994" width="243" height="133" as="geometry"/>
+                </mxCell>
+                <mxCell id="339" style="edgeStyle=none;html=1;" parent="1" source="325" target="327" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="325" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;update info block&lt;/span&gt;&lt;div&gt;remove new software address&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="-298" y="-203" width="169" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="327" value="&lt;span style=&quot;text-align: left; text-wrap-mode: nowrap; color: rgb(63, 63, 63);&quot;&gt;failed update&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap-mode: nowrap; color: rgb(63, 63, 63);&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap-mode: nowrap; color: rgb(63, 63, 63);&quot;&gt;&amp;amp; run origin software&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="-296.5" y="-77" width="166" height="72" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

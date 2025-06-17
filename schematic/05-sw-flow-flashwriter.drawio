@@ -1,0 +1,55 @@
+<mxfile host="65bd71144e" scale="3" border="0">
+    <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
+        <mxGraphModel dx="1225" dy="651" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="240" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="169" target="236">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="169" value="Start flash writer" style="rounded=1;whiteSpace=wrap;html=1;flipV=0;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="-268" y="296" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="242" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="220" target="222">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="220" value="Create device info &amp;amp; booting info structure" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="296" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="243" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="222" target="224">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="222" value="Lock self memory&lt;br&gt;in the flash" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="284" y="296" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="244" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="224" target="225">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="224" value="Save incoming software to the flash as a origin" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="284" y="398" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="245" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="225" target="228">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="225" value="Update boot info" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="398" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="227" value="End flash writer sequence" style="rounded=1;whiteSpace=wrap;html=1;flipV=0;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="-268" y="398" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="246" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="228" target="227">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="228" value="Update LED signalization" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="-84" y="398" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="241" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="236" target="220">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="236" value="Save incomming bootloader software to the flash" style="rounded=0;whiteSpace=wrap;html=1;flipV=0;flipH=1;" vertex="1" parent="1">
+                    <mxGeometry x="-84" y="296" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

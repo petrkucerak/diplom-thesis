@@ -1,0 +1,59 @@
+<mxfile host="65bd71144e" scale="3" border="0">
+    <diagram id="LzTGRrPrDBO6Tm46XuKC" name="Page-1">
+        <mxGraphModel dx="4078" dy="1939" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="264" value="&amp;nbsp; additional_measure" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="-2538" y="-661" width="331" height="589" as="geometry"/>
+                </mxCell>
+                <mxCell id="202" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="189" target="201" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="189" value="Read data from ADC" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="-2469.5" y="-518" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="195" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="196" target="200" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="196" value="Save data to the buffer" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="-2469.5" y="-304" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="270" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="200" target="189" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="-2393" y="-107"/>
+                            <mxPoint x="-2276" y="-107"/>
+                            <mxPoint x="-2276" y="-551"/>
+                            <mxPoint x="-2393" y="-551"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="200" value="Sleep (&lt;i&gt;n&lt;/i&gt; s)" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="-2469.5" y="-195" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="203" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="201" target="196" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="201" value="Decode data &amp;amp; Evaluate state" style="rounded=0;whiteSpace=wrap;html=1;flipV=1;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="-2469.5" y="-409" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="230" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="229" target="189" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="229" value="Config GPIO, ..." style="rounded=1;whiteSpace=wrap;html=1;flipV=1;flipH=1;" parent="1" vertex="1">
+                    <mxGeometry x="-2469.5" y="-625" width="154" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="287" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="-3075" y="-695"/>
+                            <mxPoint x="-2733" y="-695"/>
+                        </Array>
+                        <mxPoint x="-2733.0000000000005" y="-780" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
