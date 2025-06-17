@@ -6,11 +6,132 @@
 \def\ctustyle{{\ssr CTUstyle}}
 \def\ttb{\tt\char`\\} % pro tisk kontrolních sekvencí v tabulkách
 
+\label[SystemRequirements]
+\chap System Requirements
 
-\chap System requirements
+In this chapter, I would like to specify the system, functional requirements, and interfaces that I want to design and implement. Finally, I will discuss the hazards that need to be addressed or questions that need to be answered when designing the system architecture.
 
-\sec Function requirements
+\sec System Context
 
-\sec System requirements
+The proposed equipment is part of a~level crossing safety system that controls traffic lights and signals. Previously, the system relied on a~{\it Simatic PLC}\fnote{\url{https://www.siemens.com/cz/cs/products/automation/systems/industrial/plc.html}} with digital inputs and outputs. However, it lacked the ability to analyze system functionality; issues could only be diagnosed manually using a~multimeter. This becomes particularly problematic when the equipment is located in inaccessible areas or exposed to harsh conditions, such as freezing temperatures in Norway.
 
-\sec Hazard analysis
+The goal of the new system version is to integrate a~component that enables such analysis, which is precisely the purpose of this device.
+
+The system is designed for use in a~country that follows CENELEC standards. The device itself is a~road signal monitoring module that controls LED modules on road and train signals based on commands from the {\it Simatic PLC}. In addition to managing the signals, it provides diagnostic data about both its own operation and the LED modules, helping to detect faulty components. The device can also transmit monitoring data to a~higher-level server.
+
+{\it The term system and device will always mean a~component of the overall safety system. If this is not the case, this will always be explicitly mentioned.}
+
+\label[SystemSpecification]
+\sec System Specification
+
+My implemented and proposed project serves as a~prototype for the final device. Unlike the final version, it does not need to communicate with the PLC.\fnote{The feature can be using a~{\it daisy-chain} wiring scheme, where multiple devices are connected in sequence, allowing communication with the {\it Simatic PLC} through a~single connection. This approach simplifies wiring, reduces cabling complexity, and enables efficient signal distribution across multiple devices.} It only needs to read information from LED modules and transmit the data further.  
+
+In the following diagrams and discussions, I will include all device components, not only relevant for the prototype device. This is necessary because their presence must be considered when designing the overall architecture, selecting hardware, and progressing through other development phases.
+
+The device's safety functions must comply with SIL2, while the final system as a~whole is designed to meet SIL4. However, since this prototype is purely a~monitoring device and does not introduce any hazards, SIL2 is sufficient.
+
+\secc Interface Specification
+
+Three interfaces are provided by the device shell:
+
+\begitems
+* {\sbf analog interfaces} to LED, that support relevant road signal modules,\fnote{Relevant for this project is modules {\it Silux/Yulux 2.40RS} and {\it Silux/Yulux 1.40}.}
+* interface for {\sbf communication with Simatic PLC}\fnote{\url{https://www.siemens.com/cz/cs/products/automation/systems/industrial/plc.html}}
+* and {\sbf two Ethernet ports} supporting 100Base-Tx, that shall act as a~switch to support daisy-chain connection of multiple devices.
+\enditems
+
+\medskip
+\clabel[SystemDesign]{System Design}
+\picw=12cm \cinspic img/03-system-desing.png
+\caption/f The schematic describes a~system with all components.
+\medskip
+
+\secc Function Requirements
+
+As previously mentioned, since this is solely a~monitoring component, compliance with SIL2 is sufficient, even though the entire system is rated SIL4.\fnote{Safety integrity level 4, detailed describes Chapter \ref[RAMSCycle]} 
+
+The system shall be capable of controlling multiple LED modules installed on road signals, organized into multiple groups. The reason for multiple groups is that a~railway crossing is typically illuminated by several railroad crossing signals. Each group should have common control and status signals.
+
+To ensure proper signal operation, the system will evaluate LED functionality by measuring current. It must support three operational states: power on, static illumination, and flashing at frequencies specified by railroad regulations.\fnote{60 flashes per minute and 90 flashes per minute, both with a~1:1 duty cycle.}  
+
+Additionally, the system shall support {\it emergency signaling} in the event of a~{\it Simatic PLC} shutdown.
+
+The system shall be compatible with both {\it high-side} and {\it low-side switching} of road signals, accommodating different wiring requirements depending on national regulations. It should also support various hardware configurations for different signaling states, as described in Chapter \ref[LevelCrossingSingalization]. These configurations include:  
+
+\begitems
+* two alternating red lights,
+* two alternating red lights with white light,
+* flashing red light with flashing white light, 
+* static red light with static yellow light.
+\enditems
+
+Monitoring will be provided via a~simple {\it REST API}.  
+
+Within the overall system, my device takes on the role of monitoring. In terms of SIL functions, which ensure the safety and reliability of critical components operating the level crossing actuators—the device shall:
+
+\begitems
+* Read diagnostics from the current measurement components.
+* Receive signals from the {\it Simatic PLC} indicating the intended signal state.
+* Transmit data outside the SIL environment using the {\it REST API}.
+* Support additional monitoring beyond SIL functions, enabling advanced analysis in an~easily accessible format.
+\enditems
+
+The Figure \ref[SystemDesign] illustrates a~monitoring system with all components.
+
+\secc Human Interfaces
+
+The system shall be designed to include an~{\sbf LED interface} that allows maintenance personnel to quickly and easily identify potential issues or failures. The {\it LED indicators} must be clearly visible even in daylight and should accurately indicate the faulty component.  
+
+The LED interface should provide information on the following conditions:  
+- Overall system status (OK / Failed)  
+- Communication status with the diagnostics module (my device)  
+- Status of connected LED modules (OK / Failed)  
+- Status of individual inputs (Active / Inactive) – this interface is optional  
+
+Additionally, it is crucial for my device to indicate its own status using an~{\it LED indicator}, which can be integrated into the system’s human-reporting interface.
+
+\label[safetyRecSpec]
+\secc Safety
+
+The system should meet SIL4 for isolation between two independent LED chain channels. According to CENELEC standards, this can be achieved with two independent LEDs connected to one main unit.
+
+The system control and input channels shall be implemented as primarily independent of each other, in accordance with norm {\it EN 50129}. The system shall fulfill SIL2 for control LED modules.
+
+The generic device shall fulfill SIL2 for the evaluation of its state. The Ethernet communication and diagnostics LEDs shall be developed as non-SIL functions.
+
+\secc Diagnostics
+
+The generic device shall provide diagnostic data supporting failure detection, such as input voltage and current through each LED module. Optionally, the generic device shall also provide information on internal signals that could assist with failure detection.\fnote{Note: For failure detection, it is sufficient to identify the faulty component without determining the precise cause. Indication of a~faulty generic device itself, a~broken LED module, or a~missing power supply is adequate.}
+
+The generic device shall provide an~interface for the measurement of the supply voltage of road signals (e.g., DC power supply rail).
+
+The generic device shall provide its internal temperature (diagnostic feature only).
+
+\secc Project Limitation
+
+As outlined earlier, I define the final target device within the device requirements. However, the scope of this thesis focuses solely on developing a~prototype. This prototype does not implement all functions, such as communication with the Simatic PLC, daisy-chained wiring, or firmware updates via Ethernet.
+
+Nevertheless, understanding the full context is essential for a~comprehensive overview. Therefore, the system requirements are defined for the entire device, not just the prototype.
+
+\sec Hazard Descriptions
+
+The railway crossing signal unit provides indications to road traffic participants, informing them whether it is safe to cross the railway. In the following discussion, the term {\it signalization} refers primarily to the signals intended for road traffic participants, not for trains.
+
+The system can operate in one of the following four states:
+
+\begitems
+* The {\sbf system is operational}, and the signalization functions correctly.
+* The system is faulty, and the {\sbf signalization is non-functional}.
+* The system is faulty, and the signalization continuously indicates that the railway crossing {\sbf cannot be crossed}.
+* The system is faulty, and the signalization continuously indicates that the railway crossing {\sbf can be crossed}.
+\enditems
+
+\secc State Analysis
+
+In the {\sbf first state}, the system operates in its normal and desired condition. This is the ideal state, and the objective is to maximize the time the system remains in this state.
+
+The {\sbf second state} presents a~problem but does not constitute a~hazard. When the signalization is non-functional, the responsibility shifts to the users of the crossing, i.e., those attempting to cross the railway. The crossing does not provide incorrect signals; it provides no signals at all. This situation impacts system availability, and thus, efforts should be made to minimize the occurrence of this state.
+
+The {\sbf third state} is problematic and represents a~partial hazard. If the signalization continuously indicates that the crossing cannot be traversed, users may choose to cross despite the signal, acting contrary to the indication. This behavior can lead to potential hazards, as the system appears unreliable, eroding trust among users. A solution, such as using an~alternative crossing, may not always be feasible, particularly in mountainous regions like Switzerland,\fnote{Based on Figure \ref[LevelCrossingGraphStates], a~simple calculation indicates that railway crossings in Switzerland are approximately 3~km apart. However, it is necessary to consider that the concentration of crossings is higher in populated areas. Consequently, the average distance may increase to several kilometers, particularly in mountainous regions such as Switzerland, where this distance can be significant.} where railway crossings are often widely spaced.
+
+The {\sbf fourth state} is the most critical, as it constitutes a~significant hazard. The signalization continuously indicates that the crossing is safe, even when it may lead to a~collision with an~approaching train. This state must be rigorously prevented and mitigated to ensure it does not occur.

@@ -1,0 +1,52 @@
+% Lokální makra patří do hlavního souboru, ne sem.
+% Tady je mám výjimečně proto, že chci nechat hlavní soubor bez maker,
+% která jsou jen pro tento dokument. Uživatelé si pravděpodobně budou
+% hlavní soubor kopírovat do svého dokumentu.
+
+\def\ctustyle{{\ssr CTUstyle}}
+\def\ttb{\tt\char`\\} % pro tisk kontrolních sekvencí v tabulkách
+
+\label[Testing]
+\chap Testing and Higher SIL Level Discussion
+
+\sec Device Testing
+
+The project is currently at a~stage where the hardware prototype is awaited, and my practical task was to develop a~software prototype for testing purposes. This thesis minimally focuses on procedural aspects of development. However, validation and testing of the developed system are significant components of the development cycle. Therefore, I will briefly describe the tests most suitable for the system.
+
+Numerous tests exist, but I will highlight those most relevant to my device, categorizing them into two groups: software testing and system testing.
+
+\secc Software Testing
+
+Software testing aims to identify as many errors as possible during development to prevent potential issues. According to the EN 50128 standard for my SIL 2 level, testing is not mandatory. However, I strongly recommend it for SIL component development. From my perspective, unit tests are particularly valuable, as they verify the correctness of the implementation.
+
+A unit test verifies that an~implementation meets specified requirements~\cite[HUJJyRXZnMIY5quS]. For example, it involves executing a~function or method with known inputs and comparing the output to the expected result. If the output matches, the risk of implementation errors is reduced. Unit tests are especially useful for testing edge cases, extreme scenarios, and error conditions.
+
+When using unit tests, pair programming and task division can be beneficial. One person writes the unit test, specifying the expected behavior, while another implements the function or method. This approach increases the likelihood of detecting errors if one person misunderstands the function’s purpose, as discrepancies between the test and implementation will reveal the issue.
+
+Other software testing methods include tools for validating memory usage, such as Valgrind\fnote{\url{https://valgrind.org}} or Sanitizer,\fnote{\url{https://github.com/google/sanitizers}} which can detect data race conditions and deadlocks, though Sanitizer is no longer actively developed.
+
+Software testing should also involve monitoring vulnerabilities in dependencies. This includes tracking whether security threats emerge in third-party libraries, such as lwIP or FreeRTOS in my case, which could pose a~security risk to the software.
+
+
+\secc System Testing
+
+The second type of testing is system testing, which aims to verify the device’s behavior within the complete system. This involves deploying the release version of the software on the device, simulating its operation, and observing whether it performs according to the expected specifications. For our device, this practically means controlling LED modules by turning them on and off, with the device correctly evaluating their state and transmitting the data to a~Simatic PLC.
+
+System testing also includes stress tests, where external conditions are applied to assess the software’s behavior. These tests are conducted not on the released software but on a~specially modified version designed to trace the logical paths taken during execution, such as which conditional statements (e.g., if statements) determine the program’s flow.
+
+It is advisable for these tests to be conducted by an~independent tester, as defined by the standard, rather than the developer. This approach increases the likelihood of detecting errors that might result from human oversight.
+
+\secc Type Testing
+
+Additional system tests include type tests, which evaluate the device’s performance in extreme environments that could compromise its reliability, such as high temperatures, vibrations, or electromagnetic compatibility (EMC) issues that may disrupt communication or cause memory errors. The device should be resilient to these conditions to a~certain extent.
+
+
+\sec Higher SIL Level Discussion
+
+The proposed architecture complies with SIL 2 requirements. It leverages an~architecture based on an~isolated control device (our AM243x) and two independent channels, enabling the system to achieve SIL 4 compliance. To operate at SIL 3 or higher, a~fundamentally different architectural approach would be required. According to Texas Instruments’ Safety Manual, the AM243x can achieve SIL 3 under specific conditions but cannot reach SIL 4. These conditions are detailed in the manual’s statements. The proposed approach employs a~reactive safety method, where the device’s operation is monitored, and in case of a~fault, it is transitioned to a~safe state. An alternative for achieving higher SIL levels would be to develop a~platform with multiple independent units that communicate with each other, utilizing a~composite safety architecture.
+
+Generally, achieving SIL 3 or SIL 4 with the AM243x would require either two independent units or an~external watchdog device, such as an~advanced PMIC discussed in Chapter \ref[SafetyShutdownChap]. However, higher SIL levels cannot be achieved with the AM243x alone.
+
+If requirements were to change to demand a~higher SIL level, a~comprehensive redesign of the architecture and process allocation would be necessary, including an~evaluation of whether the device would benefit from an~isolated core. An isolated core could serve as an~advanced internal watchdog, leveraging its ability to restart independently of the MAIN domain and operate with separate power sources.
+
+The discussed mechanisms would likely lead to the development of a~platform providing safety-critical services applicable across multiple projects, rather than a~single device within a~system. Developing such a~platform would necessitate a~different operating system. While FreeRTOS can operate at SIL levels, a~more suitable choice for larger projects would be a~real-time operating system like Zephyr.\fnote{\url{https://www.zephyrproject.org/}}
